@@ -1,0 +1,31 @@
+{
+    "siteName": "CHK Ceylon",
+    "hero": {
+        "title": "Visit Sri Lanka",
+        "subtitle": "Discover ancient ruins, wild jungles, and pristine beaches with the #1 tour experts."
+    },
+    "stats": [
+        {
+            "value": "10+",
+            "label": "Years Experience"
+        },
+        {
+            "value": "5k+",
+            "label": "Happy Travelers"
+        },
+        {
+            "value": "150+",
+            "label": "Custom Tours"
+        },
+        {
+            "value": "4.9/5",
+            "label": "Average Rating"
+        }
+    ],
+    "contact": {
+        "phone": "+94 77 123 4567",
+        "email": "hello@chkceylontours.com",
+        "address": "45 Galle Road, Colombo 03",
+        "whatsapp": "94771234567"
+    }
+}

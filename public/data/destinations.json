@@ -1,0 +1,50 @@
+[
+    {
+        "title": "Lion Rock Fortress",
+        "location": "Sigiriya",
+        "image": "hero.png",
+        "price": 120,
+        "tag": "Culture",
+        "description": "Climb the ancient volcanic plateau and witness the palace of King Kasyapa."
+    },
+    {
+        "title": "Nine Arch Bridge",
+        "location": "Ella",
+        "image": "ella.png",
+        "price": 85,
+        "tag": "Adventure",
+        "description": "Witness the iconic colonial-era railway bridge nestled in lush tea fields."
+    },
+    {
+        "title": "Golden Whale Coast",
+        "location": "Mirissa",
+        "image": "mirissa.png",
+        "price": 150,
+        "tag": "Relaxation",
+        "description": "Relax on pristine beaches or head out for a whale-watching journey."
+    },
+    {
+        "title": "Leopard Safari",
+        "location": "Yala",
+        "image": "safari.png",
+        "price": 200,
+        "tag": "Wildlife",
+        "description": "Explore the wild heart of Sri Lanka and spot the elusive leopards."
+    },
+    {
+        "title": "Nuwara Eliya",
+        "location": "Central Highlands",
+        "image": "tea.png",
+        "price": 95,
+        "tag": "Nature",
+        "description": "Visit the Little England of Sri Lanka and explore the lush misty tea plantations."
+    },
+    {
+        "title": "Galle Fort",
+        "location": "Southern Coast",
+        "image": "galle.png",
+        "price": 110,
+        "tag": "History",
+        "description": "Walk through the historic colonial fortress and witness the iconic lighthouse at sunset."
+    }
+]
