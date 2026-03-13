@@ -40,7 +40,7 @@ export default function Home() {
         }
     }, [loading]);
 
-    if (loading) return <div className="loading-screen"><h2>CHKCeylon</h2></div>;
+    if (!config) return null;
 
     return (
         <div className="app-main">
