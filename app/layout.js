@@ -1,4 +1,5 @@
 import './globals.css';
+import Preloader from '../components/Preloader';
 
 export const metadata = {
   title: 'CHK Ceylon Tours | Premium Sri Lanka Travel Experience',
@@ -18,6 +19,7 @@ export default function RootLayout({ children }) {
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
       </head>
       <body>
+        <Preloader />
         <div id="root">{children}</div>
       </body>
     </html>
