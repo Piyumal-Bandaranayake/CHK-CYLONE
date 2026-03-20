@@ -113,21 +113,26 @@ export default function Destinations() {
            setDbProvinces(pData);
         }
 
-        // Fetch famous places and districts info
-        const { data: dData } = await supabase.from('districts').select('*');
+        // Fetch famous places from DB
         const { data: fData } = await supabase.from('famous_places').select('*');
         
-        if (fData && fData.length > 0 && dData && dData.length > 0) {
-           const formattedFData = {};
-           dData.forEach(dist => {
-             formattedFData[dist.id] = { name: dist.name, places: [] };
-           });
+        if (fData && fData.length > 0) {
+           // Deep copy static data to merge
+           const mergedPlaces = JSON.parse(JSON.stringify(famousPlacesData));
+           
            fData.forEach(place => {
-             if (formattedFData[place.district_id]) {
-                formattedFData[place.district_id].places.push({ name: place.name, image: place.image });
+             const distId = place.district_id;
+             if (mergedPlaces[distId]) {
+                 // Check to avoid duplicates if seed_data was used
+                 const exists = mergedPlaces[distId].places.some(p => p.name === place.name);
+                 if (!exists) {
+                    mergedPlaces[distId].places.push({ name: place.name, image: place.image });
+                 }
+             } else {
+                 mergedPlaces[distId] = { name: distId, places: [{ name: place.name, image: place.image }] };
              }
            });
-           setDbFamousPlaces(formattedFData);
+           setDbFamousPlaces(mergedPlaces);
         }
       } catch (err) {
         console.error('Error fetching Supabase data:', err);

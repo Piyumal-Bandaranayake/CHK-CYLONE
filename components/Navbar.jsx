@@ -26,7 +26,6 @@ const Navbar = ({ config }) => {
                         <li><a href="/destinations" onClick={() => setMobileOpen(false)}>Destinations</a></li>
                         <li><a href="/packages" onClick={() => setMobileOpen(false)}>Tour Packages</a></li>
                         <li><a href="/hotels" onClick={() => setMobileOpen(false)}>Hotels</a></li>
-                        <li><a href="/admin" onClick={() => setMobileOpen(false)} style={{ color: 'var(--neon-cyan)' }}>Admin</a></li>
                     </ul>
 
                     <div className="menu-toggle" onClick={() => setMobileOpen(!mobileOpen)}>

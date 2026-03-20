@@ -1,8 +1,7 @@
-"use client";
+import React, { useState, useEffect } from 'react';
+import { supabase } from '../lib/supabase';
 
-import React from 'react';
-
-const hotelsData = [
+const fallbackHotelsData = [
     {
         id: 1,
         name: "Heritance Kandalama",
@@ -38,6 +37,26 @@ const hotelsData = [
 ];
 
 const Hotels = () => {
+    const [hotels, setHotels] = useState([]);
+
+    useEffect(() => {
+        const fetchHotels = async () => {
+            try {
+                const { data, error } = await supabase.from('hotels').select('*').limit(4);
+                if (error) throw error;
+                if (data && data.length > 0) {
+                    setHotels(data);
+                } else {
+                    setHotels(fallbackHotelsData);
+                }
+            } catch (err) {
+                console.error('Error fetching hotels:', err);
+                setHotels(fallbackHotelsData);
+            }
+        };
+        fetchHotels();
+    }, []);
+
     return (
         <section id="hotels" style={{ padding: '120px 0', background: '#000', position: 'relative', overflow: 'hidden' }}>
             <div className="container">
@@ -55,30 +74,34 @@ const Hotels = () => {
                     gap: '30px',
                     perspective: '1000px'
                 }}>
-                    {hotelsData.map((hotel) => (
+                    {hotels.map((hotel) => (
                         <div key={hotel.id} className="dest-card reveal" style={{ height: '450px' }}>
-                            <div className="dest-tag" style={{ background: 'var(--neon-yellow)', color: '#000' }}>{hotel.tag}</div>
+                            <div className="dest-tag" style={{ background: 'var(--neon-yellow)', color: '#000' }}>{hotel.tag || 'Luxury'}</div>
                             <img src={hotel.image} alt={hotel.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             <div className="dest-overlay" style={{ background: 'linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.9))' }}></div>
                             <div className="dest-info" style={{ padding: '30px' }}>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '5px', color: 'var(--neon-yellow)', marginBottom: '10px' }}>
-                                    {[...Array(5)].map((_, i) => (
-                                        <i key={i} className="fas fa-star" style={{ fontSize: '0.8rem', opacity: i < Math.floor(hotel.rating) ? 1 : 0.3 }}></i>
-                                    ))}
-                                    <span style={{ fontSize: '0.9rem', marginLeft: '5px', fontWeight: 'bold' }}>{hotel.rating}</span>
-                                </div>
                                 <h3 style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '8px' }}>{hotel.name}</h3>
                                 <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1rem' }}>
                                     <i className="fas fa-map-marker-alt" style={{ marginRight: '8px', color: 'var(--neon-green)' }}></i>
                                     {hotel.location}
                                 </p>
-                                <button className="btn btn-outline" style={{ 
-                                    marginTop: '25px', 
-                                    width: '100%',
-                                    borderColor: 'var(--neon-yellow)',
-                                    color: 'var(--neon-yellow)',
-                                    background: 'rgba(0,0,0,0.5)'
-                                }}>Book Now</button>
+                                <a 
+                                    href={hotel.website_link || `https://wa.me/94771234567?text=I'm interested in booking ${hotel.name} in ${hotel.location}`} 
+                                    target={hotel.website_link ? "_blank" : "_self"}
+                                    rel="noopener noreferrer"
+                                    className="btn btn-outline" 
+                                    style={{ 
+                                        marginTop: '25px', 
+                                        width: '100%',
+                                        borderColor: 'var(--neon-yellow)',
+                                        color: 'var(--neon-yellow)',
+                                        background: 'rgba(0,0,0,0.5)',
+                                        textAlign: 'center',
+                                        padding: '12px 0'
+                                    }}
+                                >
+                                    {hotel.website_link ? 'Visit Website' : 'Book Now'}
+                                </a>
                             </div>
                         </div>
                     ))}
