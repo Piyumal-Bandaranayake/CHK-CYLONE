@@ -1,10 +1,11 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { supabase } from '../../lib/supabase';
 
-const hotelsData = [
+const fallbackHotelsData = [
     {
         id: 1,
         name: "Heritance Kandalama",
@@ -80,6 +81,22 @@ const hotelsData = [
 ];
 
 export default function Hotels() {
+    const [hotelsData, setHotelsData] = useState(fallbackHotelsData);
+
+    useEffect(() => {
+        const fetchHotels = async () => {
+            try {
+                const { data } = await supabase.from('hotels').select('*');
+                if (data && data.length > 0) {
+                    setHotelsData(prev => [...fallbackHotelsData, ...data]);
+                }
+            } catch (err) {
+                console.error('Error fetching hotels:', err);
+            }
+        };
+        fetchHotels();
+    }, []);
+
     return (
         <div style={{ minHeight: '100vh', backgroundColor: '#000', position: 'relative' }}>
             <title>Hotels | CHK Ceylon Tours</title>

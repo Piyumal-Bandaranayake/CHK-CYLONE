@@ -1,10 +1,11 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { supabase } from '../../lib/supabase';
 
-const packagesData = [
+const fallbackPackagesData = [
     {
         id: 1,
         name: "Heritage Legend",
@@ -68,6 +69,26 @@ const packagesData = [
 ];
 
 export default function TourPackages() {
+    const [packagesData, setPackagesData] = useState(fallbackPackagesData);
+
+    useEffect(() => {
+        const fetchPackages = async () => {
+            try {
+                const { data } = await supabase.from('packages').select('*');
+                if (data && data.length > 0) {
+                    setPackagesData(prev => {
+                        // Merge or replace: let's append new ones to the fallback, or simply use fallback + data
+                        // Since static data has number IDs, generated has UUIDs
+                        return [...fallbackPackagesData, ...data];
+                    });
+                }
+            } catch (err) {
+                console.error('Error fetching packages:', err);
+            }
+        };
+        fetchPackages();
+    }, []);
+
     return (
         <div style={{ minHeight: '100vh', backgroundColor: '#000', position: 'relative' }}>
             <title>Tour Packages | CHK Ceylon Tours</title>

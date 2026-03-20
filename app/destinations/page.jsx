@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import DistrictPlaces from '../../components/DistrictPlaces';
 import { famousPlacesData } from '../../data/famousPlaces';
+import { supabase } from '../../lib/supabase';
 
 const provincesData = [
   {
@@ -100,8 +101,43 @@ export default function Destinations() {
   const [selectedProvinceId, setSelectedProvinceId] = useState(null);
   const [selectedDistrictId, setSelectedDistrictId] = useState(null);
 
-  const selectedProvince = provincesData.find(p => p.id === selectedProvinceId);
-  const selectedDistrictData = selectedDistrictId ? famousPlacesData[selectedDistrictId] : null;
+  const [dbProvinces, setDbProvinces] = useState(provincesData);
+  const [dbFamousPlaces, setDbFamousPlaces] = useState(famousPlacesData);
+
+  useEffect(() => {
+    const fetchSupabaseData = async () => {
+      try {
+        // Fetch provinces and districts
+        const { data: pData } = await supabase.from('provinces').select('*, districts(*)');
+        if (pData && pData.length > 0) {
+           setDbProvinces(pData);
+        }
+
+        // Fetch famous places and districts info
+        const { data: dData } = await supabase.from('districts').select('*');
+        const { data: fData } = await supabase.from('famous_places').select('*');
+        
+        if (fData && fData.length > 0 && dData && dData.length > 0) {
+           const formattedFData = {};
+           dData.forEach(dist => {
+             formattedFData[dist.id] = { name: dist.name, places: [] };
+           });
+           fData.forEach(place => {
+             if (formattedFData[place.district_id]) {
+                formattedFData[place.district_id].places.push({ name: place.name, image: place.image });
+             }
+           });
+           setDbFamousPlaces(formattedFData);
+        }
+      } catch (err) {
+        console.error('Error fetching Supabase data:', err);
+      }
+    };
+    fetchSupabaseData();
+  }, []);
+
+  const selectedProvince = dbProvinces.find(p => p.id === selectedProvinceId);
+  const selectedDistrictData = selectedDistrictId ? dbFamousPlaces[selectedDistrictId] : null;
 
   const handleDistrictBack = () => {
     setSelectedDistrictId(null);
@@ -172,7 +208,7 @@ export default function Destinations() {
               margin: '0 auto'
             }}>
               {!selectedProvince ? (
-                provincesData.map((province) => (
+                dbProvinces.map((province) => (
                   <div 
                     key={province.id} 
                     className="dest-card pulse-glow" 
