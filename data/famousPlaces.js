@@ -3,20 +3,19 @@ export const famousPlacesData = {
         name: "Colombo",
         places: [
             { name: "Galle Face Green", image: "/galle_face.png" },
-            { name: "Gangaramaya Temple", image: "https://images.unsplash.com/photo-1620127814470-3d7f9d846b0d?q=80&w=800&auto=format&fit=crop" },
-            { name: "Independence Square", image: "https://images.unsplash.com/photo-1621252179027-94459d278660?q=80&w=800&auto=format&fit=crop" },
-            { name: "Viharamahadevi Park", image: "https://images.unsplash.com/photo-1620589125139-3832c3246eb4?q=80&w=800&auto=format&fit=crop" },
-            { name: "Colombo National Museum", image: "https://images.unsplash.com/photo-1620127814470-3d7f9d846b0d?q=80&w=800&auto=format&fit=crop" }
+            { name: "Gangaramaya Temple", image: "/gangaramayatemple.JPG" },
+            { name: "Independence Square", image: "/indipendentsqure.jpg" },
+            { name: "Viharamahadevi Park", image: "/viharamahadevipark.jpg" },
+            { name: "Colombo National Museum", image: "/national-museum-colombo-sri-lanka.jpg" }
         ]
     },
     gampaha: {
         name: "Gampaha",
         places: [
-            { name: "Kelaniya Raja Maha Vihara", image: "https://images.unsplash.com/photo-1603591239723-93d3b76cf6eb?q=80&w=800&auto=format&fit=crop" },
-            { name: "Negombo Beach", image: "https://images.unsplash.com/photo-1550951298-5c7b95a66bfc?q=80&w=800&auto=format&fit=crop" },
-            { name: "Muthurajawela Wetland", image: "https://images.unsplash.com/photo-1590635293297-c2578508ee90?q=80&w=800&auto=format&fit=crop" },
-            { name: "Attanagalla Rajamaha Viharaya", image: "https://images.unsplash.com/photo-1608241443429-19114068ccb9?q=80&w=800&auto=format&fit=crop" },
-            { name: "Guruge Nature Park", image: "https://images.unsplash.com/photo-1500614922032-b6dd337b1313?q=80&w=800&auto=format&fit=crop" }
+            { name: "Kelaniya Raja Maha Vihara", image: "/kalaniyatemple.jpg" },
+            { name: "Negombo Beach", image: "/negombobeach.jpg" },
+            { name: "Muthurajawela Wetland", image: "/muthurajawelawetland.jpg" },
+            { name: "Guruge Nature Park", image: "/gurugenaturepark.JPG" }
         ]
     },
     kalutara: {
@@ -25,18 +24,16 @@ export const famousPlacesData = {
             { name: "Kalutara Bodhiya", image: "https://images.unsplash.com/photo-1624891113524-7eb3266e7465?q=80&w=800&auto=format&fit=crop" },
             { name: "Richmond Castle", image: "https://images.unsplash.com/photo-1620589125139-3832c3246eb4?q=80&w=800&auto=format&fit=crop" },
             { name: "Kalutara Beach", image: "https://images.unsplash.com/photo-1588614959060-4d144f28b207?q=80&w=800&auto=format&fit=crop" },
-            { name: "Fa Hien Cave", image: "https://images.unsplash.com/photo-1560242374-681b95f2d0fa?q=80&w=800&auto=format&fit=crop" },
-            { name: "Brief Garden by Bevis Bawa", image: "https://images.unsplash.com/photo-15809654154fa1-2558aa488f72?q=80&w=800&auto=format&fit=crop" }
+
         ]
     },
     kandy: {
         name: "Kandy",
         places: [
             { name: "Temple of the Sacred Tooth Relic", image: "/kandy_temple.png" },
-            { name: "Kandy Lake", image: "https://images.unsplash.com/photo-1588411393092-3244bb040cd6?q=80&w=800&auto=format&fit=crop" },
-            { name: "Royal Botanical Gardens Peradeniya", image: "https://images.unsplash.com/photo-1594917634212-32a22cc37a6b?q=80&w=800&auto=format&fit=crop" },
-            { name: "Udawattekele Sanctuary", image: "https://images.unsplash.com/photo-1590635293297-c2578508ee90?q=80&w=800&auto=format&fit=crop" },
-            { name: "Knuckles View Point", image: "https://images.unsplash.com/photo-1528642463363-d4ca3361a293?q=80&w=800&auto=format&fit=crop" }
+            { name: "Royal Botanical Gardens Peradeniya", image: "/peradeniya.jpg" },
+            { name: "Udawattekele Sanctuary", image: "/udawathakale.jpg" },
+            { name: "Knuckles View Point", image: "/knkulesviewpoint.jpg" }
         ]
     },
     matale: {
@@ -44,19 +41,19 @@ export const famousPlacesData = {
         places: [
             { name: "Sigiriya Rock Fortress", image: "/sigiriya.png" },
             { name: "Dambulla Cave Temple", image: "/dambulla.png" },
-            { name: "Riverston", image: "https://images.unsplash.com/photo-1605232812296-1cdaaaeb2c7c?q=80&w=800&auto=format&fit=crop" },
-            { name: "Nalanda Gedige", image: "https://images.unsplash.com/photo-1632766320074-ceadea9ee104?q=80&w=800&auto=format&fit=crop" },
-            { name: "Sembuwatta Lake", image: "https://images.unsplash.com/photo-1605232812296-1cdaaaeb2c7c?q=80&w=800&auto=format&fit=crop" }
+            { name: "Riverston", image: "/knkulesviewpoint.jpg" },
+            { name: "Nalanda Gedige", image: "/Nalandagedige.jpg" },
+            { name: "Sembuwatta Lake", image: "/sembuwatta.jpg" }
         ]
     },
     "nuwara-eliya": {
         name: "Nuwara Eliya",
         places: [
-            { name: "Horton Plains National Park", image: "/tea_hills.png" },
-            { name: "Worlds End", image: "https://images.unsplash.com/photo-1605232812296-1cdaaaeb2c7c?q=80&w=800&auto=format&fit=crop" },
-            { name: "Gregory Lake", image: "https://images.unsplash.com/photo-1620589125139-3832c3246eb4?q=80&w=800&auto=format&fit=crop" },
-            { name: "Hakgala Botanical Garden", image: "https://images.unsplash.com/photo-1500628539100-21ed46c72c82?q=80&w=800&auto=format&fit=crop" },
-            { name: "Pedro Tea Estate", image: "https://images.unsplash.com/photo-1528642463363-d4ca3361a293?q=80&w=800&auto=format&fit=crop" }
+            { name: "Horton Plains National Park", image: "/hortonPlainsNationalPark.jpg" },
+            { name: "Worlds End", image: "/worldend.jpg" },
+            { name: "Gregory Lake", image: "/geogrylake.jpg" },
+            { name: "Hakgala Botanical Garden", image: "/hakgala.jpg" },
+            { name: "Pedro Tea Estate", image: "/pedrotea.jpg" }
         ]
     },
     galle: {
