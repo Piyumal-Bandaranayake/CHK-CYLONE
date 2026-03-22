@@ -11,16 +11,16 @@ const Footer = () => {
                     CHK<span>CEYLON</span>
                 </div>
 
-                <div style={{ display: 'flex', justifyContent: 'center', gap: '30px', marginBottom: '50px' }}>
+                <div className="social-links" style={{ display: 'flex', justifyContent: 'center', gap: '30px', marginBottom: '50px' }}>
                     <a href="#" style={{ color: 'white', fontSize: '1.5rem' }}><i className="fab fa-facebook-f"></i></a>
                     <a href="#" style={{ color: 'white', fontSize: '1.5rem' }}><i className="fab fa-instagram"></i></a>
                     <a href="#" style={{ color: 'white', fontSize: '1.5rem' }}><i className="fab fa-youtube"></i></a>
                     <a href="#" style={{ color: 'white', fontSize: '1.5rem' }}><i className="fab fa-tripadvisor"></i></a>
                 </div>
 
-                <div style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.1)', marginBottom: '40px' }}></div>
+                <div className="divider" style={{ width: '100%', height: '1px', background: 'rgba(255,255,255,0.1)', marginBottom: '40px' }}></div>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px', opacity: 0.6, fontSize: '0.9rem' }}>
+                <div className="bottom-links" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px', opacity: 0.6, fontSize: '0.9rem' }}>
                     <p>© 2026 CHK Ceylon Tours. All Rights Reserved.</p>
                     <div style={{ display: 'flex', gap: '30px' }}>
                         <a href="/admin/login" style={{ color: 'white' }} title="Admin Login"><i className="fas fa-lock"></i></a>
