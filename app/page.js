@@ -33,10 +33,32 @@ export default function Home() {
     useEffect(() => {
         if (!loading) {
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => { entry.isIntersecting && entry.target.classList.add('active'); });
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
             }, { threshold: 0.1 });
-            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-            return () => observer.disconnect();
+
+            const observeReveals = () => {
+                const reveals = document.querySelectorAll('.reveal:not(.active)');
+                reveals.forEach(el => observer.observe(el));
+            };
+
+            // Initial check
+            observeReveals();
+
+            // Continuously watch for new elements as they are added by sub-components
+            const mutationObserver = new MutationObserver(() => {
+                observeReveals();
+            });
+
+            mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+            return () => {
+                observer.disconnect();
+                mutationObserver.disconnect();
+            };
         }
     }, [loading]);
 

@@ -1,97 +1,98 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import DistrictPlaces from '../../components/DistrictPlaces';
 import { famousPlacesData } from '../../data/famousPlaces';
+import { supabase } from '../../lib/supabase';
 
 const provincesData = [
   {
     id: "western",
     name: "Western Province",
-    image: "https://images.unsplash.com/photo-1620127814470-3d7f9d846b0d?q=80&w=800&auto=format&fit=crop",
+    image: "/home_hero_bg.png",
     districts: [
-      { id: "colombo", name: "Colombo", image: "https://images.unsplash.com/photo-1582450871972-abccaecfc1e9?q=80&w=800&auto=format&fit=crop" },
-      { id: "gampaha", name: "Gampaha", image: "https://images.unsplash.com/photo-1616422846931-1583d72b83eb?q=80&w=800&auto=format&fit=crop" },
-      { id: "kalutara", name: "Kalutara", image: "https://images.unsplash.com/photo-1588614959060-4d144f28b207?q=80&w=800&auto=format&fit=crop" }
+      { id: "colombo", name: "Colombo", image: "/galle_face.png" },
+      { id: "gampaha", name: "Gampaha", image: "/negombobeach.jpg" },
+      { id: "kalutara", name: "Kalutara", image: "/kalutaraBeach.jpg" }
     ]
   },
   {
     id: "central",
     name: "Central Province",
-    image: "https://images.unsplash.com/photo-1605335198031-6eebd3193e1a?q=80&w=800&auto=format&fit=crop",
+    image: "/kandy.png",
     districts: [
-      { id: "kandy", name: "Kandy", image: "https://images.unsplash.com/photo-1585827367980-87747ac7dfd2?q=80&w=800&auto=format&fit=crop" },
-      { id: "matale", name: "Matale", image: "https://images.unsplash.com/photo-1581416880097-40c21dc77a94?q=80&w=800&auto=format&fit=crop" },
-      { id: "nuwara-eliya", name: "Nuwara Eliya", image: "https://images.unsplash.com/photo-1605232812296-1cdaaaeb2c7c?q=80&w=800&auto=format&fit=crop" }
+      { id: "kandy", name: "Kandy", image: "/kandy_temple.png" },
+      { id: "matale", name: "Matale", image: "/sigiriya.png" },
+      { id: "nuwara-eliya", name: "Nuwara Eliya", image: "/tea_hills.png" }
     ]
   },
   {
     id: "southern",
     name: "Southern Province",
-    image: "https://images.unsplash.com/photo-1546708973-c3395414464b?q=80&w=800&auto=format&fit=crop",
+    image: "/galle.png",
     districts: [
-      { id: "galle", name: "Galle", image: "https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?q=80&w=800&auto=format&fit=crop" },
-      { id: "matara", name: "Matara", image: "https://images.unsplash.com/photo-1588820023611-37d45ddf0f62?q=80&w=800&auto=format&fit=crop" },
-      { id: "hambantota", name: "Hambantota", image: "https://images.unsplash.com/photo-1598460599187-200eed59fb96?q=80&w=800&auto=format&fit=crop" }
+      { id: "galle", name: "Galle", image: "/galle_fort.png" },
+      { id: "matara", name: "Matara", image: "/mirissa.png" },
+      { id: "hambantota", name: "Hambantota", image: "/yala_leopard.png" }
     ]
   },
   {
     id: "uva",
     name: "Uva Province",
-    image: "https://images.unsplash.com/photo-1522244460515-b28e57de2cf5?q=80&w=800&auto=format&fit=crop",
+    image: "/ella.png",
     districts: [
-      { id: "badulla", name: "Badulla", image: "https://images.unsplash.com/photo-1610488665039-3d1226b5ad55?q=80&w=800&auto=format&fit=crop" },
-      { id: "monaragala", name: "Monaragala", image: "https://images.unsplash.com/photo-1584988294622-cff2775ae7da?q=80&w=800&auto=format&fit=crop" }
+      { id: "badulla", name: "Badulla", image: "/nine_arches.png" },
+      { id: "monaragala", name: "Monaragala", image: "/wild_lake.png" }
     ]
   },
   {
     id: "sabaragamuwa",
     name: "Sabaragamuwa Province",
-    image: "https://images.unsplash.com/photo-1580193769210-b8d1c049a7d9?q=80&w=800&auto=format&fit=crop",
+    image: "/adam_peak.png",
     districts: [
-      { id: "kegalle", name: "Kegalle", image: "https://images.unsplash.com/photo-1630489958043-41bb33318991?q=80&w=800&auto=format&fit=crop" },
-      { id: "ratnapura", name: "Ratnapura", image: "https://images.unsplash.com/photo-1581020087815-46fdba93df9e?q=80&w=800&auto=format&fit=crop" }
+      { id: "kegalle", name: "Kegalle", image: "/safari.png" },
+      { id: "ratnapura", name: "Ratnapura", image: "/adam_peak.png" }
     ]
   },
   {
     id: "nwp",
     name: "North Western Province",
-    image: "https://images.unsplash.com/photo-1618055663731-97ad92b77c5c?q=80&w=800&auto=format&fit=crop",
+    image: "/yapahuwa.png",
     districts: [
-      { id: "kurunegala", name: "Kurunegala", image: "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?q=80&w=800&auto=format&fit=crop" },
-      { id: "puttalam", name: "Puttalam", image: "https://images.unsplash.com/photo-1594917634212-32a22cc37a6b?q=80&w=800&auto=format&fit=crop" }
+      { id: "kurunegala", name: "Kurunegala", image: "/yapahuwa.png" },
+      { id: "puttalam", name: "Puttalam", image: "/negombobeach.jpg" }
     ]
   },
   {
     id: "ncp",
     name: "North Central Province",
-    image: "https://images.unsplash.com/photo-1532588045667-bb945d7d0a5e?q=80&w=800&auto=format&fit=crop",
+    image: "/ruwanwelisaya.png",
     districts: [
-      { id: "anuradhapura", name: "Anuradhapura", image: "https://images.unsplash.com/photo-1533038590840-1cbea6bc1e28?q=80&w=800&auto=format&fit=crop" },
-      { id: "polonnaruwa", name: "Polonnaruwa", image: "https://images.unsplash.com/photo-1632766320074-ceadea9ee104?q=80&w=800&auto=format&fit=crop" }
+      { id: "anuradhapura", name: "Anuradhapura", image: "/ruwanwelisaya.png" },
+      { id: "polonnaruwa", name: "Polonnaruwa", image: "/polonnaruwa_ruins.png" }
     ]
   },
   {
     id: "ep",
     name: "Eastern Province",
-    image: "https://images.unsplash.com/photo-1579895697334-9aa2aab8b9d4?q=80&w=800&auto=format&fit=crop",
+    image: "/nilaveli_beach.png",
     districts: [
-      { id: "trincomalee", name: "Trincomalee", image: "https://images.unsplash.com/photo-1586526154388-12dce0291fc2?q=80&w=800&auto=format&fit=crop" },
-      { id: "batticaloa", name: "Batticaloa", image: "https://images.unsplash.com/photo-1636186000780-87779fdf8bd2?q=80&w=800&auto=format&fit=crop" },
-      { id: "ampara", name: "Ampara", image: "https://images.unsplash.com/photo-1574676451694-84c47f70b2df?q=80&w=800&auto=format&fit=crop" }
+      { id: "trincomalee", name: "Trincomalee", image: "/nilaveli_beach.png" },
+      { id: "batticaloa", name: "Batticaloa", image: "/mirissa.png" },
+      { id: "ampara", name: "Ampara", image: "/yala_leopard.png" }
     ]
   },
   {
     id: "np",
     name: "Northern Province",
-    image: "https://images.unsplash.com/photo-1601007831006-2c5050f589db?q=80&w=800&auto=format&fit=crop",
+    image: "/nallur_temple.png",
     districts: [
-      { id: "jaffna", name: "Jaffna", image: "https://images.unsplash.com/photo-1617260799763-7eb6bc7d6675?q=80&w=800&auto=format&fit=crop" },
-      { id: "kilinochchi", name: "Kilinochchi", image: "https://images.unsplash.com/photo-1603590503023-e2bc0478df79?q=80&w=800&auto=format&fit=crop" },
-      { id: "mannar", name: "Mannar", image: "https://images.unsplash.com/photo-1606132840502-f617694f4c4a?q=80&w=800&auto=format&fit=crop" },
-      { id: "mullaitivu", name: "Mullaitivu", image: "https://images.unsplash.com/photo-1596707328574-e3db7842ebee?q=80&w=800&auto=format&fit=crop" },
-      { id: "vavuniya", name: "Vavuniya", image: "https://images.unsplash.com/photo-1616801962386-efecfb834e06?q=80&w=800&auto=format&fit=crop" }
+      { id: "jaffna", name: "Jaffna", image: "/nallur_temple.png" },
+      { id: "kilinochchi", name: "Kilinochchi", image: "/nallur_temple.png" },
+      { id: "mannar", name: "Mannar", image: "/nallur_temple.png" },
+      { id: "mullaitivu", name: "Mullaitivu", image: "/nallur_temple.png" },
+      { id: "vavuniya", name: "Vavuniya", image: "/nallur_temple.png" }
     ]
   }
 ];
@@ -100,8 +101,48 @@ export default function Destinations() {
   const [selectedProvinceId, setSelectedProvinceId] = useState(null);
   const [selectedDistrictId, setSelectedDistrictId] = useState(null);
 
-  const selectedProvince = provincesData.find(p => p.id === selectedProvinceId);
-  const selectedDistrictData = selectedDistrictId ? famousPlacesData[selectedDistrictId] : null;
+  const [dbProvinces, setDbProvinces] = useState(provincesData);
+  const [dbFamousPlaces, setDbFamousPlaces] = useState(famousPlacesData);
+
+  useEffect(() => {
+    const fetchSupabaseData = async () => {
+      try {
+        // Fetch provinces and districts
+        const { data: pData } = await supabase.from('provinces').select('*, districts(*)');
+        if (pData && pData.length > 0) {
+           setDbProvinces(pData);
+        }
+
+        // Fetch famous places from DB
+        const { data: fData } = await supabase.from('famous_places').select('*');
+        
+        if (fData && fData.length > 0) {
+           // Deep copy static data to merge
+           const mergedPlaces = JSON.parse(JSON.stringify(famousPlacesData));
+           
+           fData.forEach(place => {
+             const distId = place.district_id;
+             if (mergedPlaces[distId]) {
+                 // Check to avoid duplicates if seed_data was used
+                 const exists = mergedPlaces[distId].places.some(p => p.name === place.name);
+                 if (!exists) {
+                    mergedPlaces[distId].places.push({ name: place.name, image: place.image });
+                 }
+             } else {
+                 mergedPlaces[distId] = { name: distId, places: [{ name: place.name, image: place.image }] };
+             }
+           });
+           setDbFamousPlaces(mergedPlaces);
+        }
+      } catch (err) {
+        console.error('Error fetching Supabase data:', err);
+      }
+    };
+    fetchSupabaseData();
+  }, []);
+
+  const selectedProvince = dbProvinces.find(p => p.id === selectedProvinceId);
+  const selectedDistrictData = selectedDistrictId ? dbFamousPlaces[selectedDistrictId] : null;
 
   const handleDistrictBack = () => {
     setSelectedDistrictId(null);
@@ -172,7 +213,7 @@ export default function Destinations() {
               margin: '0 auto'
             }}>
               {!selectedProvince ? (
-                provincesData.map((province) => (
+                dbProvinces.map((province) => (
                   <div 
                     key={province.id} 
                     className="dest-card pulse-glow" 

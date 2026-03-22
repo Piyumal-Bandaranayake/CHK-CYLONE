@@ -51,7 +51,7 @@ const Preloader = () => {
             }}></div>
 
             {/* Glowing Logo Circle */}
-            <div style={{
+            <div className="preloader-logo-container" style={{
                 position: 'relative',
                 width: '120px',
                 height: '120px',
@@ -68,7 +68,7 @@ const Preloader = () => {
                     boxShadow: '0 0 20px var(--neon-yellow)',
                     animation: 'spin 2s linear infinite'
                 }}></div>
-                <div style={{
+                <div className="preloader-logo-inner" style={{
                     position: 'absolute',
                     top: '15px',
                     left: '15px',
@@ -79,7 +79,7 @@ const Preloader = () => {
                     boxShadow: '0 0 15px var(--neon-green)',
                     animation: 'spin 3s linear reverse infinite'
                 }}></div>
-                <div style={{
+                <div className="preloader-logo-text" style={{
                     position: 'absolute',
                     top: '50%',
                     left: '50%',
@@ -93,7 +93,7 @@ const Preloader = () => {
             </div>
 
             {/* Brand Name with Animated Gradient */}
-            <h1 style={{
+            <h1 className="preloader-h1" style={{
                 fontSize: '2.5rem',
                 fontWeight: '900',
                 letterSpacing: '8px',
@@ -112,7 +112,7 @@ const Preloader = () => {
             </h1>
 
             {/* Progress Bar */}
-            <div style={{
+            <div className="preloader-progress" style={{
                 width: '200px',
                 height: '2px',
                 backgroundColor: 'rgba(255,255,255,0.1)',
@@ -144,6 +144,31 @@ const Preloader = () => {
                 @keyframes loadProgress {
                     0% { width: 0%; }
                     100% { width: 100%; }
+                }
+                @media (max-width: 768px) {
+                    .preloader-h1 {
+                        font-size: 1.6rem !important;
+                        letter-spacing: 4px !important;
+                        padding: 0 20px;
+                    }
+                    .preloader-logo-container {
+                        width: 90px !important;
+                        height: 90px !important;
+                        margin-bottom: 25px !important;
+                    }
+                    .preloader-logo-inner {
+                        width: 65px !important;
+                        height: 65px !important;
+                        top: 12.5px !important;
+                        left: 12.5px !important;
+                    }
+                    .preloader-logo-text {
+                        font-size: 1.4rem !important;
+                    }
+                    .preloader-progress {
+                        width: 140px !important;
+                        margin-top: 20px !important;
+                    }
                 }
             `}</style>
         </div>

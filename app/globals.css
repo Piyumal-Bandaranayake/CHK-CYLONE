@@ -449,6 +449,8 @@ nav.scrolled .nav-links a {
     position: absolute;
     bottom: 0;
     left: 0;
+    right: 0;
+    width: 100%;
     padding: 25px;
     /* Reduced padding */
     color: white;
@@ -617,6 +619,24 @@ nav.scrolled .nav-links a {
 }
 
 @media (max-width: 768px) {
+    html, body {
+        overflow-x: hidden;
+        width: 100%;
+        position: relative;
+    }
+
+    .container {
+        padding: 0 20px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    img, video {
+        max-width: 100% !important;
+        height: auto !important;
+    }
+
     .hero {
         height: 85vh;
         /* Taller hero to show more image and allow lower text */
@@ -629,6 +649,8 @@ nav.scrolled .nav-links a {
         justify-content: center;
         text-align: center;
         padding-bottom: 40px;
+        width: 100% !important;
+        overflow: hidden !important;
     }
 
     .hero .container {
@@ -639,14 +661,25 @@ nav.scrolled .nav-links a {
 
     .hero-content {
         text-align: center;
-        width: 100%;
-        max-width: 380px;
-        margin: 0;
+        width: 100% !important;
+        max-width: 90% !important; /* Scale to viewport */
+        margin: 0 auto !important;
         background: rgba(0, 0, 0, 0.4);
         /* Subtle dark backing for mobile text readability */
         backdrop-filter: blur(5px);
         border-radius: 20px;
-        padding: 20px;
+        padding: 20px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Hide hero arrows on mobile as they often cause overflow and overlap UI */
+    .hero button[title="Ancient Wonders"], 
+    .hero button[title="Coastal Beauty"],
+    .hero button[title="Highland Serenity"],
+    .hero button[title="Golden Beaches"],
+    .hero button:has(i.fa-chevron-left),
+    .hero button:has(i.fa-chevron-right) {
+        display: none !important;
     }
 
     .hero h1 {
@@ -768,5 +801,91 @@ nav.scrolled .nav-links a {
         border-color: var(--neon-yellow) !important;
         background: rgba(0, 0, 0, 0.6);
         font-weight: 900;
+    }
+
+    .package-slider {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+        padding: 0 12px !important;
+        overflow-x: visible !important;
+        scroll-snap-type: none !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .package-card {
+        min-width: 100% !important;
+        width: 100% !important;
+        padding: 0 !important;
+        margin: 10px auto 25px auto !important;
+        border-radius: 20px !important;
+        scroll-snap-align: none !important;
+        transform: none !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+    }
+
+    /* Target the image wrapper div */
+    .package-card > div:first-child {
+        height: auto !important;
+        min-height: 200px !important;
+        max-height: 250px !important;
+    }
+
+    .package-card img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+    }
+
+    /* Target the content div inside the card */
+    .package-card > div:last-child {
+        padding: 30px !important;
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+    }
+
+    .package-card h3 {
+        font-size: 1.8rem !important;
+        margin-bottom: 12px !important;
+        line-height: 1.2 !important;
+    }
+
+    .package-price {
+        font-size: 2.5rem !important;
+        margin-bottom: 12px !important;
+    }
+
+    #hotels .container > div {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+        gap: 20px !important;
+    }
+
+    #booking .container {
+        padding: 40px 20px !important;
+        border-radius: 25px !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    #booking .btn-primary {
+        padding: 15px 30px !important;
+        font-size: 1rem !important;
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    .stat-circle {
+        width: 120px !important;
+        height: 120px !important;
+    }
+
+    .stat-circle h3 {
+        font-size: 1.8rem !important;
     }
 }

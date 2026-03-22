@@ -23,6 +23,7 @@ const Footer = () => {
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px', opacity: 0.6, fontSize: '0.9rem' }}>
                     <p>© 2026 CHK Ceylon Tours. All Rights Reserved.</p>
                     <div style={{ display: 'flex', gap: '30px' }}>
+                        <a href="/admin/login" style={{ color: 'white' }} title="Admin Login"><i className="fas fa-lock"></i></a>
                         <a href="#" style={{ color: 'white' }}>Privacy Policy</a>
                         <a href="#" style={{ color: 'white' }}>Terms of Service</a>
                     </div>

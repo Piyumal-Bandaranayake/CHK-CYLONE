@@ -1,10 +1,11 @@
 "use client";
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import { supabase } from '../../lib/supabase';
 
-const packagesData = [
+const fallbackPackagesData = [
     {
         id: 1,
         name: "Heritage Legend",
@@ -68,6 +69,42 @@ const packagesData = [
 ];
 
 export default function TourPackages() {
+    const [packagesData, setPackagesData] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchPackages = async () => {
+            try {
+                const { data, error } = await supabase.from('packages').select('*');
+                if (error) throw error;
+                
+                if (data && data.length > 0) {
+                    // Ensure each package has essential display properties
+                    const sanitizedData = data.map(pkg => ({
+                        ...pkg,
+                        color: pkg.color || 'var(--neon-green)',
+                        features: Array.isArray(pkg.features) ? pkg.features : []
+                    }));
+                    setPackagesData(sanitizedData);
+                } else {
+                    setPackagesData(fallbackPackagesData);
+                }
+            } catch (err) {
+                console.error('Error fetching packages:', err);
+                setPackagesData(fallbackPackagesData);
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchPackages();
+    }, []);
+
+    if (loading) return (
+        <div style={{ height: '100vh', background: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <div style={{ color: 'var(--neon-yellow)', fontSize: '1.5rem', fontWeight: 'bold' }}>Loading Journeys...</div>
+        </div>
+    );
+
     return (
         <div style={{ minHeight: '100vh', backgroundColor: '#000', position: 'relative' }}>
             <title>Tour Packages | CHK Ceylon Tours</title>
