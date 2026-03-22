@@ -110,7 +110,7 @@ export default function Hotels() {
                             <img src={hotel.image} alt={hotel.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                             <div className="dest-overlay" style={{ background: 'linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.95))' }}></div>
                             <div className="dest-info" style={{ padding: '30px' }}>
-                                <h3 style={{ fontSize: '1.6rem', color: '#fff', marginBottom: '8px' }}>{hotel.name}</h3>
+                                <h3 style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '8px' }}>{hotel.name}</h3>
                                 <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem', marginBottom: '15px' }}>{hotel.description}</p>
                                 <p style={{ color: 'var(--neon-green)', fontSize: '1rem', fontWeight: 'bold' }}>
                                     <i className="fas fa-map-marker-alt" style={{ marginRight: '8px' }}></i>
@@ -122,16 +122,17 @@ export default function Hotels() {
                                     rel="noopener noreferrer"
                                     className="btn btn-outline" 
                                     style={{ 
-                                        marginTop: '20px', 
+                                        marginTop: '25px', 
                                         width: '100%', 
                                         borderColor: 'var(--neon-yellow)', 
                                         color: 'var(--neon-yellow)',
+                                        background: 'rgba(0,0,0,0.5)',
                                         textAlign: 'center',
                                         display: 'block',
                                         padding: '12px 0'
                                     }}
                                 >
-                                    {hotel.website_link ? 'Visit Website' : 'Inquiry Now'}
+                                    {hotel.website_link ? 'Visit Website' : 'Book Now'}
                                 </a>
                             </div>
                         </div>

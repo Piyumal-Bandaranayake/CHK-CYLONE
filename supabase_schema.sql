@@ -9,21 +9,24 @@ DROP TABLE IF EXISTS provinces;
 CREATE TABLE provinces (
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
-    image TEXT NOT NULL
+    image TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
 CREATE TABLE districts (
     id TEXT PRIMARY KEY,
     province_id TEXT NOT NULL REFERENCES provinces(id) ON DELETE CASCADE,
     name TEXT NOT NULL,
-    image TEXT NOT NULL
+    image TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
 CREATE TABLE famous_places (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     district_id TEXT NOT NULL REFERENCES districts(id) ON DELETE CASCADE,
     name TEXT NOT NULL,
-    image TEXT NOT NULL
+    image TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
 -- Note: To allow anonymous reads from your website, you can enable Row Level Security (RLS) and add select policies:
@@ -44,7 +47,8 @@ CREATE TABLE packages (
     image TEXT NOT NULL,
     tag TEXT NOT NULL,
     color TEXT NOT NULL,
-    features TEXT[] NOT NULL
+    features TEXT[] NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
 ALTER TABLE packages ENABLE ROW LEVEL SECURITY;
@@ -58,7 +62,8 @@ CREATE TABLE hotels (
     image TEXT NOT NULL,
     tag TEXT NOT NULL,
     rating TEXT NOT NULL,
-    description TEXT NOT NULL
+    description TEXT NOT NULL,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
 ALTER TABLE hotels ENABLE ROW LEVEL SECURITY;

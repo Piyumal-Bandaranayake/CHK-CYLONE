@@ -42,7 +42,7 @@ const Hotels = () => {
     useEffect(() => {
         const fetchHotels = async () => {
             try {
-                const { data, error } = await supabase.from('hotels').select('*').limit(4);
+                const { data, error } = await supabase.from('hotels').select('*').order('created_at', { ascending: false }).limit(4);
                 if (error) throw error;
                 if (data && data.length > 0) {
                     setHotels(data);
@@ -74,37 +74,49 @@ const Hotels = () => {
                     gap: '30px',
                     perspective: '1000px'
                 }}>
-                    {hotels.map((hotel) => (
-                        <div key={hotel.id} className="dest-card reveal" style={{ height: '450px' }}>
-                            <div className="dest-tag" style={{ background: 'var(--neon-yellow)', color: '#000' }}>{hotel.tag || 'Luxury'}</div>
-                            <img src={hotel.image} alt={hotel.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                            <div className="dest-overlay" style={{ background: 'linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.9))' }}></div>
-                            <div className="dest-info" style={{ padding: '30px' }}>
-                                <h3 style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '8px' }}>{hotel.name}</h3>
-                                <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1rem' }}>
-                                    <i className="fas fa-map-marker-alt" style={{ marginRight: '8px', color: 'var(--neon-green)' }}></i>
-                                    {hotel.location}
-                                </p>
-                                <a 
-                                    href={hotel.website_link || `https://wa.me/94771234567?text=I'm interested in booking ${hotel.name} in ${hotel.location}`} 
-                                    target={hotel.website_link ? "_blank" : "_self"}
-                                    rel="noopener noreferrer"
-                                    className="btn btn-outline" 
-                                    style={{ 
-                                        marginTop: '25px', 
-                                        width: '100%',
-                                        borderColor: 'var(--neon-yellow)',
-                                        color: 'var(--neon-yellow)',
-                                        background: 'rgba(0,0,0,0.5)',
-                                        textAlign: 'center',
-                                        padding: '12px 0'
-                                    }}
-                                >
-                                    {hotel.website_link ? 'Visit Website' : 'Book Now'}
-                                </a>
+                    {hotels.length > 0 ? (
+                        hotels.map((hotel) => (
+                            <div key={hotel.id} className="dest-card reveal" style={{ height: '450px' }}>
+                                <div className="dest-tag" style={{ background: 'var(--neon-yellow)', color: '#000' }}>{hotel.tag || 'Luxury'}</div>
+                                <img 
+                                    src={hotel.image || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop'} 
+                                    alt={hotel.name} 
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                                />
+                                <div className="dest-overlay" style={{ background: 'linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.9))' }}></div>
+                                <div className="dest-info" style={{ padding: '30px' }}>
+                                    <h3 style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '8px' }}>{hotel.name}</h3>
+                                    <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1rem' }}>
+                                        <i className="fas fa-map-marker-alt" style={{ marginRight: '8px', color: 'var(--neon-green)' }}></i>
+                                        {hotel.location}
+                                    </p>
+                                    <a 
+                                        href={hotel.website_link || `https://wa.me/94771234567?text=I'm interested in booking ${hotel.name} in ${hotel.location}`} 
+                                        target={hotel.website_link ? "_blank" : "_self"}
+                                        rel="noopener noreferrer"
+                                        className="btn btn-outline" 
+                                        style={{ 
+                                            marginTop: '25px', 
+                                            width: '100%',
+                                            borderColor: 'var(--neon-yellow)',
+                                            color: 'var(--neon-yellow)',
+                                            background: 'rgba(0,0,0,0.5)',
+                                            textAlign: 'center',
+                                            display: 'block',
+                                            padding: '12px 0'
+                                        }}
+                                    >
+                                        {hotel.website_link ? 'Visit Website' : 'Book Now'}
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))
+                    ) : (
+                        // Skeleton/Loading states
+                        [1, 2, 3, 4].map((i) => (
+                            <div key={i} className="dest-card" style={{ height: '450px', background: '#111', borderRadius: '12px' }}></div>
+                        ))
+                    )}
                 </div>
                 <div style={{ textAlign: 'center', marginTop: '60px' }} className="reveal">
                     <a href="/hotels" className="btn btn-primary" style={{ padding: '15px 50px', textDecoration: 'none' }}>
