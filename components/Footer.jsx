@@ -6,8 +6,8 @@ const Footer = () => {
     return (
         <footer style={{ background: 'var(--dark)', color: 'white', padding: '100px 20px 50px' }}>
             <div className="container" style={{ textAlign: 'center' }}>
-                <div className="logo" style={{ justifyContent: 'center', marginBottom: '40px', fontSize: '2.5rem' }}>
-                    <i className="fas fa-gem" style={{ color: 'var(--secondary)' }}></i>
+                <div className="logo" style={{ justifyContent: 'center', marginBottom: '40px', fontSize: '2.5rem', flexWrap: 'wrap' }}>
+                    <img src="/logo.png" alt="Logo" className="footer-logo-img" />
                     CHK<span>CEYLON</span>
                 </div>
 

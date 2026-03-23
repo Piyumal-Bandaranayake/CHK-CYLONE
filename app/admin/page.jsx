@@ -239,7 +239,7 @@ export default function AdminDashboard() {
       }}>
         <div style={{ padding: '30px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
           <div className="logo" style={{ fontSize: '1.5rem', marginBottom: '0' }}>
-            <i className="fas fa-gem" style={{ color: 'var(--neon-yellow)', marginRight: '10px' }}></i>
+            <img src="/logo.png" alt="Logo" className="logo-img" style={{ height: '30px' }} />
             CHK<span>ADMIN</span>
           </div>
         </div>

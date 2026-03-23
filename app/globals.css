@@ -220,7 +220,27 @@ nav.scrolled {
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 15px;
+}
+
+.logo-img {
+    height: 90px;
+    width: 90px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(255, 240, 31, 0.4));
+    transition: all 0.3s ease;
+}
+
+.footer-logo-img {
+    height: 220px;
+    width: 220px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+nav.scrolled .logo-img {
+    height: 60px;
+    width: 60px;
 }
 
 nav.scrolled .logo {
