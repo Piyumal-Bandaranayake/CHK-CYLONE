@@ -214,7 +214,7 @@ nav.scrolled {
 
 .logo {
     font-family: var(--font-heading);
-    font-size: 2.2rem;
+    font-size: 2.5rem;
     font-weight: 900;
     color: white;
     text-decoration: none;
@@ -264,7 +264,7 @@ nav.scrolled .logo {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1px;
-    font-size: 0.9rem;
+    font-size: 1.1rem;
     transition: 0.3s;
     position: relative;
 }
@@ -586,8 +586,8 @@ nav.scrolled .nav-links a {
 }
 
 .stat-circle {
-    width: 150px;
-    height: 150px;
+    width: 200px;
+    height: 200px;
     border: 2px solid var(--neon-yellow);
     border-radius: 50%;
     display: flex;
@@ -608,7 +608,7 @@ nav.scrolled .nav-links a {
 }
 
 .stat-circle h3 {
-    font-size: 2.5rem;
+    font-size: 3rem;
 }
 
 /* --- Reveal Stagger --- */
@@ -765,14 +765,15 @@ nav.scrolled .nav-links a {
         background: rgba(0, 0, 0, 0.9) !important;
     }
 
+    .logo-img {
+        height: 60px !important;
+        width: 60px !important;
+    }
+
     .logo {
-        font-size: 1.1rem !important;
+        font-size: 1.2rem !important;
         text-shadow: 0 0 10px var(--neon-yellow);
         /* Strong neon visibility */
-        background: rgba(0, 0, 0, 0.4);
-        padding: 5px 12px !important;
-        border-radius: 10px;
-        border: 1px solid rgba(255, 240, 31, 0.2);
         letter-spacing: 1px;
     }
 
@@ -799,9 +800,11 @@ nav.scrolled .nav-links a {
     }
 
     .stats-circular {
-        flex-direction: column;
-        gap: 30px;
-        align-items: center;
+        display: grid !important;
+        grid-template-columns: repeat(2, 1fr) !important;
+        justify-items: center !important;
+        gap: 20px !important;
+        padding: 40px 10px !important;
     }
 
     .stat-circle {
@@ -907,25 +910,34 @@ nav.scrolled .nav-links a {
     }
 
     .stat-circle {
-        width: 120px !important;
-        height: 120px !important;
+        width: 160px !important;
+        height: 160px !important;
     }
 
     .stat-circle h3 {
-        font-size: 1.8rem !important;
+        font-size: 2.2rem !important;
+    }
+
+    .footer-logo-img {
+        height: 120px !important;
+        width: 120px !important;
+        margin-bottom: 10px !important;
+    }
+
+    footer .logo {
+        gap: 15px !important;
+        font-size: 2rem !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        display: flex !important;
+        margin-bottom: 30px !important;
     }
 
     footer {
         padding: 50px 20px 40px !important;
         text-align: center !important;
-    }
-
-    footer .logo {
-        font-size: 1.8rem !important;
-        margin-bottom: 25px !important;
-        justify-content: center !important;
-        width: 100% !important;
-        display: flex !important;
     }
 
     .social-links {
