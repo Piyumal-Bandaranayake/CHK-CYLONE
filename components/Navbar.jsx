@@ -16,7 +16,7 @@ const Navbar = ({ config }) => {
         <nav className={`${scrolled ? 'scrolled' : ''} ${mobileOpen ? 'mobile-open' : ''}`}>
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <a href="/" className="logo">
-                    <i className="fas fa-gem" style={{ color: 'var(--neon-yellow)' }}></i>
+                    <img src="/logo.png" alt="Logo" className="logo-img" />
                     CHK<span>CEYLON</span>
                 </a>
 

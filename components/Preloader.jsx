@@ -53,9 +53,9 @@ const Preloader = () => {
             {/* Glowing Logo Circle */}
             <div className="preloader-logo-container" style={{
                 position: 'relative',
-                width: '120px',
-                height: '120px',
-                marginBottom: '40px'
+                width: '250px',
+                height: '250px',
+                marginBottom: '50px'
             }}>
                 <div style={{
                     position: 'absolute',
@@ -70,10 +70,10 @@ const Preloader = () => {
                 }}></div>
                 <div className="preloader-logo-inner" style={{
                     position: 'absolute',
-                    top: '15px',
-                    left: '15px',
-                    width: '90px',
-                    height: '90px',
+                    top: '30px',
+                    left: '30px',
+                    width: '190px',
+                    height: '190px',
                     borderRadius: '50%',
                     border: '2px solid var(--neon-green)',
                     boxShadow: '0 0 15px var(--neon-green)',
@@ -84,11 +84,22 @@ const Preloader = () => {
                     top: '50%',
                     left: '50%',
                     transform: 'translate(-50%, -50%)',
-                    color: 'var(--neon-yellow)',
-                    fontSize: '2rem',
-                    fontWeight: '900'
+                    width: '150px',
+                    height: '150px',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center'
                 }}>
-                    CHK
+                    <img 
+                        src="/logo.png" 
+                        alt="CHK Ceylon Tours Logo" 
+                        style={{ 
+                            width: '100%', 
+                            height: '100%', 
+                            objectFit: 'contain',
+                            filter: 'drop-shadow(0 0 10px var(--neon-yellow))'
+                        }} 
+                    />
                 </div>
             </div>
 
@@ -152,18 +163,19 @@ const Preloader = () => {
                         padding: 0 20px;
                     }
                     .preloader-logo-container {
-                        width: 90px !important;
-                        height: 90px !important;
-                        margin-bottom: 25px !important;
+                        width: 180px !important;
+                        height: 180px !important;
+                        margin-bottom: 30px !important;
                     }
                     .preloader-logo-inner {
-                        width: 65px !important;
-                        height: 65px !important;
-                        top: 12.5px !important;
-                        left: 12.5px !important;
+                        width: 140px !important;
+                        height: 140px !important;
+                        top: 20px !important;
+                        left: 20px !important;
                     }
                     .preloader-logo-text {
-                        font-size: 1.4rem !important;
+                        width: 110px !important;
+                        height: 110px !important;
                     }
                     .preloader-progress {
                         width: 140px !important;
