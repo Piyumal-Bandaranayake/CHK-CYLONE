@@ -1,145 +1,18 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../../components/Navbar';
 import DistrictPlaces from '../../components/DistrictPlaces';
 import { famousPlacesData } from '../../data/famousPlaces';
-import { supabase } from '../../lib/supabase';
-
-const provincesData = [
-  {
-    id: "western",
-    name: "Western Province",
-    image: "/home_hero_bg.png",
-    districts: [
-      { id: "colombo", name: "Colombo", image: "/galle_face.png" },
-      { id: "gampaha", name: "Gampaha", image: "/negombobeach.jpg" },
-      { id: "kalutara", name: "Kalutara", image: "/kalutaraBeach.jpg" }
-    ]
-  },
-  {
-    id: "central",
-    name: "Central Province",
-    image: "/kandy.png",
-    districts: [
-      { id: "kandy", name: "Kandy", image: "/kandy_temple.png" },
-      { id: "matale", name: "Matale", image: "/sigiriya.png" },
-      { id: "nuwara-eliya", name: "Nuwara Eliya", image: "/tea_hills.png" }
-    ]
-  },
-  {
-    id: "southern",
-    name: "Southern Province",
-    image: "/galle.png",
-    districts: [
-      { id: "galle", name: "Galle", image: "/galle_fort.png" },
-      { id: "matara", name: "Matara", image: "/mirissa.png" },
-      { id: "hambantota", name: "Hambantota", image: "/yala_leopard.png" }
-    ]
-  },
-  {
-    id: "uva",
-    name: "Uva Province",
-    image: "/ella.png",
-    districts: [
-      { id: "badulla", name: "Badulla", image: "/nine_arches.png" },
-      { id: "monaragala", name: "Monaragala", image: "/wild_lake.png" }
-    ]
-  },
-  {
-    id: "sabaragamuwa",
-    name: "Sabaragamuwa Province",
-    image: "/adam_peak.png",
-    districts: [
-      { id: "kegalle", name: "Kegalle", image: "/safari.png" },
-      { id: "ratnapura", name: "Ratnapura", image: "/adam_peak.png" }
-    ]
-  },
-  {
-    id: "nwp",
-    name: "North Western Province",
-    image: "/yapahuwa.png",
-    districts: [
-      { id: "kurunegala", name: "Kurunegala", image: "/yapahuwa.png" },
-      { id: "puttalam", name: "Puttalam", image: "/negombobeach.jpg" }
-    ]
-  },
-  {
-    id: "ncp",
-    name: "North Central Province",
-    image: "/ruwanwelisaya.png",
-    districts: [
-      { id: "anuradhapura", name: "Anuradhapura", image: "/ruwanwelisaya.png" },
-      { id: "polonnaruwa", name: "Polonnaruwa", image: "/polonnaruwa_ruins.png" }
-    ]
-  },
-  {
-    id: "ep",
-    name: "Eastern Province",
-    image: "/nilaveli_beach.png",
-    districts: [
-      { id: "trincomalee", name: "Trincomalee", image: "/nilaveli_beach.png" },
-      { id: "batticaloa", name: "Batticaloa", image: "/mirissa.png" },
-      { id: "ampara", name: "Ampara", image: "/yala_leopard.png" }
-    ]
-  },
-  {
-    id: "np",
-    name: "Northern Province",
-    image: "/nallur_temple.png",
-    districts: [
-      { id: "jaffna", name: "Jaffna", image: "/nallur_temple.png" },
-      { id: "kilinochchi", name: "Kilinochchi", image: "/nallur_temple.png" },
-      { id: "mannar", name: "Mannar", image: "/nallur_temple.png" },
-      { id: "mullaitivu", name: "Mullaitivu", image: "/nallur_temple.png" },
-      { id: "vavuniya", name: "Vavuniya", image: "/nallur_temple.png" }
-    ]
-  }
-];
+import { provincesData } from '../../data/provincesData';
 
 export default function Destinations() {
   const [selectedProvinceId, setSelectedProvinceId] = useState(null);
   const [selectedDistrictId, setSelectedDistrictId] = useState(null);
 
-  const [dbProvinces, setDbProvinces] = useState(provincesData);
-  const [dbFamousPlaces, setDbFamousPlaces] = useState(famousPlacesData);
-
-  useEffect(() => {
-    const fetchSupabaseData = async () => {
-      try {
-        // Fetch provinces and districts
-        const { data: pData } = await supabase.from('provinces').select('*, districts(*)');
-        if (pData && pData.length > 0) {
-           setDbProvinces(pData);
-        }
-
-        // Fetch famous places from DB
-        const { data: fData } = await supabase.from('famous_places').select('*');
-        
-        if (fData && fData.length > 0) {
-           // Deep copy static data to merge
-           const mergedPlaces = JSON.parse(JSON.stringify(famousPlacesData));
-           
-           fData.forEach(place => {
-             const distId = place.district_id;
-             if (mergedPlaces[distId]) {
-                 // Check to avoid duplicates if seed_data was used
-                 const exists = mergedPlaces[distId].places.some(p => p.name === place.name);
-                 if (!exists) {
-                    mergedPlaces[distId].places.push({ name: place.name, image: place.image });
-                 }
-             } else {
-                 mergedPlaces[distId] = { name: distId, places: [{ name: place.name, image: place.image }] };
-             }
-           });
-           setDbFamousPlaces(mergedPlaces);
-        }
-      } catch (err) {
-        console.error('Error fetching Supabase data:', err);
-      }
-    };
-    fetchSupabaseData();
-  }, []);
+  // Use static data directly
+  const dbProvinces = provincesData;
+  const dbFamousPlaces = famousPlacesData;
 
   const selectedProvince = dbProvinces.find(p => p.id === selectedProvinceId);
   const selectedDistrictData = selectedDistrictId ? dbFamousPlaces[selectedDistrictId] : null;
