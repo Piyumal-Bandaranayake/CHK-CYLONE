@@ -20,12 +20,13 @@ const Navbar = ({ config }) => {
                     CHK<span>CEYLON</span>
                 </a>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '40px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: scrolled ? '20px' : '40px' }}>
                     <ul className={`nav-links ${mobileOpen ? 'active' : ''}`}>
                         <li><a href="/" onClick={() => setMobileOpen(false)}>Home</a></li>
                         <li><a href="/destinations" onClick={() => setMobileOpen(false)}>Destinations</a></li>
                         <li><a href="/packages" onClick={() => setMobileOpen(false)}>Tour Packages</a></li>
                         <li><a href="/hotels" onClick={() => setMobileOpen(false)}>Hotels</a></li>
+                        <li><a href="/about-us" onClick={() => setMobileOpen(false)}>About Us</a></li>
                     </ul>
 
                     <div className="menu-toggle" onClick={() => setMobileOpen(!mobileOpen)}>
