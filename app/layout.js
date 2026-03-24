@@ -11,6 +11,11 @@ export const metadata = {
   alternates: {
     canonical: 'https://www.chkceylontours.com',
   },
+  icons: {
+    icon: '/logo.png',
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
   openGraph: {
     title: 'CHK Ceylon Tours | Premium Sri Lanka Travel Experience',
     description: 'Explore pristine beaches, ancient ruins, and emerald tea hills with Sri Lanka\'s #1 tour experts.',

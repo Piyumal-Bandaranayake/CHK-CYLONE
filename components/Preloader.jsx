@@ -50,57 +50,27 @@ const Preloader = () => {
                 pointerEvents: 'none'
             }}></div>
 
-            {/* Glowing Logo Circle */}
+            {/* Logo Container */}
             <div className="preloader-logo-container" style={{
                 position: 'relative',
-                width: '250px',
-                height: '250px',
-                marginBottom: '50px'
+                width: '300px', // Increased size since rings are gone
+                height: '300px',
+                marginBottom: '40px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
             }}>
-                <div style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    borderRadius: '50%',
-                    border: '2px solid var(--neon-yellow)',
-                    boxShadow: '0 0 20px var(--neon-yellow)',
-                    animation: 'spin 2s linear infinite'
-                }}></div>
-                <div className="preloader-logo-inner" style={{
-                    position: 'absolute',
-                    top: '30px',
-                    left: '30px',
-                    width: '190px',
-                    height: '190px',
-                    borderRadius: '50%',
-                    border: '2px solid var(--neon-green)',
-                    boxShadow: '0 0 15px var(--neon-green)',
-                    animation: 'spin 3s linear reverse infinite'
-                }}></div>
-                <div className="preloader-logo-text" style={{
-                    position: 'absolute',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    width: '150px',
-                    height: '150px',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                    <img 
-                        src="/logo.png" 
-                        alt="CHK Ceylon Tours Logo" 
-                        style={{ 
-                            width: '100%', 
-                            height: '100%', 
-                            objectFit: 'contain',
-                            filter: 'drop-shadow(0 0 10px var(--neon-yellow))'
-                        }} 
-                    />
-                </div>
+                <img 
+                    src="/logo.png" 
+                    alt="CHK Ceylon Tours Logo" 
+                    style={{ 
+                        width: '100%', 
+                        height: '100%', 
+                        objectFit: 'contain',
+                        filter: 'drop-shadow(0 0 15px rgba(255, 240, 31, 0.4))',
+                        animation: 'pulse 2s ease-in-out infinite'
+                    }} 
+                />
             </div>
 
             {/* Brand Name with Animated Gradient */}
@@ -145,9 +115,10 @@ const Preloader = () => {
             </div>
 
             <style jsx global>{`
-                @keyframes spin {
-                    0% { transform: rotate(0deg); }
-                    100% { transform: rotate(360deg); }
+                @keyframes pulse {
+                    0% { transform: scale(1); opacity: 0.9; }
+                    50% { transform: scale(1.05); opacity: 1; }
+                    100% { transform: scale(1); opacity: 0.9; }
                 }
                 @keyframes shine {
                     to { background-position: 200% center; }
@@ -165,17 +136,7 @@ const Preloader = () => {
                     .preloader-logo-container {
                         width: 180px !important;
                         height: 180px !important;
-                        margin-bottom: 30px !important;
-                    }
-                    .preloader-logo-inner {
-                        width: 140px !important;
-                        height: 140px !important;
-                        top: 20px !important;
-                        left: 20px !important;
-                    }
-                    .preloader-logo-text {
-                        width: 110px !important;
-                        height: 110px !important;
+                        margin-bottom: 25px !important;
                     }
                     .preloader-progress {
                         width: 140px !important;

@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import Gallery from "@/components/Gallery";
 
 export default function AboutUs() {
     const [config, setConfig] = useState(null);
@@ -158,6 +159,8 @@ export default function AboutUs() {
                     </div>
                 ))}
             </section>
+            
+            <Gallery />
 
             <Footer />
             <WhatsAppButton />
