@@ -28,7 +28,8 @@ export default function Destinations() {
 
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#000', position: 'relative' }}>
-      <title>Destinations | CHK Ceylon Tours</title>
+      <title>Best Destinations in Sri Lanka | CHK Ceylon Tours</title>
+      <meta name="description" content="Discover the top travel destinations in Sri Lanka, from the historical ruins of Anuradhapura to the scenic waterfalls of Ella and the beaches of Mirissa." />
       
       {/* Hero Section */}
       <section className="hero" style={{ 

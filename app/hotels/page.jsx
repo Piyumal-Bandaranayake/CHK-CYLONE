@@ -73,7 +73,8 @@ export default function Hotels() {
 
     return (
         <div style={{ minHeight: '100vh', backgroundColor: '#000', position: 'relative' }}>
-            <title>Hotels | CHK Ceylon Tours</title>
+            <title>Luxury Hotels & Stays in Sri Lanka | CHK Ceylon Tours</title>
+            <meta name="description" content="Book the finest luxury hotels and eco-lodges in Sri Lanka. From beachfront resorts in Tangalle to safari lodges in Yala, we curate the best stays for your journey." />
             
             {/* Hero Section */}
             <section className="hero" style={{ 

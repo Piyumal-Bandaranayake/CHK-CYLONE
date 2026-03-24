@@ -66,7 +66,8 @@ export default function Home() {
 
     return (
         <div className="app-main">
-
+            <title>Visit Sri Lanka | CHK Ceylon Tours - Official Site</title>
+            <meta name="description" content="Official website of CHK Ceylon Tours. Explore the wonders of Sri Lanka with our premium tour packages, luxury hotels, and expert local guides." />
             <Navbar config={config} />
             <Hero heroData={config.hero} />
             <Banner />
