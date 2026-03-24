@@ -150,15 +150,13 @@ export default function AboutUs() {
                 </div>
             </section>
 
-            <section className="stats-circular reveal">
-                <div className="container" style={{ display: "flex", justifyContent: "space-around", flexWrap: "wrap", gap: "40px" }}>
-                    {config.stats.map((stat, i) => (
-                        <div key={i} className="stat-circle">
-                            <h3 style={{ color: "var(--neon-yellow)", textShadow: "var(--neon-glow)" }}>{stat.value}</h3>
-                            <p style={{ fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "2px" }}>{stat.label}</p>
-                        </div>
-                    ))}
-                </div>
+            <section className="stats-circular container reveal" style={{ padding: "80px 0" }}>
+                {config.stats.map((stat, i) => (
+                    <div key={i} className="stat-circle">
+                        <h3 style={{ color: "var(--neon-yellow)", textShadow: "var(--neon-glow)" }}>{stat.value}</h3>
+                        <p style={{ fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "2px" }}>{stat.label}</p>
+                    </div>
+                ))}
             </section>
 
             <Footer />
