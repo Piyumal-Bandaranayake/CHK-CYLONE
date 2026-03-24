@@ -166,7 +166,7 @@ nav.scrolled {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
-                inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 nav.scrolled .container {
@@ -651,7 +651,9 @@ nav.scrolled .nav-links a {
 }
 
 @media (max-width: 768px) {
-    html, body {
+
+    html,
+    body {
         overflow-x: hidden;
         width: 100%;
         position: relative;
@@ -664,7 +666,8 @@ nav.scrolled .nav-links a {
         box-sizing: border-box !important;
     }
 
-    img, video {
+    img,
+    video {
         max-width: 100% !important;
         height: auto !important;
     }
@@ -694,7 +697,8 @@ nav.scrolled .nav-links a {
     .hero-content {
         text-align: center;
         width: 100% !important;
-        max-width: 90% !important; /* Scale to viewport */
+        max-width: 90% !important;
+        /* Scale to viewport */
         margin: 0 auto !important;
         background: rgba(0, 0, 0, 0.4);
         /* Subtle dark backing for mobile text readability */
@@ -705,7 +709,7 @@ nav.scrolled .nav-links a {
     }
 
     /* Hide hero arrows on mobile as they often cause overflow and overlap UI */
-    .hero button[title="Ancient Wonders"], 
+    .hero button[title="Ancient Wonders"],
     .hero button[title="Coastal Beauty"],
     .hero button[title="Highland Serenity"],
     .hero button[title="Golden Beaches"],
@@ -870,7 +874,7 @@ nav.scrolled .nav-links a {
     }
 
     /* Target the image wrapper div */
-    .package-card > div:first-child {
+    .package-card>div:first-child {
         height: auto !important;
         min-height: 200px !important;
         max-height: 250px !important;
@@ -883,7 +887,7 @@ nav.scrolled .nav-links a {
     }
 
     /* Target the content div inside the card */
-    .package-card > div:last-child {
+    .package-card>div:last-child {
         padding: 30px !important;
         flex: 1 !important;
         display: flex !important;
@@ -902,7 +906,7 @@ nav.scrolled .nav-links a {
         margin-bottom: 12px !important;
     }
 
-    #hotels .container > div {
+    #hotels .container>div {
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
         gap: 20px !important;
     }

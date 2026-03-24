@@ -49,7 +49,7 @@ export default function Hotels() {
             try {
                 const { data, error } = await supabase.from('hotels').select('*');
                 if (error) throw error;
-                
+
                 if (data && data.length > 0) {
                     setHotelsData(data);
                 } else {
@@ -75,18 +75,18 @@ export default function Hotels() {
         <div style={{ minHeight: '100vh', backgroundColor: '#000', position: 'relative' }}>
             <title>Luxury Hotels & Stays in Sri Lanka | CHK Ceylon Tours</title>
             <meta name="description" content="Book the finest luxury hotels and eco-lodges in Sri Lanka. From beachfront resorts in Tangalle to safari lodges in Yala, we curate the best stays for your journey." />
-            
+
             {/* Hero Section */}
-            <section className="hero" style={{ 
-                height: '60vh', 
-                minHeight: '400px', 
+            <section className="hero" style={{
+                height: '60vh',
+                minHeight: '400px',
                 backgroundImage: "url('/hotel_bg.png')",
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
-                justifyContent: 'center', 
-                alignItems: 'center', 
-                padding: '0' 
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '0'
             }}>
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%)', zIndex: 1 }}></div>
                 <div className="hero-content" style={{ zIndex: 10, padding: '0 20px', textAlign: 'center', maxWidth: '100%', position: 'relative' }}>
@@ -97,9 +97,9 @@ export default function Hotels() {
             <Navbar />
 
             <div className="container" style={{ padding: '80px 20px 100px 20px', position: 'relative', zIndex: 10 }}>
-                <div style={{ 
-                    display: 'grid', 
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', 
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
                     gap: '40px',
                     justifyContent: 'center',
                     maxWidth: '1300px',
@@ -117,15 +117,15 @@ export default function Hotels() {
                                     <i className="fas fa-map-marker-alt" style={{ marginRight: '8px' }}></i>
                                     {hotel.location}
                                 </p>
-                                <a 
-                                    href={hotel.website_link || `https://wa.me/94771234567?text=I'm interested in booking ${hotel.name} in ${hotel.location}`} 
+                                <a
+                                    href={hotel.website_link || `https://wa.me/94771234567?text=I'm interested in booking ${hotel.name} in ${hotel.location}`}
                                     target={hotel.website_link ? "_blank" : "_self"}
                                     rel="noopener noreferrer"
-                                    className="btn btn-outline" 
-                                    style={{ 
-                                        marginTop: '25px', 
-                                        width: '100%', 
-                                        borderColor: 'var(--neon-yellow)', 
+                                    className="btn btn-outline"
+                                    style={{
+                                        marginTop: '25px',
+                                        width: '100%',
+                                        borderColor: 'var(--neon-yellow)',
                                         color: 'var(--neon-yellow)',
                                         background: 'rgba(0,0,0,0.5)',
                                         textAlign: 'center',
