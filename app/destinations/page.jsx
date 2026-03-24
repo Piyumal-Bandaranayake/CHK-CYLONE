@@ -101,9 +101,7 @@ export default function Destinations() {
                     <img src={province.image} alt={province.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     <div className="dest-overlay"></div>
                     <div className="dest-info">
-                      <span className="dest-tag" style={{ background: 'var(--neon-green)', textShadow: 'none', color: '#000' }}>
-                        {province.districts.length} Districts
-                      </span>
+
                       <h3 style={{ fontSize: '1.8rem', marginBottom: '10px' }}>{province.name}</h3>
                       <button className="btn btn-outline" style={{ marginTop: '5px', padding: '8px 20px', fontSize: '0.9rem', borderColor: 'var(--neon-yellow)', color: 'var(--neon-yellow)', background: 'rgba(0,0,0,0.6)' }}>
                         View Districts <i className="fas fa-arrow-right" style={{ marginLeft: '5px' }}></i>
@@ -127,7 +125,7 @@ export default function Destinations() {
                     <img src={district.image} alt={district.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     <div className="dest-overlay"></div>
                     <div className="dest-info">
-                      <span className="dest-tag" style={{ background: 'var(--secondary)' }}>District</span>
+
                       <h3 style={{ fontSize: '1.8rem', color: '#fff', textShadow: '0 0 10px rgba(0,0,0,0.8)' }}>
                         {district.name}
                       </h3>

@@ -77,7 +77,7 @@ const Hotels = () => {
                     {hotels.length > 0 ? (
                         hotels.map((hotel) => (
                             <div key={hotel.id} className="dest-card reveal" style={{ height: '450px' }}>
-                                <div className="dest-tag" style={{ background: 'var(--neon-yellow)', color: '#000' }}>{hotel.tag || 'Luxury'}</div>
+
                                 <img 
                                     src={hotel.image || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop'} 
                                     alt={hotel.name} 
