@@ -45,19 +45,7 @@ const DistrictPlaces = ({ districtData, onBack }) => {
                         <div className="dest-overlay" style={{ background: 'linear-gradient(to bottom, transparent, rgba(0,0,0,0.95))' }}></div>
                         
                         <div className="dest-info" style={{ width: '100%', padding: '30px' }}>
-                            <div style={{ 
-                                display: 'inline-block',
-                                background: 'var(--neon-yellow)', 
-                                color: '#000',
-                                padding: '4px 12px',
-                                borderRadius: '4px',
-                                fontSize: '0.7rem',
-                                fontWeight: '900',
-                                marginBottom: '15px',
-                                textTransform: 'uppercase'
-                            }}>
-                                Scenic Spot
-                            </div>
+
                             <h3 style={{ fontSize: '1.8rem', color: '#fff', margin: '0 0 15px 0', textShadow: '0 0 10px rgba(0,0,0,0.8)' }}>
                                 {place.name}
                             </h3>

@@ -22,7 +22,7 @@ const FeaturedDestinations = ({ destinations }) => {
                 <div className="destinations-slider">
                     {displayDestinations.map((dest, i) => (
                         <div key={i} className="dest-card">
-                            <div className="dest-tag">{dest.tag}</div>
+
                             <img src={dest.image} alt={dest.title} />
                             <div className="dest-overlay"></div>
                             <div className="dest-info">

@@ -89,81 +89,76 @@ export const famousPlacesData = {
     jaffna: {
         name: "Jaffna",
         places: [
-            { name: "Nallur Kandaswamy Temple", image: "https://images.unsplash.com/photo-1617260799763-7eb6bc7d6675?q=80&w=800&auto=format&fit=crop" },
-            { name: "Jaffna Fort", image: "https://images.unsplash.com/photo-1546708973-b3395414464b?q=80&w=800&auto=format&fit=crop" },
-            { name: "Casuarina Beach", image: "https://images.unsplash.com/photo-1601007831006-2c5050f589db?q=80&w=800&auto=format&fit=crop" },
-            { name: "Delft Island", image: "https://images.unsplash.com/photo-1601007831006-2c5050f589db?q=80&w=800&auto=format&fit=crop" },
-            { name: "Keerimalai Naguleswaram Temple", image: "https://images.unsplash.com/photo-1601007831006-2c5050f589db?q=80&w=800&auto=format&fit=crop" }
+            { name: "Nallur Kandaswamy Temple", image: "/nallur_temple.png" },
+            { name: "Jaffna Fort", image: "/famous_places/jaffnaFort.jpg" },
+            { name: "Casuarina Beach", image: "/famous_places/casuarinaBeach.jpg" },
+            { name: "Delft Island", image: "/famous_places/delftIsland.jpg" },
+            { name: "Keerimalai Naguleswaram Temple", image: "/famous_places/keerimalai.jpg" }
         ]
     },
     kilinochchi: {
         name: "Kilinochchi",
         places: [
-            { name: "Iranamadu Tank", image: "https://images.unsplash.com/photo-1603590503023-e2bc0478df79?q=80&w=800&auto=format&fit=crop" },
-            { name: "Elephant Pass", image: "https://images.unsplash.com/photo-1603590503023-e2bc0478df79?q=80&w=800&auto=format&fit=crop" },
-            { name: "Kanagambikai Amman Temple", image: "https://images.unsplash.com/photo-1603590503023-e2bc0478df79?q=80&w=800&auto=format&fit=crop" },
-            { name: "Kilinochchi Water Tank", image: "https://images.unsplash.com/photo-1603590503023-e2bc0478df79?q=80&w=800&auto=format&fit=crop" },
-            { name: "Elephant Pass War Memorial", image: "https://images.unsplash.com/photo-1603590503023-e2bc0478df79?q=80&w=800&auto=format&fit=crop" }
+            { name: "Iranamadu Tank", image: "/famous_places/iranamaduTank.webp" },
+            { name: "Kanagambikai Amman Temple", image: "/famous_places/kanagambikai.jpg" },
+            { name: "Kilinochchi Water Tank", image: "/famous_places/kilinochchiwater.jpg" },
+            { name: "Elephant Pass War Memorial", image: "/famous_places/elephantPass.jpg" }
         ]
     },
     mannar: {
         name: "Mannar",
         places: [
-            { name: "Mannar Island", image: "https://images.unsplash.com/photo-1606132840502-f617694f4c4a?q=80&w=800&auto=format&fit=crop" },
-            { name: "Adam's Bridge (Rama Setu)", image: "https://images.unsplash.com/photo-1606132840502-f617694f4c4a?q=80&w=800&auto=format&fit=crop" },
-            { name: "Baobab Tree", image: "https://images.unsplash.com/photo-1606132840502-f617694f4c4a?q=80&w=800&auto=format&fit=crop" },
-            { name: "Mannar Fort", image: "https://images.unsplash.com/photo-1606132840502-f617694f4c4a?q=80&w=800&auto=format&fit=crop" },
-            { name: "Thiruketheeswaram Temple", image: "https://images.unsplash.com/photo-1606132840502-f617694f4c4a?q=80&w=800&auto=format&fit=crop" }
+            { name: "Mannar Island", image: "/famous_places/mannarisland.jpg" },
+            { name: "Adam's Bridge (Rama Setu)", image: "/famous_places/adamBridge.jpg" },
+            { name: "Baobab Tree", image: "/famous_places/baobabtree.webp" },
+
         ]
     },
     vavuniya: {
         name: "Vavuniya",
         places: [
-            { name: "Madukanda Temple", image: "https://images.unsplash.com/photo-1616801962386-efecfb834e06?q=80&w=800&auto=format&fit=crop" },
-            { name: "Vavuniya Tank", image: "https://images.unsplash.com/photo-1616801962386-efecfb834e06?q=80&w=800&auto=format&fit=crop" },
-            { name: "Archaeological Museum Vavuniya", image: "https://images.unsplash.com/photo-1616801962386-efecfb834e06?q=80&w=800&auto=format&fit=crop" },
-            { name: "Pandarikulam", image: "https://images.unsplash.com/photo-1616801962386-efecfb834e06?q=80&w=800&auto=format&fit=crop" },
-            { name: "Kantharodai Area", image: "https://images.unsplash.com/photo-1616801962386-efecfb834e06?q=80&w=800&auto=format&fit=crop" }
+            { name: "Madukanda Temple", image: "/famous_places/madukandtemple.webp" },
+            { name: "Vavuniya Tank", image: "/famous_places/Vavuniyatank.webp" },
+
         ]
     },
     mullaitivu: {
         name: "Mullaitivu",
         places: [
-            { name: "Mullaitivu Beach", image: "https://images.unsplash.com/photo-1596707328574-e3db7842ebee?q=80&w=800&auto=format&fit=crop" },
-            { name: "Nayaru Lagoon", image: "https://images.unsplash.com/photo-1596707328574-e3db7842ebee?q=80&w=800&auto=format&fit=crop" },
-            { name: "Kokkilai Lagoon", image: "https://images.unsplash.com/photo-1596707328574-e3db7842ebee?q=80&w=800&auto=format&fit=crop" },
-            { name: "Mullaitivu War Memorial", image: "https://images.unsplash.com/photo-1596707328574-e3db7842ebee?q=80&w=800&auto=format&fit=crop" },
-            { name: "Nanthikadal Lagoon", image: "https://images.unsplash.com/photo-1596707328574-e3db7842ebee?q=80&w=800&auto=format&fit=crop" }
+            { name: "Mullaitivu Beach", image: "/famous_places/mullaitivuBeach.jpg" },
+            { name: "Nayaru Lagoon", image: "/famous_places/nayaruLagoon.jpg" },
+            { name: "Kokkilai Lagoon", image: "/famous_places/kokkilaiLagoon.webp" },
+
         ]
     },
     batticaloa: {
         name: "Batticaloa",
         places: [
-            { name: "Batticaloa Lagoon", image: "https://images.unsplash.com/photo-1636186000780-87779fdf8bd2?q=80&w=800&auto=format&fit=crop" },
-            { name: "Batticaloa Fort", image: "https://images.unsplash.com/photo-1636186000780-87779fdf8bd2?q=80&w=800&auto=format&fit=crop" },
-            { name: "Pasikudah Beach", image: "https://images.unsplash.com/photo-1550951298-5c7b95a66bfc?q=80&w=800&auto=format&fit=crop" },
-            { name: "Kalkudah Beach", image: "https://images.unsplash.com/photo-1550951298-5c7b95a66bfc?q=80&w=800&auto=format&fit=crop" },
-            { name: "Kallady Bridge", image: "https://images.unsplash.com/photo-1636186000780-87779fdf8bd2?q=80&w=800&auto=format&fit=crop" }
+            { name: "Batticaloa Lagoon", image: "/famous_places/batticaloaLagoon.jpg" },
+            { name: "Batticaloa Fort", image: "/famous_places/batticaloaFort.jpg" },
+            { name: "Pasikudah Beach", image: "/famous_places/pasikudahBeach.jpg" },
+            { name: "Kalkudah Beach", image: "/famous_places/kalkudahBeach.jpg" },
+            { name: "Kallady Bridge", image: "/famous_places/kalladyBridge.jpg" }
         ]
     },
     ampara: {
         name: "Ampara",
         places: [
-            { name: "Arugam Bay", image: "https://images.unsplash.com/photo-1574676451694-84c47f70b2df?q=80&w=800&auto=format&fit=crop" },
-            { name: "Lahugala National Park", image: "https://images.unsplash.com/photo-1574676451694-84c47f70b2df?q=80&w=800&auto=format&fit=crop" },
-            { name: "Magul Maha Viharaya", image: "https://images.unsplash.com/photo-1574676451694-84c47f70b2df?q=80&w=800&auto=format&fit=crop" },
-            { name: "Kudumbigala Monastery", image: "https://images.unsplash.com/photo-1574676451694-84c47f70b2df?q=80&w=800&auto=format&fit=crop" },
-            { name: "Gal Oya National Park", image: "https://images.unsplash.com/photo-1574676451694-84c47f70b2df?q=80&w=800&auto=format&fit=crop" }
+            { name: "Arugam Bay", image: "/famous_places/arugambay.jpg" },
+            { name: "Lahugala National Park", image: "/famous_places/lahugalaNationalPark.jpg" },
+            { name: "Magul Maha Viharaya", image: "/famous_places/magulMahaViharaya.jpg" },
+            { name: "Kudumbigala Monastery", image: "/famous_places/kudumbigalaMonastery.jpg" },
+            { name: "Gal Oya National Park", image: "/famous_places/galOya.jpg" }
         ]
     },
     trincomalee: {
         name: "Trincomalee",
         places: [
-            { name: "Koneswaram Temple", image: "https://images.unsplash.com/photo-1586526154388-12dce0291fc2?q=80&w=800&auto=format&fit=crop" },
+            { name: "Koneswaram Temple", image: "/famous_places/koneswaramTemple.jpg" },
             { name: "Nilaveli Beach", image: "/famous_places/nilaveli_beach.png" },
-            { name: "Pigeon Island National Park", image: "https://images.unsplash.com/photo-1586526154388-12dce0291fc2?q=80&w=800&auto=format&fit=crop" },
-            { name: "Marble Beach", image: "https://images.unsplash.com/photo-1586526154388-12dce0291fc2?q=80&w=800&auto=format&fit=crop" },
-            { name: "Fort Frederick", image: "https://images.unsplash.com/photo-1586526154388-12dce0291fc2?q=80&w=800&auto=format&fit=crop" }
+            { name: "Pigeon Island National Park", image: "/famous_places/pigeonisland.jpg" },
+            { name: "Marble Beach", image: "/famous_places/marbleBeach.jpg" },
+            { name: "Fort Frederick", image: "/famous_places/fortFrederick.jpg" }
         ]
     },
     kurunegala: {
@@ -179,31 +174,31 @@ export const famousPlacesData = {
     puttalam: {
         name: "Puttalam",
         places: [
-            { name: "Kalpitiya Beach", image: "https://images.unsplash.com/photo-1594917634212-32a22cc37a6b?q=80&w=800&auto=format&fit=crop" },
-            { name: "Wilpattu National Park", image: "https://images.unsplash.com/photo-1594917634212-32a22cc37a6b?q=80&w=800&auto=format&fit=crop" },
-            { name: "St. Anne's Shrine Talawila", image: "https://images.unsplash.com/photo-1594917634212-32a22cc37a6b?q=80&w=800&auto=format&fit=crop" },
-            { name: "Dutch Fort Kalpitiya", image: "https://images.unsplash.com/photo-1594917634212-32a22cc37a6b?q=80&w=800&auto=format&fit=crop" },
-            { name: "Bar Reef Marine Sanctuary", image: "https://images.unsplash.com/photo-1594917634212-32a22cc37a6b?q=80&w=800&auto=format&fit=crop" }
+            { name: "Kalpitiya Beach", image: "/famous_places/kalpitiyaBeach.jpg" },
+            { name: "Wilpattu National Park", image: "/famous_places/wilpattu.jpg" },
+            { name: "St. Anne's Shrine Talawila", image: "/famous_places/thalwila.webp" },
+            { name: "Dutch Fort Kalpitiya", image: "/famous_places/dutchFortKalpitiya.jpg" },
+
         ]
     },
     anuradhapura: {
         name: "Anuradhapura",
         places: [
-            { name: "Sri Maha Bodhi", image: "https://images.unsplash.com/photo-1533038590840-1cbea6bc1e28?q=80&w=800&auto=format&fit=crop" },
+            { name: "Sri Maha Bodhi", image: "/famous_places/srimahabohiya.jpg" },
             { name: "Ruwanwelisaya", image: "/famous_places/ruwanwelisaya.png" },
-            { name: "Jetavanaramaya", image: "https://images.unsplash.com/photo-1533038590840-1cbea6bc1e28?q=80&w=800&auto=format&fit=crop" },
-            { name: "Abhayagiri Stupa", image: "https://images.unsplash.com/photo-1533038590840-1cbea6bc1e28?q=80&w=800&auto=format&fit=crop" },
-            { name: "Mihintale", image: "https://images.unsplash.com/photo-1533038590840-1cbea6bc1e28?q=80&w=800&auto=format&fit=crop" }
+            { name: "Jetavanaramaya", image: "/famous_places/jetavanaramaya.jpg" },
+            { name: "Abhayagiri Stupa", image: "/famous_places/abhayagiri.jpg" },
+            { name: "Mihintale", image: "/famous_places/mihintale.jpg" }
         ]
     },
     polonnaruwa: {
         name: "Polonnaruwa",
         places: [
             { name: "Gal Vihara", image: "/famous_places/polonnaruwa_ruins.png" },
-            { name: "Parakrama Samudra", image: "https://images.unsplash.com/photo-1632766320074-ceadea9ee104?q=80&w=800&auto=format&fit=crop" },
-            { name: "Polonnaruwa Vatadage", image: "https://images.unsplash.com/photo-1632766320074-ceadea9ee104?q=80&w=800&auto=format&fit=crop" },
-            { name: "Lankatilaka Temple", image: "https://images.unsplash.com/photo-1632766320074-ceadea9ee104?q=80&w=800&auto=format&fit=crop" },
-            { name: "Royal Palace Ruins", image: "https://images.unsplash.com/photo-1632766320074-ceadea9ee104?q=80&w=800&auto=format&fit=crop" }
+            { name: "Parakrama Samudra", image: "/famous_places/parakramaSamudra.jpg" },
+            { name: "Polonnaruwa Vatadage", image: "/famous_places/polonnaruwaVatadagehousevisit.jpg" },
+            { name: "Lankatilaka Temple", image: "/famous_places/lankatilakaTemple.jpg" },
+            { name: "Royal Palace Ruins", image: "/famous_places/royalPalaceRuins.jpg" }
         ]
     },
     badulla: {

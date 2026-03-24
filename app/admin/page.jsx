@@ -9,9 +9,21 @@ import { supabase } from '../../lib/supabase';
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('packages');
   const [message, setMessage] = useState({ type: '', text: '' });
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
   
   const [authenticated, setAuthenticated] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const handleResize = () => setWindowWidth(window.innerWidth);
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
+
+  const isMobile = windowWidth <= 991;
 
   // Form States
   const [packageForm, setPackageForm] = useState({
@@ -224,19 +236,60 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#020202', color: '#fff', fontFamily: "'Outfit', sans-serif" }}>
+    <div style={{ display: 'flex', minHeight: '100vh', backgroundColor: '#020202', color: '#fff', fontFamily: "'Outfit', sans-serif", overflowX: 'hidden' }}>
       
+      {/* Mobile Top Bar */}
+      {isMobile && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '70px',
+          backgroundColor: '#0a0a0a',
+          borderBottom: '1px solid rgba(255,255,255,0.05)',
+          zIndex: 150,
+          padding: '0 20px',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          <div className="logo" style={{ fontSize: '1.2rem', marginBottom: '0' }}>
+              <img src="/logo.png" alt="Logo" className="logo-img" style={{ height: '25px', width: 'auto' }} />
+              CHK<span>ADMIN</span>
+          </div>
+          <button 
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            style={{
+              background: 'none',
+              border: 'none',
+              color: '#fff',
+              fontSize: '1.5rem',
+              cursor: 'pointer'
+            }}
+          >
+            <i className={`fas ${isSidebarOpen ? 'fa-times' : 'fa-bars'}`}></i>
+          </button>
+        </div>
+      )}
+
       {/* Sidebar */}
-      <div style={{ 
-        width: '280px', 
-        backgroundColor: '#0a0a0a', 
-        borderRight: '1px solid rgba(255,255,255,0.05)', 
-        display: 'flex', 
-        flexDirection: 'column',
-        position: 'fixed',
-        height: '100vh',
-        zIndex: 100
-      }}>
+      <div 
+        className="admin-sidebar"
+        style={{ 
+          width: '280px', 
+          backgroundColor: '#0a0a0a', 
+          borderRight: '1px solid rgba(255,255,255,0.05)', 
+          display: 'flex', 
+          flexDirection: 'column',
+          position: 'fixed',
+          height: '100vh',
+          zIndex: 200,
+          left: isMobile ? (isSidebarOpen ? '0' : '-280px') : '0',
+          transition: 'left 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+          boxShadow: isMobile && isSidebarOpen ? '0 0 50px rgba(0,0,0,0.8)' : 'none'
+        }}
+      >
         <div style={{ padding: '30px', borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
           <div className="logo" style={{ fontSize: '1.5rem', marginBottom: '0' }}>
             <img src="/logo.png" alt="Logo" className="logo-img" style={{ height: '30px' }} />
@@ -254,7 +307,10 @@ export default function AdminDashboard() {
             ].map(item => (
               <li key={item.id} style={{ marginBottom: '10px' }}>
                 <button
-                  onClick={() => setActiveTab(item.id)}
+                  onClick={() => {
+                    setActiveTab(item.id);
+                    setIsSidebarOpen(false);
+                  }}
                   style={{
                     width: '100%',
                     padding: '12px 15px',
@@ -294,8 +350,21 @@ export default function AdminDashboard() {
       </div>
 
       {/* Main Content */}
-      <div style={{ flex: 1, marginLeft: '280px', padding: '40px' }}>
-        <header style={{ marginBottom: '40px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <div className="admin-main" style={{ 
+        flex: 1, 
+        marginLeft: isMobile ? '0' : '280px', 
+        padding: isMobile ? '20px' : '40px',
+        paddingTop: isMobile ? '90px' : '40px',
+        transition: 'all 0.3s ease'
+      }}>
+        <header className="admin-header" style={{ 
+          marginBottom: '40px', 
+          display: 'flex', 
+          flexDirection: isMobile ? 'column' : 'row',
+          justifyContent: isMobile ? 'flex-start' : 'space-between', 
+          alignItems: isMobile ? 'flex-start' : 'center',
+          gap: isMobile ? '20px' : '0'
+        }}>
           <div>
             <h1 style={{ fontSize: '2rem', fontWeight: '700', color: '#fff', marginBottom: '5px' }}>
               {activeTab === 'packages' ? 'Manage Packages' : 'Manage Hotels'}
@@ -333,7 +402,7 @@ export default function AdminDashboard() {
                 <h2 style={{ marginBottom: '30px', color: 'var(--neon-green)', display: 'flex', alignItems: 'center', gap: '15px' }}>
                   <i className={`fas ${isEditing ? 'fa-edit' : 'fa-plus-circle'}`}></i> {isEditing ? 'Edit Package' : 'Add New Package'}
                 </h2>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                <div className="admin-form-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '20px' }}>
                   <div>
                     <label style={{ display: 'block', marginBottom: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Package Name</label>
                     <input type="text" style={inputStyle} value={packageForm.name} onChange={e => setPackageForm({...packageForm, name: e.target.value})} required placeholder="e.g. Wildlife Safari Explorer" />
@@ -344,7 +413,7 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                <div className="admin-form-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '20px' }}>
                   <div>
                     <label style={{ display: 'block', marginBottom: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Price (USD)</label>
                     <input type="number" style={inputStyle} value={packageForm.price} onChange={e => setPackageForm({...packageForm, price: e.target.value})} required placeholder="e.g. 850" />
@@ -376,7 +445,7 @@ export default function AdminDashboard() {
 
               <div>
                 <h3 style={{ marginBottom: '20px', fontSize: '1.5rem' }}>Current Packages ({packages.length})</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px' }}>
+                <div className="admin-data-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px' }}>
                   {packages.map(pkg => (
                     <div key={pkg.id} style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '15px', padding: '15px', border: '1px solid rgba(255,255,255,0.05)' }}>
                       <img src={pkg.image} alt={pkg.name} style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '10px', marginBottom: '15px' }} />
@@ -408,7 +477,7 @@ export default function AdminDashboard() {
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px' }}>
+                <div className="admin-form-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '20px' }}>
                   <div>
                     <label style={{ display: 'block', marginBottom: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Location (City)</label>
                     <input type="text" style={inputStyle} value={hotelForm.location} onChange={e => setHotelForm({...hotelForm, location: e.target.value})} required placeholder="e.g. Nuwara Eliya" />
@@ -445,7 +514,7 @@ export default function AdminDashboard() {
 
               <div>
                 <h3 style={{ marginBottom: '20px', fontSize: '1.5rem' }}>Current Hotels ({hotels.length})</h3>
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px' }}>
+                <div className="admin-data-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px' }}>
                   {hotels.map(hotel => (
                     <div key={hotel.id} style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '15px', padding: '15px', border: '1px solid rgba(255,255,255,0.05)' }}>
                       <img src={hotel.image} alt={hotel.name} style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '10px', marginBottom: '15px' }} />

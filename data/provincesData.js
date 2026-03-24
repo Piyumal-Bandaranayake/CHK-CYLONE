@@ -53,7 +53,7 @@ export const provincesData = [
     image: "/famous_places/yapahuwa.png",
     districts: [
       { id: "kurunegala", name: "Kurunegala", image: "/famous_places/yapahuwa.png" },
-      { id: "puttalam", name: "Puttalam", image: "https://images.unsplash.com/photo-1594917634212-32a22cc37a6b?q=80&w=800&auto=format&fit=crop" }
+      { id: "puttalam", name: "Puttalam", image: "/famous_places/wilpattu.jpg" }
     ]
   },
   {
@@ -71,8 +71,8 @@ export const provincesData = [
     image: "/famous_places/nilaveli_beach.png",
     districts: [
       { id: "trincomalee", name: "Trincomalee", image: "/famous_places/nilaveli_beach.png" },
-      { id: "batticaloa", name: "Batticaloa", image: "https://images.unsplash.com/photo-1636186000780-87779fdf8bd2?q=80&w=800&auto=format&fit=crop" },
-      { id: "ampara", name: "Ampara", image: "https://images.unsplash.com/photo-1574676451694-84c47f70b2df?q=80&w=800&auto=format&fit=crop" }
+      { id: "batticaloa", name: "Batticaloa", image: "/famous_places/pasikudahBeach.jpg" },
+      { id: "ampara", name: "Ampara", image: "/famous_places/arugambay.jpg" }
     ]
   },
   {
@@ -80,11 +80,11 @@ export const provincesData = [
     name: "Northern Province",
     image: "/nallur_temple.png",
     districts: [
-      { id: "jaffna", name: "Jaffna", image: "https://images.unsplash.com/photo-1617260799763-7eb6bc7d6675?q=80&w=800&auto=format&fit=crop" },
-      { id: "kilinochchi", name: "Kilinochchi", image: "https://images.unsplash.com/photo-1603590503023-e2bc0478df79?q=80&w=800&auto=format&fit=crop" },
-      { id: "mannar", name: "Mannar", image: "https://images.unsplash.com/photo-1606132840502-f617694f4c4a?q=80&w=800&auto=format&fit=crop" },
-      { id: "mullaitivu", name: "Mullaitivu", image: "https://images.unsplash.com/photo-1596707328574-e3db7842ebee?q=80&w=800&auto=format&fit=crop" },
-      { id: "vavuniya", name: "Vavuniya", image: "https://images.unsplash.com/photo-1616801962386-efecfb834e06?q=80&w=800&auto=format&fit=crop" }
+      { id: "jaffna", name: "Jaffna", image: "/nallur_temple.png" },
+      { id: "kilinochchi", name: "Kilinochchi", image: "/famous_places/elephantPass.jpg" },
+      { id: "mannar", name: "Mannar", image: "/famous_places/mannarisland.jpg" },
+      { id: "mullaitivu", name: "Mullaitivu", image: "/famous_places/mullaitivuBeach.jpg" },
+      { id: "vavuniya", name: "Vavuniya", image: "/famous_places/Vavuniyatank.webp" }
     ]
   }
 ];
