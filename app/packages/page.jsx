@@ -77,7 +77,7 @@ export default function TourPackages() {
             try {
                 const { data, error } = await supabase.from('packages').select('*');
                 if (error) throw error;
-                
+
                 if (data && data.length > 0) {
                     // Ensure each package has essential display properties
                     const sanitizedData = data.map(pkg => ({
@@ -109,19 +109,19 @@ export default function TourPackages() {
         <div style={{ minHeight: '100vh', backgroundColor: '#000', position: 'relative' }}>
             <title>Premium Tour Packages | Sri Lanka Travel - CHK Ceylon Tours</title>
             <meta name="description" content="Explore our curated Sri Lankan tour packages. Whether you're seeking a romantic honeymoon, a wild adventure, or a cultural deep-dive, we have the perfect itinerary for you." />
-            
+
             {/* Hero Section */}
-            <section className="hero" style={{ 
-                height: '60vh', 
-                minHeight: '400px', 
+            <section className="hero" style={{
+                height: '60vh',
+                minHeight: '400px',
                 backgroundImage: "url('/tour_bg.png')",
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
-                justifyContent: 'center', 
-                alignItems: 'center', 
-                padding: '0', 
-                position: 'relative' 
+                justifyContent: 'center',
+                alignItems: 'center',
+                padding: '0',
+                position: 'relative'
             }}>
                 <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%)', zIndex: 1 }}></div>
                 <div className="hero-content" style={{ zIndex: 10, padding: '0 20px', textAlign: 'center', maxWidth: '100%', position: 'relative' }}>
@@ -142,19 +142,19 @@ export default function TourPackages() {
                     <h2 style={{ color: '#fff', fontSize: '2.5rem', marginTop: '10px' }}>Most Common Tour Packages</h2>
                 </div>
 
-                <div style={{ 
-                    display: 'grid', 
-                    gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))', 
+                <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
                     gap: '40px',
                     justifyContent: 'center',
                     maxWidth: '1300px',
                     margin: '0 auto'
                 }}>
                     {packagesData.map((pkg) => (
-                        <div key={pkg.id} className="package-card" style={{ 
-                            background: '#0a0a0a', 
-                            borderRadius: '24px', 
-                            overflow: 'hidden', 
+                        <div key={pkg.id} className="package-card" style={{
+                            background: '#0a0a0a',
+                            borderRadius: '24px',
+                            overflow: 'hidden',
                             border: `1px solid rgba(255, 255, 255, 0.05)`,
                             transition: 'all 0.4s ease',
                             display: 'flex',
@@ -163,31 +163,31 @@ export default function TourPackages() {
                         }}>
                             <div style={{ position: 'relative', height: '240px' }}>
                                 <img src={pkg.image} alt={pkg.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                <div style={{ 
-                                    position: 'absolute', 
-                                    top: '20px', 
-                                    right: '20px', 
-                                    background: pkg.color, 
-                                    color: '#000', 
-                                    padding: '5px 15px', 
-                                    borderRadius: '50px', 
-                                    fontSize: '0.8rem', 
+                                <div style={{
+                                    position: 'absolute',
+                                    top: '20px',
+                                    right: '20px',
+                                    background: pkg.color,
+                                    color: '#000',
+                                    padding: '5px 15px',
+                                    borderRadius: '50px',
+                                    fontSize: '0.8rem',
                                     fontWeight: 'bold',
                                     zIndex: 2
                                 }}>
                                     {pkg.tag}
                                 </div>
-                                <div style={{ 
-                                    position: 'absolute', 
-                                    bottom: 0, 
-                                    left: 0, 
-                                    width: '100%', 
-                                    height: '60%', 
+                                <div style={{
+                                    position: 'absolute',
+                                    bottom: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: '60%',
                                     background: 'linear-gradient(to top, #0a0a0a, transparent)',
                                     zIndex: 1
                                 }}></div>
                             </div>
-                            
+
                             <div style={{ padding: '30px', flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '15px' }}>
                                     <h3 style={{ fontSize: '1.8rem', color: '#fff', margin: 0 }}>{pkg.name}</h3>
@@ -196,12 +196,12 @@ export default function TourPackages() {
                                         <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.8rem', display: 'block' }}>Per Person</span>
                                     </div>
                                 </div>
-                                
+
                                 <p style={{ color: 'var(--neon-yellow)', fontWeight: 'bold', marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>
                                     <i className="far fa-clock"></i>
                                     {pkg.duration}
                                 </p>
-                                
+
                                 <ul style={{ listStyle: 'none', padding: 0, margin: '0 0 30px 0', flexGrow: 1 }}>
                                     {pkg.features.map((feature, index) => (
                                         <li key={index} style={{ color: 'rgba(255,255,255,0.7)', marginBottom: '10px', display: 'flex', alignItems: 'center', gap: '10px', fontSize: '0.95rem' }}>
@@ -210,18 +210,18 @@ export default function TourPackages() {
                                         </li>
                                     ))}
                                 </ul>
-                                
-                                <a href={`https://wa.me/94771234567?text=I'm interested in the ${pkg.name} package`} 
-                                   className="btn btn-primary pulse-glow" 
-                                   style={{ 
-                                       width: '100%', 
-                                       textAlign: 'center', 
-                                       justifyContent: 'center',
-                                       backgroundColor: 'transparent',
-                                       border: `1px solid ${pkg.color}`,
-                                       color: pkg.color,
-                                       padding: '12px 0'
-                                   }}>
+
+                                <a href={`https://wa.me/94771234567?text=I'm interested in the ${pkg.name} package`}
+                                    className="btn btn-primary pulse-glow"
+                                    style={{
+                                        width: '100%',
+                                        textAlign: 'center',
+                                        justifyContent: 'center',
+                                        backgroundColor: 'transparent',
+                                        border: `1px solid ${pkg.color}`,
+                                        color: pkg.color,
+                                        padding: '12px 0'
+                                    }}>
                                     Enquire Now
                                 </a>
                             </div>
