@@ -5,7 +5,7 @@ import React from 'react';
 const WhatsAppButton = () => {
     return (
         <a 
-            href="https://wa.me/94771234567" 
+            href="https://wa.me/94776981971" 
             className="float-wp pulse-glow" 
             target="_blank" 
             rel="noopener noreferrer"

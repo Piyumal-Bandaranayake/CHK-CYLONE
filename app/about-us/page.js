@@ -90,29 +90,26 @@ export default function AboutUs() {
                         <div>
                             <h2 style={{ fontSize: "3rem", marginBottom: "30px", color: "var(--neon-yellow)" }}>Our Mission</h2>
                             <p style={{ fontSize: "1.1rem", marginBottom: "20px", color: "rgba(255,255,255,0.8)" }}>
-                                At CHK Ceylon Tours, our mission is to provide authentic, sustainable, and personalized travel experiences that showcase the true beauty, culture, and hospitality of Sri Lanka. 
+                                At CHK Ceylon Tours, our mission is to provide authentic, sustainable, and personalized travel experiences that showcase the true beauty, culture, and hospitality of Sri Lanka.
                             </p>
                             <p style={{ fontSize: "1.1rem", color: "rgba(255,255,255,0.8)" }}>
                                 With over 10 years of experience, we've curated journeys for thousands of happy travelers, from the mist-covered tea hills of Ella to the golden beaches of Mirissa and the ancient ruins of Anuradhapura.
                             </p>
                         </div>
                         <div style={{ position: "relative" }}>
-                            <div
+                            <img
+                                src="/tea_hills.png"
+                                alt="Sri Lanka Tea Hills"
                                 style={{
                                     width: "100%",
-                                    height: "400px",
+                                    aspectRatio: "4/3",
+                                    objectFit: "cover",
+                                    display: "block",
                                     borderRadius: "20px",
-                                    overflow: "hidden",
                                     border: "2px solid var(--neon-yellow)",
                                     boxShadow: "var(--neon-glow)"
                                 }}
-                            >
-                                <img
-                                    src="/tea_hills.png"
-                                    alt="Sri Lanka Tea Hills"
-                                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                                />
-                            </div>
+                            />
                             <div
                                 className="bg-blob"
                                 style={{ top: "-50px", right: "-50px", width: "300px", height: "300px", opacity: 0.3 }}
@@ -148,18 +145,131 @@ export default function AboutUs() {
                             ))}
                         </div>
                     </div>
+
+                    <div className="reveal" style={{ marginTop: "120px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", alignItems: "center" }}>
+                        <div style={{ position: "relative", maxWidth: "350px", margin: "0 auto" }}>
+                            <img
+                                src="/guide.jpeg"
+                                alt="Shashika Lekamarachchi (Dilan)"
+                                style={{
+                                    width: "100%",
+                                    aspectRatio: "3/4",
+                                    objectFit: "cover",
+                                    objectPosition: "top center",
+                                    display: "block",
+                                    borderRadius: "20px",
+                                    border: "2px solid var(--neon-yellow)",
+                                    boxShadow: "var(--neon-glow)"
+                                }}
+                            />
+                            <div
+                                className="bg-blob"
+                                style={{ top: "-50px", left: "-50px", width: "300px", height: "300px", opacity: 0.3 }}
+                            ></div>
+                        </div>
+                        <div>
+                            <h2 style={{ fontSize: "3rem", marginBottom: "15px", color: "var(--neon-yellow)" }}>Meet Your Guide</h2>
+                            <h3 style={{ fontSize: "2rem", marginBottom: "20px" }}>Shashika Lekamarachchi <span style={{ fontSize: "1.2rem", color: "var(--neon-yellow)" }}>(L.A.H.S. Dilan)</span></h3>
+                            <p style={{ fontSize: "1.1rem", marginBottom: "20px", color: "rgba(255,255,255,0.8)" }}>
+                                Meet Shashika, your dedicated and experienced representative for an unforgettable journey across Sri Lanka. With a deep passion for the country's rich history, vibrant culture, and stunning landscapes, Shashika ensures that every moment of your trip is tailored to perfection.
+                            </p>
+                            <p style={{ fontSize: "1.1rem", marginBottom: "30px", color: "rgba(255,255,255,0.8)" }}>
+                                Available 24 hours a day to assist you, Shashika is committed to providing a seamless, stress-free, and truly personalized travel experience from arrival to departure.
+                            </p>
+                            <a href="https://wa.me/94776981971" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", padding: "12px 30px", background: "var(--neon-yellow)", color: "#000", fontWeight: "bold", borderRadius: "50px", textDecoration: "none", fontSize: "1.1rem", boxShadow: "var(--neon-glow)", transition: "0.3s" }}>
+                                <i className="fab fa-whatsapp" style={{ marginRight: "10px" }}></i> Say Hello
+                            </a>
+                        </div>
+                    </div>
+
+                    <div className="reveal" style={{ marginTop: "120px" }}>
+                        <h2 style={{ fontSize: "3rem", textAlign: "center", marginBottom: "60px" }}>Contact Information</h2>
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "30px" }}>
+                            <div
+                                style={{
+                                    padding: "40px",
+                                    background: "rgba(255,255,255,0.05)",
+                                    backdropFilter: "blur(10px)",
+                                    borderRadius: "20px",
+                                    border: "1px solid rgba(255,255,255,0.1)",
+                                    textAlign: "center"
+                                }}
+                            >
+                                <i className="fas fa-map-marker-alt" style={{ fontSize: "3rem", color: "var(--neon-yellow)", marginBottom: "25px", textShadow: "var(--neon-glow)" }}></i>
+                                <h3 style={{ fontSize: "1.5rem", marginBottom: "15px" }}>Address</h3>
+                                <p style={{ color: "rgba(255,255,255,0.7)" }}>No, 4/6, Malwathuhiripitiya, Buthpitiya, Gampaha, Sri Lanka 11054</p>
+                            </div>
+
+                            <div
+                                style={{
+                                    padding: "40px",
+                                    background: "rgba(255,255,255,0.05)",
+                                    backdropFilter: "blur(10px)",
+                                    borderRadius: "20px",
+                                    border: "1px solid rgba(255,255,255,0.1)",
+                                    textAlign: "center"
+                                }}
+                            >
+                                <i className="fas fa-phone-alt" style={{ fontSize: "3rem", color: "var(--neon-yellow)", marginBottom: "25px", textShadow: "var(--neon-glow)" }}></i>
+                                <h3 style={{ fontSize: "1.5rem", marginBottom: "15px" }}>Contact Details</h3>
+                                <p style={{ color: "rgba(255,255,255,0.7)", marginBottom: "5px" }}><strong>Phone:</strong> 0094776981971</p>
+                                <p style={{ color: "rgba(255,255,255,0.7)", marginBottom: "5px" }}><strong>Office:</strong> 0332279267</p>
+                                <p style={{ color: "rgba(255,255,255,0.7)" }}><strong>Email:</strong> shashi198524@gmail.com</p>
+                            </div>
+
+                            <div
+                                style={{
+                                    padding: "40px",
+                                    background: "rgba(255,255,255,0.05)",
+                                    backdropFilter: "blur(10px)",
+                                    borderRadius: "20px",
+                                    border: "1px solid rgba(255,255,255,0.1)",
+                                    textAlign: "center"
+                                }}
+                            >
+                                <i className="fas fa-clock" style={{ fontSize: "3rem", color: "var(--neon-yellow)", marginBottom: "25px", textShadow: "var(--neon-glow)" }}></i>
+                                <h3 style={{ fontSize: "1.5rem", marginBottom: "15px" }}>Business Hours</h3>
+                                <p style={{ color: "rgba(255,255,255,0.7)", marginBottom: "5px" }}><strong>Mon - Fri:</strong> 8.30 am to 11.30 pm</p>
+                                <p style={{ color: "rgba(255,255,255,0.7)", marginBottom: "5px" }}><strong>Sat - Sun:</strong> 8.30 am to 5.30 pm</p>
+                                <p style={{ color: "rgba(255,255,255,0.7)", marginBottom: "15px", fontSize: "0.9rem", fontStyle: "italic" }}>(Ill Full Moon Poya Day) Hours might differ</p>
+                                <p style={{ color: "var(--neon-yellow)", fontWeight: "bold" }}>24 hours a day Our Special representative for You</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="reveal" style={{ marginTop: "60px" }}>
+                        <div
+                            style={{
+                                width: "100%",
+                                height: "400px",
+                                borderRadius: "20px",
+                                overflow: "hidden",
+                                border: "1px solid rgba(255,255,255,0.1)",
+                                boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
+                                background: "rgba(255,255,255,0.05)"
+                            }}
+                        >
+                            <iframe
+                                width="100%"
+                                height="100%"
+                                frameBorder="0"
+                                scrolling="no"
+                                marginHeight="0"
+                                marginWidth="0"
+                                src="https://maps.google.com/maps?q=No,+4/6,+Malwathuhiripitiya,+Buthpitiya,+Gampaha,+Sri+Lanka&output=embed"
+                                title="CHK Ceylon Tours Location"
+                                style={{ border: 0, filter: "invert(90%) hue-rotate(180deg)" }}
+                                allowFullScreen=""
+                                loading="lazy"
+                                referrerPolicy="no-referrer-when-downgrade"
+                            ></iframe>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <section className="stats-circular container reveal" style={{ padding: "80px 0" }}>
-                {config.stats.map((stat, i) => (
-                    <div key={i} className="stat-circle">
-                        <h3 style={{ color: "var(--neon-yellow)", textShadow: "var(--neon-glow)" }}>{stat.value}</h3>
-                        <p style={{ fontSize: "0.9rem", textTransform: "uppercase", letterSpacing: "2px" }}>{stat.label}</p>
-                    </div>
-                ))}
-            </section>
-            
+
+
             <Gallery />
 
             <Footer />

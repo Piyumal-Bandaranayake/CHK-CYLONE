@@ -74,23 +74,35 @@ const Preloader = () => {
             </div>
 
             {/* Brand Name with Animated Gradient */}
-            <h1 className="preloader-h1" style={{
-                fontSize: '2.5rem',
-                fontWeight: '900',
-                letterSpacing: '8px',
-                color: '#fff',
-                textTransform: 'uppercase',
-                textAlign: 'center',
-                margin: 0,
-                background: 'linear-gradient(90deg, #fff, var(--neon-yellow), #fff)',
-                backgroundSize: '200% auto',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                animation: 'shine 3s linear infinite',
-                textShadow: '0 0 30px rgba(255, 240, 31, 0.3)'
+            <div className="logo-text-container" style={{ 
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center', 
+                animation: 'fadeInUp 1s ease-out forwards',
+                opacity: 0
             }}>
-                Ceylon Tours
-            </h1>
+                <div className="logo-brand" style={{ display: 'flex', alignItems: 'baseline', marginBottom: '5px' }}>
+                    <span className="logo-chk" style={{ 
+                        fontSize: '4.5rem', 
+                        color: 'var(--neon-yellow)',
+                        textShadow: '0 0 30px rgba(255, 240, 31, 0.4)',
+                        animation: 'shine 3s linear infinite'
+                    }}>CHK</span>
+                    <span className="logo-ceylon" style={{ 
+                        fontSize: '2.2rem',
+                        color: 'var(--neon-yellow)',
+                        textShadow: '0 0 20px rgba(255, 240, 31, 0.3)',
+                        marginLeft: '15px'
+                    }}>Ceylon Tours</span>
+                </div>
+                <div className="logo-tagline" style={{ 
+                    fontSize: '0.9rem', 
+                    letterSpacing: '5px',
+                    color: '#fff',
+                    textTransform: 'uppercase',
+                    fontWeight: '700'
+                }}>OUR WISH IS YOUR HAPPINESS</div>
+            </div>
 
             {/* Progress Bar */}
             <div className="preloader-progress" style={{
@@ -115,6 +127,10 @@ const Preloader = () => {
             </div>
 
             <style jsx global>{`
+                @keyframes fadeInUp {
+                    from { transform: translateY(20px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
                 @keyframes pulse {
                     0% { transform: scale(1); opacity: 0.9; }
                     50% { transform: scale(1.05); opacity: 1; }
@@ -128,15 +144,25 @@ const Preloader = () => {
                     100% { width: 100%; }
                 }
                 @media (max-width: 768px) {
-                    .preloader-h1 {
-                        font-size: 1.6rem !important;
-                        letter-spacing: 4px !important;
-                        padding: 0 20px;
+                    .logo-brand {
+                        flex-direction: row !important;
+                        gap: 10px !important;
+                    }
+                    .logo-chk {
+                        font-size: 2.8rem !important;
+                    }
+                    .logo-ceylon {
+                        font-size: 1.4rem !important;
+                        margin-left: 0 !important;
+                    }
+                    .logo-tagline {
+                        font-size: 0.6rem !important;
+                        letter-spacing: 2px !important;
                     }
                     .preloader-logo-container {
-                        width: 180px !important;
-                        height: 180px !important;
-                        margin-bottom: 25px !important;
+                        width: 150px !important;
+                        height: 150px !important;
+                        margin-bottom: 15px !important;
                     }
                     .preloader-progress {
                         width: 140px !important;
