@@ -6,9 +6,15 @@ const Footer = () => {
     return (
         <footer style={{ background: 'var(--dark)', color: 'white', padding: '60px 20px 30px' }}>
             <div className="container" style={{ textAlign: 'center' }}>
-                <div className="logo" style={{ justifyContent: 'center', marginBottom: '20px', fontSize: '2rem', flexWrap: 'wrap' }}>
+                <div className="logo" style={{ justifyContent: 'center', marginBottom: '20px', flexWrap: 'wrap' }}>
                     <img src="/logo.png" alt="Logo" className="footer-logo-img" />
-                    CHK<span>CEYLON</span>
+                    <div className="logo-text-container">
+                        <div className="logo-brand">
+                            <span className="logo-chk">CHK</span>
+                            <span className="logo-ceylon">Ceylon Tours</span>
+                        </div>
+                        <div className="logo-tagline">OUR WISH IS YOUR HAPPINESS</div>
+                    </div>
                 </div>
 
                 <div className="social-links" style={{ display: 'flex', justifyContent: 'center', gap: '30px', marginBottom: '30px' }}>

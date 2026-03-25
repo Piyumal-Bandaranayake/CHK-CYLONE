@@ -217,14 +217,12 @@ nav.scrolled .container {
 }
 
 .logo {
-    font-family: var(--font-heading);
-    font-size: 2.5rem;
-    font-weight: 900;
-    color: white;
+    font-family: var(--font-main);
     text-decoration: none;
     display: flex;
     align-items: center;
     gap: 15px;
+    color: white;
 }
 
 .logo-img {
@@ -235,6 +233,43 @@ nav.scrolled .container {
     transition: all 0.3s ease;
 }
 
+.logo-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1;
+}
+
+.logo-brand {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.logo-chk {
+    font-size: 3.5rem;
+    font-weight: 950;
+    color: white;
+    letter-spacing: -1px;
+    line-height: 0.9;
+}
+
+.logo-ceylon {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: white;
+}
+
+.logo-tagline {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #eee;
+    margin-top: 5px;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
 .footer-logo-img {
     height: 100px;
     width: 100px;
@@ -243,18 +278,25 @@ nav.scrolled .container {
 }
 
 nav.scrolled .logo-img {
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
 }
 
 nav.scrolled .logo {
-    color: white;
-    font-size: 1.8rem;
     gap: 10px;
 }
 
-.logo span {
-    color: var(--secondary);
+nav.scrolled .logo-chk {
+    font-size: 2.2rem;
+}
+
+nav.scrolled .logo-ceylon {
+    font-size: 1.2rem;
+}
+
+nav.scrolled .logo-tagline {
+    font-size: 0.5rem;
+    margin-top: 2px;
 }
 
 .nav-links {
@@ -782,15 +824,27 @@ nav.scrolled .nav-links a {
     }
 
     .logo-img {
-        height: 60px !important;
-        width: 60px !important;
+        height: 50px !important;
+        width: 50px !important;
     }
 
     .logo {
+        gap: 8px !important;
+    }
+
+    .logo-chk {
+        font-size: 2.2rem !important;
+        letter-spacing: -0.5px !important;
+    }
+
+    .logo-ceylon {
         font-size: 1.2rem !important;
-        text-shadow: 0 0 10px var(--neon-yellow);
-        /* Strong neon visibility */
-        letter-spacing: 1px;
+    }
+
+    .logo-tagline {
+        font-size: 0.5rem !important;
+        margin-top: 2px !important;
+        letter-spacing: 0.5px !important;
     }
 
     .logo i {

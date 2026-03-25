@@ -17,7 +17,13 @@ const Navbar = ({ config }) => {
             <div className="container" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <a href="/" className="logo">
                     <img src="/logo.png" alt="Logo" className="logo-img" />
-                    CHK<span>CEYLON</span>
+                    <div className="logo-text-container">
+                        <div className="logo-brand">
+                            <span className="logo-chk">CHK</span>
+                            <span className="logo-ceylon">Ceylon Tours</span>
+                        </div>
+                        <div className="logo-tagline">OUR WISH IS YOUR HAPPINESS</div>
+                    </div>
                 </a>
 
                 <div style={{ display: 'flex', alignItems: 'center', gap: scrolled ? '20px' : '40px' }}>
