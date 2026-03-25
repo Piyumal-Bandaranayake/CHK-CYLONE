@@ -150,9 +150,10 @@ nav {
     left: 50%;
     transform: translateX(-50%);
     width: 100%;
-    padding: 30px 0;
+    padding: 25px 0;
     z-index: 1000;
     transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, transparent 100%);
 }
 
 nav.scrolled {
@@ -160,17 +161,17 @@ nav.scrolled {
     width: 95%;
     max-width: 1300px;
     padding: 8px 0;
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(15px) saturate(180%);
-    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4),
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6),
         inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 nav.scrolled .container {
-    padding: 0 30px;
+    padding: 0 40px;
 }
 
 .menu-toggle {
@@ -249,25 +250,27 @@ nav.scrolled .container {
 .logo-chk {
     font-size: 3.5rem;
     font-weight: 950;
-    color: white;
+    color: var(--neon-yellow);
     letter-spacing: -1px;
     line-height: 0.9;
+    text-shadow: 0 0 20px rgba(255, 240, 31, 0.4);
 }
 
 .logo-ceylon {
     font-size: 1.8rem;
     font-weight: 700;
-    color: white;
+    color: var(--neon-yellow);
+    text-shadow: 0 0 15px rgba(255, 240, 31, 0.3);
 }
 
 .logo-tagline {
     font-size: 0.7rem;
     font-weight: 700;
     letter-spacing: 1.5px;
-    color: #eee;
+    color: white;
     margin-top: 5px;
     text-transform: uppercase;
-    opacity: 0.9;
+    opacity: 1;
 }
 
 .footer-logo-img {
@@ -311,20 +314,21 @@ nav.scrolled .logo-tagline {
     color: white;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 1.1rem;
+    letter-spacing: 1.5px;
+    font-size: 1.05rem;
     transition: 0.3s;
     position: relative;
     white-space: nowrap;
+    text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
 }
 
 nav.scrolled .nav-links {
-    gap: 25px;
+    gap: 30px;
 }
 
 nav.scrolled .nav-links a {
     color: white;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
 }
 
 .nav-links a::after {

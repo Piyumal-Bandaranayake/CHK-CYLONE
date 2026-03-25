@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import SiteStats from '@/components/SiteStats';
 import FeaturedDestinations from '@/components/FeaturedDestinations';
 import Hotels from '@/components/Hotels';
 import TourPackages from '@/components/TourPackages';
@@ -71,7 +70,6 @@ export default function Home() {
             <Navbar config={config} />
             <Hero heroData={config.hero} />
             <Banner />
-            <SiteStats stats={config.stats} />
             <Hotels />
             <FeaturedDestinations destinations={destinations} />
             <TourPackages />
