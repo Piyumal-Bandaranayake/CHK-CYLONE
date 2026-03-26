@@ -146,39 +146,85 @@ export default function AboutUs() {
                         </div>
                     </div>
 
-                    <div className="reveal" style={{ marginTop: "120px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", alignItems: "center" }}>
-                        <div style={{ position: "relative", maxWidth: "350px", margin: "0 auto" }}>
-                            <img
-                                src="/guide.jpeg"
-                                alt="Shashika Lekamarachchi (Dilan)"
-                                style={{
-                                    width: "100%",
-                                    aspectRatio: "3/4",
-                                    objectFit: "cover",
-                                    objectPosition: "top center",
-                                    display: "block",
-                                    borderRadius: "20px",
-                                    border: "2px solid var(--neon-yellow)",
-                                    boxShadow: "var(--neon-glow)"
-                                }}
-                            />
-                            <div
-                                className="bg-blob"
-                                style={{ top: "-50px", left: "-50px", width: "300px", height: "300px", opacity: 0.3 }}
-                            ></div>
-                        </div>
-                        <div>
-                            <h2 style={{ fontSize: "3rem", marginBottom: "15px", color: "var(--neon-yellow)" }}>Meet Your Guide</h2>
-                            <h3 style={{ fontSize: "2rem", marginBottom: "20px" }}>Shashika Lekamarachchi <span style={{ fontSize: "1.2rem", color: "var(--neon-yellow)" }}>(L.A.H.S. Dilan)</span></h3>
-                            <p style={{ fontSize: "1.1rem", marginBottom: "20px", color: "rgba(255,255,255,0.8)" }}>
-                                Meet Shashika, your dedicated and experienced representative for an unforgettable journey across Sri Lanka. With a deep passion for the country's rich history, vibrant culture, and stunning landscapes, Shashika ensures that every moment of your trip is tailored to perfection.
-                            </p>
-                            <p style={{ fontSize: "1.1rem", marginBottom: "30px", color: "rgba(255,255,255,0.8)" }}>
-                                Available 24 hours a day to assist you, Shashika is committed to providing a seamless, stress-free, and truly personalized travel experience from arrival to departure.
-                            </p>
-                            <a href="https://wa.me/94776981971" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", padding: "12px 30px", background: "var(--neon-yellow)", color: "#000", fontWeight: "bold", borderRadius: "50px", textDecoration: "none", fontSize: "1.1rem", boxShadow: "var(--neon-glow)", transition: "0.3s" }}>
-                                <i className="fab fa-whatsapp" style={{ marginRight: "10px" }}></i> Say Hello
-                            </a>
+                    <div className="reveal" style={{ marginTop: "120px" }}>
+                        <h2 style={{ fontSize: "3rem", textAlign: "center", marginBottom: "60px", color: "var(--neon-yellow)" }}>Our Team</h2>
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))", gap: "60px", alignItems: "start" }}>
+
+                            <div style={{ textAlign: "center" }}>
+                                <div style={{ position: "relative", maxWidth: "250px", margin: "0 auto 30px" }}>
+                                    <img
+                                        src="/guide.jpeg"
+                                        alt="Shashika Lekamarachchi"
+                                        style={{
+                                            width: "100%",
+                                            aspectRatio: "1/1",
+                                            objectFit: "cover",
+                                            objectPosition: "top center",
+                                            display: "block",
+                                            borderRadius: "50%",
+                                            border: "4px solid var(--neon-yellow)",
+                                            boxShadow: "var(--neon-glow)"
+                                        }}
+                                    />
+                                    <div
+                                        className="bg-blob"
+                                        style={{ top: "-30px", left: "-30px", width: "250px", height: "250px", opacity: 0.3 }}
+                                    ></div>
+                                </div>
+                                <h3 style={{ fontSize: "2rem", marginBottom: "10px" }}>Shashika Lekamarachchi</h3>
+                                <p style={{ fontSize: "1.2rem", color: "var(--neon-yellow)", marginBottom: "20px" }}>Tour Guide</p>
+                            </div>
+
+                            <div style={{ textAlign: "center" }}>
+                                <div style={{ position: "relative", maxWidth: "250px", margin: "0 auto 30px" }}>
+                                    <img
+                                        src="/assistenmanger.jpeg"
+                                        alt="H.G.K Chamathka"
+                                        style={{
+                                            width: "100%",
+                                            aspectRatio: "1/1",
+                                            objectFit: "cover",
+                                            objectPosition: "top center",
+                                            display: "block",
+                                            borderRadius: "50%",
+                                            border: "4px solid var(--neon-yellow)",
+                                            boxShadow: "var(--neon-glow)"
+                                        }}
+                                    />
+                                    <div
+                                        className="bg-blob"
+                                        style={{ top: "-30px", right: "-30px", width: "250px", height: "250px", opacity: 0.3 }}
+                                    ></div>
+                                </div>
+                                <h3 style={{ fontSize: "2rem", marginBottom: "10px" }}>H.G.K Chamathka</h3>
+                                <p style={{ fontSize: "1.2rem", color: "var(--neon-yellow)", marginBottom: "20px" }}>Assistant Manager</p>
+                            </div>
+
+                            <div style={{ textAlign: "center" }}>
+                                <div style={{ position: "relative", maxWidth: "250px", margin: "0 auto 30px" }}>
+                                    <img
+                                        src="/touroperator.jpeg"
+                                        alt="L.A.U.Amali"
+                                        style={{
+                                            width: "100%",
+                                            aspectRatio: "1/1",
+                                            objectFit: "cover",
+                                            objectPosition: "top center",
+                                            display: "block",
+                                            borderRadius: "50%",
+                                            border: "4px solid var(--neon-yellow)",
+                                            boxShadow: "var(--neon-glow)"
+                                        }}
+                                    />
+                                    <div
+                                        className="bg-blob"
+                                        style={{ top: "-30px", left: "50%", transform: "translateX(-50%)", width: "250px", height: "250px", opacity: 0.3 }}
+                                    ></div>
+                                </div>
+                                <h3 style={{ fontSize: "2rem", marginBottom: "10px" }}>L.A.U.Amali</h3>
+                                <p style={{ fontSize: "1.2rem", color: "var(--neon-yellow)", marginBottom: "20px" }}>Tour Operator</p>
+                            </div>
+
                         </div>
                     </div>
 

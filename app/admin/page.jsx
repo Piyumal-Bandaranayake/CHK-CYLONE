@@ -40,11 +40,20 @@ export default function AdminDashboard() {
   // File States
   const [packageFile, setPackageFile] = useState(null);
   const [hotelFile, setHotelFile] = useState(null);
+  const [galleryFile, setGalleryFile] = useState(null);
 
   // Data States
   const [packages, setPackages] = useState([]);
   const [hotels, setHotels] = useState([]);
+  const [gallery, setGallery] = useState([]);
   const [isEditing, setIsEditing] = useState(null); // stores the ID of the item being edited
+
+  // Form States (Cont.)
+  const [galleryForm, setGalleryForm] = useState({
+    country: '', image: ''
+  });
+
+  const [galleryReset, setGalleryReset] = useState(0);
 
   useEffect(() => {
     // Check if authenticated
@@ -67,6 +76,9 @@ export default function AdminDashboard() {
       
       const { data: htlData } = await supabase.from('hotels').select('*').order('name');
       if (htlData) setHotels(htlData);
+
+      const { data: galData } = await supabase.from('gallery').select('*').order('created_at', { ascending: false });
+      if (galData) setGallery(galData);
     } catch (err) {
       console.error('Error fetching data:', err);
     }
@@ -99,23 +111,46 @@ export default function AdminDashboard() {
     return publicData.publicUrl;
   };
 
-  const renderImagePreview = (file) => {
+  const renderImagePreview = (file, type) => {
     if (!file) return null;
     
     // If it's a direct URL string
     if (typeof file === 'string') {
       return (
-        <div style={{ marginTop: '10px' }}>
+        <div style={{ marginTop: '10px', position: 'relative', display: 'inline-block' }}>
           <img src={file} alt="Preview" style={{ maxWidth: '100%', maxHeight: '200px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }} />
+          <button 
+            type="button"
+            onClick={() => {
+              if (type === 'packages') setPackageForm({ ...packageForm, image: '' });
+              if (type === 'hotels') setHotelForm({ ...hotelForm, image: '' });
+              if (type === 'gallery') setGalleryForm({ ...galleryForm, image: '' });
+            }}
+            style={{ position: 'absolute', top: '-10px', right: '-10px', background: '#ff4d4d', color: '#fff', border: 'none', borderRadius: '50%', width: '25px', height: '25px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
+            <i className="fas fa-times" style={{ fontSize: '0.8rem' }}></i>
+          </button>
         </div>
       );
     }
 
     // If it's the edit-mode object with a preview property
     if (file.preview) {
+      if (!file.preview) return null; // Handle case where image was cleared
       return (
-        <div style={{ marginTop: '10px' }}>
+        <div style={{ marginTop: '10px', position: 'relative', display: 'inline-block' }}>
           <img src={file.preview} alt="Current" style={{ maxWidth: '100%', maxHeight: '200px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }} />
+          <button 
+            type="button"
+            onClick={() => {
+              if (type === 'packages') setPackageForm({ ...packageForm, image: '' });
+              if (type === 'hotels') setHotelForm({ ...hotelForm, image: '' });
+              if (type === 'gallery') setGalleryForm({ ...galleryForm, image: '' });
+            }}
+            style={{ position: 'absolute', top: '-10px', right: '-10px', background: '#ff4d4d', color: '#fff', border: 'none', borderRadius: '50%', width: '25px', height: '25px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
+            <i className="fas fa-times" style={{ fontSize: '0.8rem' }}></i>
+          </button>
           <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.4)', marginTop: '5px' }}>Current Database Image</p>
         </div>
       );
@@ -126,8 +161,19 @@ export default function AdminDashboard() {
       try {
         const objectUrl = URL.createObjectURL(file);
         return (
-          <div style={{ marginTop: '10px' }}>
+          <div style={{ marginTop: '10px', position: 'relative', display: 'inline-block' }}>
             <img src={objectUrl} alt="Preview" style={{ maxWidth: '100%', maxHeight: '200px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.1)' }} />
+            <button 
+              type="button"
+              onClick={() => {
+                if (type === 'packages') setPackageFile(null);
+                if (type === 'hotels') setHotelFile(null);
+                if (type === 'gallery') setGalleryFile(null);
+              }}
+              style={{ position: 'absolute', top: '-10px', right: '-10px', background: '#ff4d4d', color: '#fff', border: 'none', borderRadius: '50%', width: '25px', height: '25px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              <i className="fas fa-times" style={{ fontSize: '0.8rem' }}></i>
+            </button>
             <p style={{ fontSize: '0.75rem', color: 'var(--neon-green)', marginTop: '5px' }}>New Image Selected</p>
           </div>
         );
@@ -154,7 +200,8 @@ export default function AdminDashboard() {
         ? packageForm.features.split(',').map(f => f.trim()).filter(f => f)
         : packageForm.features;
 
-      const payload = { ...packageForm, image: imageUrl, features: featuresArray };
+      const { id, created_at, ...cleanFormData } = packageForm;
+      const payload = { ...cleanFormData, image: imageUrl, features: featuresArray };
       
       if (isEditing) {
         const { error } = await supabase.from('packages').update(payload).eq('id', isEditing);
@@ -186,7 +233,8 @@ export default function AdminDashboard() {
         throw new Error("Please upload an image.");
       }
 
-      const payload = { ...hotelForm, image: imageUrl };
+      const { id, created_at, ...cleanHotelData } = hotelForm;
+      const payload = { ...cleanHotelData, image: imageUrl };
       
       if (isEditing) {
         const { error } = await supabase.from('hotels').update(payload).eq('id', isEditing);
@@ -201,6 +249,39 @@ export default function AdminDashboard() {
       setHotelForm({ name: '', location: '', tag: '', description: '', website_link: '' });
       setHotelFile(null);
       setHotelReset(prev => prev + 1);
+      setIsEditing(null);
+      fetchData();
+    } catch (error) {
+      showMessage('error', error.message);
+    }
+  };
+
+  const handleGallerySubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let imageUrl = galleryForm.image;
+      if (galleryFile) {
+        imageUrl = await uploadImage(galleryFile);
+      } else if (!isEditing) {
+        throw new Error("Please upload an image.");
+      }
+
+      const { id, created_at, ...cleanGalleryData } = galleryForm;
+      const payload = { ...cleanGalleryData, image: imageUrl };
+      
+      if (isEditing) {
+        const { error } = await supabase.from('gallery').update(payload).eq('id', isEditing);
+        if (error) throw error;
+        showMessage('success', 'Gallery image updated successfully!');
+      } else {
+        const { error } = await supabase.from('gallery').insert([payload]);
+        if (error) throw error;
+        showMessage('success', 'Gallery image added successfully!');
+      }
+
+      setGalleryForm({ country: '', image: '' });
+      setGalleryFile(null);
+      setGalleryReset(prev => prev + 1);
       setIsEditing(null);
       fetchData();
     } catch (error) {
@@ -225,6 +306,7 @@ export default function AdminDashboard() {
     setActiveTab(type);
     if (type === 'packages') setPackageForm({ ...item, features: item.features.join(', ') });
     if (type === 'hotels') setHotelForm({ ...item, website_link: item.website_link || '' });
+    if (type === 'gallery') setGalleryForm({ ...item });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -303,7 +385,8 @@ export default function AdminDashboard() {
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {[
               { id: 'packages', label: 'Tour Packages', icon: 'fa-suitcase-rolling', color: 'var(--neon-green)' },
-              { id: 'hotels', label: 'Hotels', icon: 'fa-hotel', color: 'var(--neon-yellow)' }
+              { id: 'hotels', label: 'Hotels', icon: 'fa-hotel', color: 'var(--neon-yellow)' },
+              { id: 'gallery', label: 'Travel Gallery', icon: 'fa-images', color: 'var(--neon-blue)' }
             ].map(item => (
               <li key={item.id} style={{ marginBottom: '10px' }}>
                 <button
@@ -367,7 +450,7 @@ export default function AdminDashboard() {
         }}>
           <div>
             <h1 style={{ fontSize: '2rem', fontWeight: '700', color: '#fff', marginBottom: '5px' }}>
-              {activeTab === 'packages' ? 'Manage Packages' : 'Manage Hotels'}
+              {activeTab === 'packages' ? 'Manage Packages' : activeTab === 'hotels' ? 'Manage Hotels' : 'Manage Gallery'}
             </h1>
             <p style={{ color: 'rgba(255,255,255,0.5)' }}>Add and update your travel offerings.</p>
           </div>
@@ -431,8 +514,8 @@ export default function AdminDashboard() {
 
                 <div style={{ marginBottom: '30px', padding: '20px', borderRadius: '12px', border: '2px dashed rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)' }}>
                   <label style={{ display: 'block', marginBottom: '15px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>{isEditing ? 'Change Package Image (Optional)' : 'Upload Package Image'}</label>
-                  <input type="file" accept="image/*" style={{ ...inputStyle, marginBottom: '0', background: 'transparent', border: 'none', padding: 0 }} onChange={e => setPackageFile(e.target.files[0])} key={`pkg-${packageReset}`} required={!isEditing} />
-                  {renderImagePreview(packageFile || (isEditing ? { name: 'Current Image', type: 'image/url', preview: packageForm.image } : null))}
+                  <input type="file" accept="image/*" style={{ ...inputStyle, marginBottom: '0', background: 'transparent', border: 'none', padding: 0 }} onChange={e => setPackageFile(e.target.files[0])} key={`pkg-${packageReset}`} required={!isEditing && !packageForm.image} />
+                  {renderImagePreview(packageFile || (isEditing && packageForm.image ? { name: 'Current Image', type: 'image/url', preview: packageForm.image } : null), 'packages')}
                 </div>
 
                 <div style={{ display: 'flex', gap: '15px' }}>
@@ -500,8 +583,8 @@ export default function AdminDashboard() {
 
                 <div style={{ marginBottom: '30px', padding: '20px', borderRadius: '12px', border: '2px dashed rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)' }}>
                   <label style={{ display: 'block', marginBottom: '15px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>{isEditing ? 'Change Hotel Image (Optional)' : 'Upload Hotel Image'}</label>
-                  <input type="file" accept="image/*" style={{ ...inputStyle, marginBottom: '0', background: 'transparent', border: 'none', padding: 0 }} onChange={e => setHotelFile(e.target.files[0])} key={`hotel-${hotelReset}`} required={!isEditing} />
-                  {renderImagePreview(hotelFile || (isEditing ? { name: 'Current Image', type: 'image/url', preview: hotelForm.image } : null))}
+                  <input type="file" accept="image/*" style={{ ...inputStyle, marginBottom: '0', background: 'transparent', border: 'none', padding: 0 }} onChange={e => setHotelFile(e.target.files[0])} key={`hotel-${hotelReset}`} required={!isEditing && !hotelForm.image} />
+                  {renderImagePreview(hotelFile || (isEditing && hotelForm.image ? { name: 'Current Image', type: 'image/url', preview: hotelForm.image } : null), 'hotels')}
                 </div>
 
                 <div style={{ display: 'flex', gap: '15px' }}>
@@ -523,6 +606,53 @@ export default function AdminDashboard() {
                       <div style={{ display: 'flex', gap: '10px' }}>
                         <button onClick={() => startEdit('hotels', hotel)} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(255, 240, 31, 0.1)', color: 'var(--neon-yellow)', border: '1px solid var(--neon-yellow)', cursor: 'pointer' }}><i className="fas fa-edit"></i></button>
                         <button onClick={() => handleDelete('hotels', hotel.id)} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(255, 77, 77, 0.1)', color: '#ff4d4d', border: '1px solid #ff4d4d', cursor: 'pointer' }}><i className="fas fa-trash"></i></button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Gallery Form */}
+          {activeTab === 'gallery' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+              <form onSubmit={handleGallerySubmit} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '40px' }}>
+                <h2 style={{ marginBottom: '30px', color: 'var(--neon-blue)', display: 'flex', alignItems: 'center', gap: '15px' }}>
+                  <i className={`fas ${isEditing ? 'fa-edit' : 'fa-plus-circle'}`}></i> {isEditing ? 'Edit Gallery Image' : 'Add New Gallery Image'}
+                </h2>
+                
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Country / Region Name</label>
+                    <input type="text" style={inputStyle} value={galleryForm.country} onChange={e => setGalleryForm({...galleryForm, country: e.target.value})} required placeholder="e.g. Sri Lanka" />
+                  </div>
+                </div>
+
+                <div style={{ marginBottom: '30px', padding: '20px', borderRadius: '12px', border: '2px dashed rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)' }}>
+                  <label style={{ display: 'block', marginBottom: '15px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>{isEditing ? 'Change Gallery Image (Optional)' : 'Upload Gallery Image'}</label>
+                  <input type="file" accept="image/*" style={{ ...inputStyle, marginBottom: '0', background: 'transparent', border: 'none', padding: 0 }} onChange={e => setGalleryFile(e.target.files[0])} key={`gal-${galleryReset}`} required={!isEditing && !galleryForm.image} />
+                  {renderImagePreview(galleryFile || (isEditing && galleryForm.image ? { name: 'Current Image', type: 'image/url', preview: galleryForm.image } : null), 'gallery')}
+                </div>
+
+                <div style={{ display: 'flex', gap: '15px' }}>
+                  {isEditing && (
+                    <button type="button" onClick={() => { setIsEditing(null); setGalleryForm({ country: '', image: '' }); }} style={{ flex: 1, padding: '15px', borderRadius: '8px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', cursor: 'pointer' }}>Cancel</button>
+                  )}
+                  <button type="submit" className="btn btn-primary" style={{ flex: 2, background: 'var(--neon-blue)', color: '#000', fontWeight: '900', height: '55px', fontSize: '1.1rem' }}>{isEditing ? 'UPDATE IMAGE' : 'ADD TO GALLERY'}</button>
+                </div>
+              </form>
+
+              <div>
+                <h3 style={{ marginBottom: '20px', fontSize: '1.5rem' }}>Travel Gallery ({gallery.length})</h3>
+                <div className="admin-data-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px' }}>
+                  {gallery.map(img => (
+                    <div key={img.id} style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '15px', padding: '15px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                      <img src={img.image} alt={img.country} style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '10px', marginBottom: '15px' }} />
+                      <h4 style={{ marginBottom: '15px' }}>{img.country}</h4>
+                      <div style={{ display: 'flex', gap: '10px' }}>
+                        <button onClick={() => startEdit('gallery', img)} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(0, 212, 255, 0.1)', color: 'var(--neon-blue)', border: '1px solid var(--neon-blue)', cursor: 'pointer' }}><i className="fas fa-edit"></i></button>
+                        <button onClick={() => handleDelete('gallery', img.id)} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(255, 77, 77, 0.1)', color: '#ff4d4d', border: '1px solid #ff4d4d', cursor: 'pointer' }}><i className="fas fa-trash"></i></button>
                       </div>
                     </div>
                   ))}

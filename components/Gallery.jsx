@@ -1,11 +1,42 @@
 "use client";
 
-import React from 'react';
-import { galleryImages } from '@/data/galleryImages';
+import React, { useState, useEffect } from 'react';
+import { supabase } from '@/lib/supabase';
 
 const Gallery = () => {
+    const [dbImages, setDbImages] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchGallery = async () => {
+            try {
+                const { data, error } = await supabase
+                    .from('gallery')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+                if (data) setDbImages(data);
+            } catch (err) {
+                console.error('Error fetching gallery:', err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchGallery();
+    }, []);
+
+    // Only fetch and show images uploaded by admin
+    const allImages = dbImages.map(img => ({
+        id: img.id,
+        url: img.image,
+        title: img.country, // Show country name as the title
+        category: "Gallery"
+    }));
+
     return (
-        <section className="gallery-section" style={{ padding: "100px 0", background: "#050505" }}>
+        <section className="gallery-section" id="gallery" style={{ padding: "100px 0", background: "#050505" }}>
             <div className="container">
                 <div className="reveal text-center" style={{ marginBottom: "60px" }}>
                     <span className="subtitle" style={{ color: "var(--neon-green)", textShadow: "0 0 10px rgba(0, 255, 127, 0.4)" }}>Memories in Sri Lanka</span>
@@ -19,8 +50,8 @@ const Gallery = () => {
                     gap: "25px", 
                     padding: "20px" 
                 }}>
-                    {galleryImages.map((image) => (
-                        <div key={image.id} className="gallery-item reveal" style={{ 
+                    {allImages.map((image, index) => (
+                        <div key={image.id || index} className="gallery-item reveal" style={{ 
                             position: "relative", 
                             height: "350px", 
                             borderRadius: "15px", 

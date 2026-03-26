@@ -9,9 +9,11 @@
     --neon-yellow: #fff01f;
     --neon-green: #39FF14;
     --neon-red: #ff3131;
+    --neon-blue: #00d4ff;
     --neon-glow: 0 0 5px var(--neon-yellow), 0 0 25px var(--neon-yellow);
     --neon-glow-green: 0 0 5px var(--neon-green), 0 0 25px var(--neon-green);
     --neon-glow-red: 0 0 5px var(--neon-red), 0 0 20px var(--neon-red);
+    --neon-glow-blue: 0 0 5px var(--neon-blue), 0 0 20px var(--neon-blue);
     --font-main: 'Outfit', sans-serif;
 
     --font-heading: 'Playfair Display', serif;

@@ -9,7 +9,7 @@ DROP TABLE IF EXISTS provinces;
 CREATE TABLE provinces (
     id TEXT PRIMARY KEY,
     name TEXT NOT NULL,
-    image TEXT NOT NULL,
+    image TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
@@ -17,7 +17,7 @@ CREATE TABLE districts (
     id TEXT PRIMARY KEY,
     province_id TEXT NOT NULL REFERENCES provinces(id) ON DELETE CASCADE,
     name TEXT NOT NULL,
-    image TEXT NOT NULL,
+    image TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
@@ -25,7 +25,7 @@ CREATE TABLE famous_places (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     district_id TEXT NOT NULL REFERENCES districts(id) ON DELETE CASCADE,
     name TEXT NOT NULL,
-    image TEXT NOT NULL,
+    image TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
@@ -44,7 +44,7 @@ CREATE TABLE packages (
     name TEXT NOT NULL,
     duration TEXT NOT NULL,
     price TEXT NOT NULL,
-    image TEXT NOT NULL,
+    image TEXT,
     tag TEXT NOT NULL,
     color TEXT NOT NULL,
     features TEXT[] NOT NULL,
@@ -59,7 +59,7 @@ CREATE TABLE hotels (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     name TEXT NOT NULL,
     location TEXT NOT NULL,
-    image TEXT NOT NULL,
+    image TEXT,
     tag TEXT NOT NULL,
     rating TEXT NOT NULL,
     description TEXT NOT NULL,
@@ -74,3 +74,17 @@ CREATE POLICY "Allow public insert." ON hotels FOR INSERT WITH CHECK (true);
 CREATE POLICY "Allow public insert." ON provinces FOR INSERT WITH CHECK (true);
 CREATE POLICY "Allow public insert." ON districts FOR INSERT WITH CHECK (true);
 CREATE POLICY "Allow public insert." ON famous_places FOR INSERT WITH CHECK (true);
+
+-- Gallery Table
+CREATE TABLE gallery (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    country TEXT NOT NULL,
+    image TEXT,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+ALTER TABLE gallery ENABLE ROW LEVEL SECURITY;
+CREATE POLICY "Allow public read-only access." ON gallery FOR SELECT USING (true);
+CREATE POLICY "Allow public insert." ON gallery FOR INSERT WITH CHECK (true);
+CREATE POLICY "Allow public update." ON gallery FOR UPDATE USING (true);
+CREATE POLICY "Allow public delete." ON gallery FOR DELETE USING (true);
