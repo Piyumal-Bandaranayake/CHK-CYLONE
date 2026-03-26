@@ -3,10 +3,10 @@
 import React, { useState, useEffect } from 'react';
 
 const slides = [
-    { image: '/home_hero_bg.png', label: 'Ancient Wonders' },
-    { image: '/galle.png', label: 'Coastal Beauty' },
-    { image: '/ella.png', label: 'Highland Serenity' },
-    { image: '/hero_slide_beach.png', label: 'Golden Beaches' },
+    { image: '/hero1.jpg', label: 'Premium Island Experiences' },
+    { image: '/hero.jpg', label: 'Coastal Beauty' },
+    { image: '/kandy.png', label: 'Ancient Wonders' },
+    { image: '/famous_places/arugamBay.jpg', label: 'Highland Serenity' },
 ];
 
 const Hero = ({ heroData }) => {
