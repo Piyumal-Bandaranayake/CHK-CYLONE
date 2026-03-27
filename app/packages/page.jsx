@@ -114,7 +114,7 @@ export default function TourPackages() {
             <section className="hero" style={{
                 height: '60vh',
                 minHeight: '400px',
-                backgroundImage: "url('/tour_bg.png')",
+                backgroundImage: "url('/tour_bg_new.png')",
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',

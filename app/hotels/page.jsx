@@ -80,7 +80,7 @@ export default function Hotels() {
             <section className="hero" style={{
                 height: '60vh',
                 minHeight: '400px',
-                backgroundImage: "url('/hotel_bg.png')",
+                backgroundImage: "url('/hotel_bg_new.png')",
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
