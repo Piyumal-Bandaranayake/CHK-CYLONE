@@ -4,9 +4,9 @@ import React, { useState, useEffect } from 'react';
 
 const slides = [
     { image: '/hero1.jpg', label: 'Premium Island Experiences' },
-    { image: '/hero.jpg', label: 'Coastal Beauty' },
-    { image: '/kandy.png', label: 'Ancient Wonders' },
-    { image: '/famous_places/arugamBay.jpg', label: 'Highland Serenity' },
+    { image: '/hero2.jpg', label: 'Coastal Beauty' },
+    { image: '/hero3.jpg', label: 'Ancient Wonders' },
+    { image: '/hero4.jpg', label: 'Highland Serenity' },
 ];
 
 const Hero = ({ heroData }) => {
