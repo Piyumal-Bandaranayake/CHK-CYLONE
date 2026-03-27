@@ -35,7 +35,7 @@ export default function Destinations() {
       <section className="hero" style={{ 
         height: '60vh', 
         minHeight: '400px', 
-        backgroundImage: "url('/dest_hero_bg.png')",
+        backgroundImage: "url('/dest_hero_bg_new.png')",
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
