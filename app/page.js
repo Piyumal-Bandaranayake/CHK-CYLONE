@@ -10,6 +10,7 @@ import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import Banner from '@/components/Banner';
+import ReviewSection from '@/components/ReviewSection';
 
 export default function Home() {
     const [destinations, setDestinations] = useState([]);
@@ -73,6 +74,7 @@ export default function Home() {
             <Hotels />
             <FeaturedDestinations destinations={destinations} />
             <TourPackages />
+            <ReviewSection />
             <CTA />
             <Footer />
             <WhatsAppButton />

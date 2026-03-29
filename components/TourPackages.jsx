@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import ImageLightbox from './ImageLightbox';
+
 
 const fallbackPackages = [
     { name: 'Heritage Legend', price: '850', duration: '7 Days', features: ['Cultural Sites', 'Private Driver', 'Luxury Hotels'], color: 'var(--neon-yellow)' },
@@ -9,6 +11,8 @@ const fallbackPackages = [
 
 const TourPackages = () => {
     const [packages, setPackages] = useState([]);
+    const [selectedImage, setSelectedImage] = useState(null);
+
 
     useEffect(() => {
         const fetchPackages = async () => {
@@ -44,43 +48,51 @@ const TourPackages = () => {
                         packages.map((pkg, i) => (
                             <div key={i} className="package-card reveal" style={{ 
                                 transitionDelay: `${i * 0.2}s`, 
-                                background: '#000', 
-                                borderRadius: '20px', 
-                                border: `1px solid ${pkg.color}`,
-                                overflow: 'hidden',
-                                padding: '0',
+                                borderRadius: '24px', 
                                 display: 'flex',
-                                flexDirection: 'column'
+                                flexDirection: 'column',
+                                height: '100%',
+                                background: '#0a0a0a'
                             }}>
+
                                 {pkg.image && (
-                                    <div style={{ width: '100%', height: '200px', overflow: 'hidden', flexShrink: 0 }}>
-                                        <img src={pkg.image} alt={pkg.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                    </div>
+                                     <div style={{ width: '100%', height: '240px', overflow: 'hidden', flexShrink: 0, position: 'relative', cursor: 'pointer' }} onClick={() => setSelectedImage(pkg.image)}>
+                                         <img src={pkg.image} alt={pkg.name} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.8s ease' }} />
+                                         <div style={{ position: 'absolute', top: '20px', left: '20px', background: pkg.color, color: '#000', padding: '5px 15px', borderRadius: '50px', fontSize: '0.75rem', fontWeight: '900', letterSpacing: '1px' }}>{pkg.duration}</div>
+                                     </div>
                                 )}
-                                <div style={{ padding: '30px', display: 'flex', flexDirection: 'column', flex: 1 }}>
-                                    <div className="package-price" style={{ color: pkg.color, textShadow: `0 0 10px ${pkg.color}`, fontSize: '2.5rem' }}>${pkg.price}</div>
-                                    <h3 style={{ color: '#fff', fontSize: '1.5rem', marginBottom: '10px' }}>{pkg.name}</h3>
-                                    <p style={{ marginBottom: '20px', color: pkg.color, fontWeight: 'bold' }}>{pkg.duration}</p>
-                                    <ul style={{ textAlign: 'left', marginBottom: '30px', padding: '0', listStyle: 'none' }}>
-                                        {Array.isArray(pkg.features) && pkg.features.slice(0, 3).map((f, j) => (
-                                            <li key={j} style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '10px', display: 'flex', alignItems: 'center' }}>
-                                                <i className="fas fa-check-circle" style={{ color: pkg.color, marginRight: '10px' }}></i> {f}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                    <a 
-                                        href={`https://wa.me/94771234567?text=I'm interested in the ${pkg.name} package`} 
-                                        className="btn btn-primary pulse-glow" 
-                                        style={{ 
-                                            width: '100%', 
-                                            textAlign: 'center', 
-                                            borderRadius: '50px',
-                                            marginTop: 'auto'
-                                        }}
-                                    >
-                                        Enquire Now
-                                    </a>
-                                </div>
+
+                                <div style={{ padding: '35px', display: 'flex', flexDirection: 'column', flex: 1 }}>
+                                     <h3 style={{ color: '#fff', fontSize: '1.8rem', marginBottom: '10px', fontWeight: '800' }}>{pkg.name}</h3>
+                                     <div style={{ display: 'flex', alignItems: 'baseline', gap: '5px', marginBottom: '25px' }}>
+                                         <span style={{ fontSize: '2.5rem', fontWeight: '900', color: pkg.color, textShadow: `0 0 20px ${pkg.color}44` }}>${pkg.price}</span>
+                                         <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.9rem' }}>/ person</span>
+                                     </div>
+                                     <ul style={{ textAlign: 'left', marginBottom: '35px', padding: '0', listStyle: 'none' }}>
+                                         {Array.isArray(pkg.features) && pkg.features.slice(0, 3).map((f, j) => (
+                                             <li key={j} style={{ color: 'rgba(255,255,255,0.6)', marginBottom: '12px', display: 'flex', alignItems: 'center', fontSize: '0.95rem' }}>
+                                                 <i className="fas fa-check-circle" style={{ color: pkg.color, marginRight: '12px', fontSize: '1.1rem' }}></i> {f}
+                                             </li>
+                                         ))}
+                                     </ul>
+                                     <a 
+                                         href={`https://wa.me/94771234567?text=I'm interested in the ${pkg.name} package`} 
+                                         className="btn btn-primary" 
+                                         style={{ 
+                                             width: '100%', 
+                                             textAlign: 'center', 
+                                             borderRadius: '15px',
+                                             marginTop: 'auto',
+                                             background: 'transparent',
+                                             border: `1px solid ${pkg.color}`,
+                                             color: pkg.color,
+                                             padding: '15px 0'
+                                         }}
+                                     >
+                                         ENQUIRE NOW
+                                     </a>
+                                 </div>
+
                             </div>
                         ))
                     ) : (
@@ -93,8 +105,10 @@ const TourPackages = () => {
                     <a href="/packages" className="btn btn-outline" style={{ borderColor: 'var(--neon-yellow)', color: 'var(--neon-yellow)' }}>Explore All Packages</a>
                 </div>
             </div>
+            <ImageLightbox src={selectedImage} onClose={() => setSelectedImage(null)} />
         </section>
     );
 };
+
 
 export default TourPackages;
