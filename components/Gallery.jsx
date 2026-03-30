@@ -2,10 +2,14 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
+import ImageLightbox from './ImageLightbox';
+
 
 const Gallery = () => {
     const [dbImages, setDbImages] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [selectedImage, setSelectedImage] = useState(null);
+
 
     useEffect(() => {
         const fetchGallery = async () => {
@@ -52,15 +56,17 @@ const Gallery = () => {
                 }}>
                     {allImages.map((image, index) => (
                         <div key={image.id || index} className="gallery-card reveal">
-                            <div className="gallery-item" style={{ 
-                                position: "relative", 
-                                height: "400px", 
-                                borderRadius: "24px", 
-                                overflow: "hidden", 
-                                border: "1px solid rgba(255,255,255,0.1)",
-                                transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
-                                background: "rgba(255,255,255,0.02)"
-                            }}>
+                                <div className="gallery-item" onClick={() => setSelectedImage(image.url)} style={{ 
+                                    position: "relative", 
+                                    height: "400px", 
+                                    borderRadius: "24px", 
+                                    overflow: "hidden", 
+                                    border: "1px solid rgba(255,255,255,0.1)",
+                                    transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
+                                    background: "rgba(255,255,255,0.02)",
+                                    cursor: 'pointer'
+                                }}>
+
                                 <img 
                                     src={image.url} 
                                     alt={image.title} 
@@ -130,8 +136,10 @@ const Gallery = () => {
                     }
                 }
             `}</style>
+            <ImageLightbox src={selectedImage} onClose={() => setSelectedImage(null)} />
         </section>
     );
 };
+
 
 export default Gallery;

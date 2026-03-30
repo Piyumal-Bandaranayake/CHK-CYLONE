@@ -88,3 +88,28 @@ CREATE POLICY "Allow public read-only access." ON gallery FOR SELECT USING (true
 CREATE POLICY "Allow public insert." ON gallery FOR INSERT WITH CHECK (true);
 CREATE POLICY "Allow public update." ON gallery FOR UPDATE USING (true);
 CREATE POLICY "Allow public delete." ON gallery FOR DELETE USING (true);
+
+-- Reviews Table
+CREATE TABLE IF NOT EXISTS reviews (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT NOT NULL,
+    rating INTEGER NOT NULL CHECK (rating >= 1 AND rating <= 5),
+    message TEXT NOT NULL,
+    images TEXT[] DEFAULT '{}',
+    status TEXT NOT NULL DEFAULT 'pending', -- 'pending', 'approved'
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
+);
+
+-- Enable Row Level Security
+ALTER TABLE reviews ENABLE ROW LEVEL SECURITY;
+
+-- Allow public to submit reviews
+CREATE POLICY "Allow public insert" ON reviews FOR INSERT WITH CHECK (true);
+
+-- Allow public to read ONLY approved reviews
+CREATE POLICY "Allow public read approved" ON reviews FOR SELECT USING (status = 'approved');
+
+-- Allow admin (authenticated or with matching policies) to manage all
+-- Note: Current admin dashboard uses public actions, so we'll add public update/delete for now to match your existing patterns
+CREATE POLICY "Allow public update" ON reviews FOR UPDATE USING (true);
+CREATE POLICY "Allow public delete" ON reviews FOR DELETE USING (true);

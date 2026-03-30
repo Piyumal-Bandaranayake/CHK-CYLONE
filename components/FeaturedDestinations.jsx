@@ -1,10 +1,15 @@
 "use client";
 
-import React from 'react';
+import React, { useState } from 'react';
+import ImageLightbox from './ImageLightbox';
+
 
 const FeaturedDestinations = ({ destinations }) => {
+    const [selectedImage, setSelectedImage] = useState(null);
+    if (!destinations) return null;
     // Double the array to create a seamless infinite loop for the marquee effect
     const displayDestinations = [...destinations, ...destinations];
+
 
     return (
         <section id="destinations" className="destinations" style={{ background: '#000' }}>
@@ -23,27 +28,48 @@ const FeaturedDestinations = ({ destinations }) => {
                     {displayDestinations.map((dest, i) => (
                         <div key={i} className="dest-card">
 
-                            <img src={dest.image} alt={dest.title} />
+                            <img src={dest.image} alt={dest.title} style={{ cursor: 'pointer' }} onClick={() => setSelectedImage(dest.image)} />
+
                             <div className="dest-overlay"></div>
                             <div className="dest-info">
                                 <h3>{dest.title}</h3>
                                 <p><i className="fas fa-map-marker-alt"></i> {dest.location}</p>
-                                <button className="btn btn-outline" style={{ 
-                                    marginTop: '20px', 
-                                    padding: '10px 25px', 
-                                    fontSize: '0.8rem', 
-                                    color: '#FFD700', 
-                                    borderColor: '#FFD700',
-                                    boxShadow: '0 0 10px rgba(255, 215, 0, 0.5)',
-                                    fontWeight: 'bold'
-                                }}>Explore</button>
+                                <a href={`/destinations#explore`} className="dest-explore-btn" style={{ 
+                                    marginTop: '25px', 
+                                    padding: '12px 30px', 
+                                    fontSize: '0.85rem', 
+                                    color: '#fff', 
+                                    borderColor: 'rgba(255,255,255,0.3)',
+                                    background: 'rgba(255,255,255,0.1)',
+                                    backdropFilter: 'blur(10px)',
+                                    fontWeight: '800',
+                                    borderRadius: '12px',
+                                    textDecoration: 'none',
+                                    display: 'inline-block',
+                                    letterSpacing: '1px',
+                                    transition: 'all 0.3s ease',
+                                    border: '1px solid rgba(255,255,255,0.2)'
+                                }}>EXPLORE</a>
+
                             </div>
                         </div>
                     ))}
                 </div>
             </div>
+            <style jsx>{`
+                .dest-explore-btn:hover {
+                    background: #fff !important;
+                    color: #000 !important;
+                    border-color: #fff !important;
+                    transform: translateY(-5px);
+                    box-shadow: 0 10px 25px rgba(255,255,255,0.2) !important;
+                }
+            `}</style>
+            <ImageLightbox src={selectedImage} onClose={() => setSelectedImage(null)} />
+
         </section>
     );
 };
+
 
 export default FeaturedDestinations;

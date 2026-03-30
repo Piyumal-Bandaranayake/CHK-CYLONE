@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../lib/supabase';
+import ImageLightbox from './ImageLightbox';
+
 
 const fallbackHotelsData = [
     {
@@ -38,6 +40,8 @@ const fallbackHotelsData = [
 
 const Hotels = () => {
     const [hotels, setHotels] = useState([]);
+    const [selectedImage, setSelectedImage] = useState(null);
+
 
     useEffect(() => {
         const fetchHotels = async () => {
@@ -76,40 +80,49 @@ const Hotels = () => {
                 }}>
                     {hotels.length > 0 ? (
                         hotels.map((hotel) => (
-                            <div key={hotel.id} className="dest-card reveal" style={{ height: '450px' }}>
-
+                            <div key={hotel.id} className="dest-card reveal" style={{ height: '480px', borderRadius: '24px' }}>
                                 <img 
                                     src={hotel.image || 'https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=800&auto=format&fit=crop'} 
                                     alt={hotel.name} 
-                                    style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+                                    style={{ width: '100%', height: '100%', objectFit: 'cover', cursor: 'pointer', transition: 'transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)' }} 
+                                    onClick={() => setSelectedImage(hotel.image)}
                                 />
-                                <div className="dest-overlay" style={{ background: 'linear-gradient(to bottom, transparent 40%, rgba(0, 0, 0, 0.9))' }}></div>
-                                <div className="dest-info" style={{ padding: '30px' }}>
-                                    <h3 style={{ fontSize: '1.8rem', color: '#fff', marginBottom: '8px' }}>{hotel.name}</h3>
-                                    <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1rem' }}>
-                                        <i className="fas fa-map-marker-alt" style={{ marginRight: '8px', color: 'var(--neon-green)' }}></i>
+                                <div className="dest-overlay" style={{ background: 'linear-gradient(to bottom, transparent 20%, rgba(0, 0, 0, 0.8) 100%)', opacity: 0.8 }}></div>
+                                <div className="dest-info" style={{ padding: '35px', width: '100%', bottom: '0' }}>
+                                    <div style={{ background: 'var(--neon-green)', color: '#000', padding: '4px 12px', borderRadius: '50px', display: 'inline-block', fontSize: '0.7rem', fontWeight: '900', marginBottom: '15px', textTransform: 'uppercase', letterSpacing: '1px' }}>{hotel.tag || 'Luxury Stay'}</div>
+                                    <h3 style={{ fontSize: '2rem', color: '#fff', marginBottom: '10px', fontWeight: '800', lineHeight: '1.2' }}>{hotel.name}</h3>
+                                    <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.05rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                        <i className="fas fa-map-marker-alt" style={{ color: 'var(--neon-green)' }}></i>
                                         {hotel.location}
                                     </p>
                                     <a 
                                         href={hotel.website_link || `https://wa.me/94771234567?text=I'm interested in booking ${hotel.name} in ${hotel.location}`} 
                                         target={hotel.website_link ? "_blank" : "_self"}
                                         rel="noopener noreferrer"
-                                        className="btn btn-outline" 
+                                        className="hotel-btn" 
                                         style={{ 
                                             marginTop: '25px', 
                                             width: '100%',
-                                            borderColor: 'var(--neon-yellow)',
-                                            color: 'var(--neon-yellow)',
-                                            background: 'rgba(0,0,0,0.5)',
+                                            border: '1px solid rgba(255,255,255,0.2)',
+                                            color: '#fff',
+                                            background: 'rgba(255,255,255,0.1)',
+                                            backdropFilter: 'blur(10px)',
                                             textAlign: 'center',
                                             display: 'block',
-                                            padding: '12px 0'
+                                            padding: '14px 0',
+                                            borderRadius: '12px',
+                                            textDecoration: 'none',
+                                            fontWeight: '700',
+                                            fontSize: '0.9rem',
+                                            letterSpacing: '1px',
+                                            transition: 'all 0.3s ease'
                                         }}
                                     >
-                                        {hotel.website_link ? 'Visit Website' : 'Book Now'}
+                                        {hotel.website_link ? 'VISIT WEBSITE' : 'BOOK EXPERIENCE'}
                                     </a>
                                 </div>
                             </div>
+
                         ))
                     ) : (
                         // Skeleton/Loading states
@@ -124,8 +137,20 @@ const Hotels = () => {
                     </a>
                 </div>
             </div>
+            <style jsx>{`
+                .hotel-btn:hover {
+                    background: var(--neon-green) !important;
+                    color: #000 !important;
+                    border-color: var(--neon-green) !important;
+                    transform: translateY(-5px);
+                    box-shadow: 0 10px 20px rgba(57, 255, 20, 0.3);
+                }
+            `}</style>
+            <ImageLightbox src={selectedImage} onClose={() => setSelectedImage(null)} />
+
         </section>
     );
 };
+
 
 export default Hotels;

@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { supabase } from '../../lib/supabase';
+import ImageLightbox from '@/components/ImageLightbox';
+
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('packages');
@@ -46,7 +48,10 @@ export default function AdminDashboard() {
   const [packages, setPackages] = useState([]);
   const [hotels, setHotels] = useState([]);
   const [gallery, setGallery] = useState([]);
+  const [reviews, setReviews] = useState([]);
   const [isEditing, setIsEditing] = useState(null); // stores the ID of the item being edited
+  const [selectedImage, setSelectedImage] = useState(null);
+
 
   // Form States (Cont.)
   const [galleryForm, setGalleryForm] = useState({
@@ -79,6 +84,9 @@ export default function AdminDashboard() {
 
       const { data: galData } = await supabase.from('gallery').select('*').order('created_at', { ascending: false });
       if (galData) setGallery(galData);
+
+      const { data: revData } = await supabase.from('reviews').select('*').order('created_at', { ascending: false });
+      if (revData) setReviews(revData);
     } catch (err) {
       console.error('Error fetching data:', err);
     }
@@ -310,6 +318,17 @@ export default function AdminDashboard() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleReviewStatus = async (id, status) => {
+    try {
+      const { error } = await supabase.from('reviews').update({ status }).eq('id', id);
+      if (error) throw error;
+      showMessage('success', `Review ${status === 'approved' ? 'Approved' : 'Hidden'} successfully!`);
+      fetchData();
+    } catch (error) {
+      showMessage('error', error.message);
+    }
+  };
+
 
   const inputStyle = {
     width: '100%', padding: '12px 15px', borderRadius: '8px', 
@@ -386,7 +405,8 @@ export default function AdminDashboard() {
             {[
               { id: 'packages', label: 'Tour Packages', icon: 'fa-suitcase-rolling', color: 'var(--neon-green)' },
               { id: 'hotels', label: 'Hotels', icon: 'fa-hotel', color: 'var(--neon-yellow)' },
-              { id: 'gallery', label: 'Travel Gallery', icon: 'fa-images', color: 'var(--neon-blue)' }
+              { id: 'gallery', label: 'Travel Gallery', icon: 'fa-images', color: 'var(--neon-blue)' },
+              { id: 'reviews', label: 'Guest Reviews', icon: 'fa-star', color: '#ffc107' }
             ].map(item => (
               <li key={item.id} style={{ marginBottom: '10px' }}>
                 <button
@@ -531,7 +551,13 @@ export default function AdminDashboard() {
                 <div className="admin-data-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px' }}>
                   {packages.map(pkg => (
                     <div key={pkg.id} style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '15px', padding: '15px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                      <img src={pkg.image} alt={pkg.name} style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '10px', marginBottom: '15px' }} />
+                      <img 
+                        src={pkg.image} 
+                        alt={pkg.name} 
+                        style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '10px', marginBottom: '15px', cursor: 'pointer' }} 
+                        onClick={() => setSelectedImage(pkg.image)}
+                      />
+
                       <h4 style={{ marginBottom: '5px' }}>{pkg.name}</h4>
                       <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', marginBottom: '15px' }}>{pkg.duration} • ${pkg.price}</p>
                       <div style={{ display: 'flex', gap: '10px' }}>
@@ -600,7 +626,13 @@ export default function AdminDashboard() {
                 <div className="admin-data-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px' }}>
                   {hotels.map(hotel => (
                     <div key={hotel.id} style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '15px', padding: '15px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                      <img src={hotel.image} alt={hotel.name} style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '10px', marginBottom: '15px' }} />
+                      <img 
+                        src={hotel.image} 
+                        alt={hotel.name} 
+                        style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '10px', marginBottom: '15px', cursor: 'pointer' }} 
+                        onClick={() => setSelectedImage(hotel.image)}
+                      />
+
                       <h4 style={{ marginBottom: '5px' }}>{hotel.name}</h4>
                       <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', marginBottom: '15px' }}>{hotel.location}</p>
                       <div style={{ display: 'flex', gap: '10px' }}>
@@ -648,7 +680,13 @@ export default function AdminDashboard() {
                 <div className="admin-data-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px' }}>
                   {gallery.map(img => (
                     <div key={img.id} style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '15px', padding: '15px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                      <img src={img.image} alt={img.country} style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '10px', marginBottom: '15px' }} />
+                      <img 
+                        src={img.image} 
+                        alt={img.country} 
+                        style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '10px', marginBottom: '15px', cursor: 'pointer' }} 
+                        onClick={() => setSelectedImage(img.image)}
+                      />
+
                       <h4 style={{ marginBottom: '15px' }}>{img.country}</h4>
                       <div style={{ display: 'flex', gap: '10px' }}>
                         <button onClick={() => startEdit('gallery', img)} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(0, 212, 255, 0.1)', color: 'var(--neon-blue)', border: '1px solid var(--neon-blue)', cursor: 'pointer' }}><i className="fas fa-edit"></i></button>
@@ -661,8 +699,127 @@ export default function AdminDashboard() {
             </div>
           )}
 
+          {/* Reviews Management */}
+          {activeTab === 'reviews' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <h2 style={{ color: '#ffc107', display: 'flex', alignItems: 'center', gap: '15px', margin: 0 }}>
+                  <i className="fas fa-star"></i> Manage Guest Reviews
+                </h2>
+                <div style={{ background: 'rgba(255, 193, 7, 0.1)', padding: '8px 20px', borderRadius: '50px', color: '#ffc107', fontSize: '0.9rem', fontWeight: '600' }}>
+                  {reviews.length} Total Reviews
+                </div>
+              </div>
+
+              <div style={{ overflowX: 'auto' }}>
+                <table style={{ width: '100%', borderCollapse: 'separate', borderSpacing: '0 10px' }}>
+                  <thead>
+                    <tr style={{ textAlign: 'left', color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem', textTransform: 'uppercase' }}>
+                      <th style={{ padding: '15px' }}>Date</th>
+                      <th style={{ padding: '15px' }}>Guest Name</th>
+                      <th style={{ padding: '15px' }}>Country</th>
+                      <th style={{ padding: '15px' }}>Rating</th>
+                      <th style={{ padding: '15px' }}>Message</th>
+                      <th style={{ padding: '15px' }}>Photos</th>
+                      <th style={{ padding: '15px' }}>Status</th>
+                      <th style={{ padding: '15px' }}>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {reviews.map((rev) => (
+                      <tr key={rev.id} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)' }}>
+                        <td style={{ padding: '15px', borderTopLeftRadius: '12px', borderBottomLeftRadius: '12px', fontSize: '0.9rem' }}>
+                          {new Date(rev.created_at).toLocaleDateString()}
+                        </td>
+                        <td style={{ padding: '15px', fontWeight: '600' }}>{rev.name}</td>
+                        <td style={{ padding: '15px', color: 'rgba(255,255,255,0.6)' }}>{rev.country || '-'}</td>
+                        <td style={{ padding: '15px' }}>
+                          <div style={{ display: 'flex', gap: '3px', color: '#ffc107' }}>
+                            {[...Array(5)].map((_, i) => (
+                              <i key={i} className={`${i < rev.rating ? 'fas' : 'far'} fa-star`}></i>
+                            ))}
+                          </div>
+                        </td>
+                        <td style={{ padding: '15px', maxWidth: '300px' }}>
+                          <p style={{ margin: 0, fontSize: '0.9rem', color: 'rgba(255,255,255,0.7)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }} title={rev.message}>
+                            {rev.message}
+                          </p>
+                        </td>
+                        <td style={{ padding: '15px' }}>
+                          <div style={{ display: 'flex', gap: '5px' }}>
+                            {rev.images && rev.images.slice(0, 2).map((img, i) => (
+                              <img 
+                                key={i} 
+                                src={img} 
+                                alt="review" 
+                                style={{ width: '35px', height: '35px', borderRadius: '6px', objectFit: 'cover', cursor: 'pointer' }} 
+                                onClick={() => setSelectedImage(img)}
+                              />
+                            ))}
+
+                            {rev.images && rev.images.length > 2 && (
+                                <span style={{ fontSize: '0.7rem', color: 'rgba(255,255,255,0.4)' }}>+{rev.images.length-2}</span>
+                            )}
+                          </div>
+                        </td>
+                        <td style={{ padding: '15px' }}>
+                          <span style={{ 
+                            padding: '4px 12px', borderRadius: '50px', fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase',
+                            background: rev.status === 'approved' ? 'rgba(57, 255, 20, 0.1)' : rev.status === 'pending' ? 'rgba(255, 193, 7, 0.1)' : 'rgba(255, 77, 77, 0.1)',
+                            color: rev.status === 'approved' ? 'var(--neon-green)' : rev.status === 'pending' ? '#ffc107' : '#ff4d4d',
+                            border: `1px solid ${rev.status === 'approved' ? 'var(--neon-green)' : rev.status === 'pending' ? '#ffc107' : '#ff4d4d'}`
+                          }}>
+                            {rev.status}
+                          </span>
+                        </td>
+                        <td style={{ padding: '15px', borderTopRightRadius: '12px', borderBottomRightRadius: '12px' }}>
+                          <div style={{ display: 'flex', gap: '10px' }}>
+                            {rev.status !== 'approved' && (
+                              <button 
+                                title="Approve"
+                                onClick={() => handleReviewStatus(rev.id, 'approved')}
+                                style={{ background: 'rgba(57, 255, 20, 0.1)', color: 'var(--neon-green)', border: '1px solid var(--neon-green)', padding: '8px', borderRadius: '6px', cursor: 'pointer' }}
+                              >
+                                <i className="fas fa-check"></i>
+                              </button>
+                            )}
+                            {rev.status === 'approved' && (
+                              <button 
+                                title="Hide"
+                                onClick={() => handleReviewStatus(rev.id, 'pending')}
+                                style={{ background: 'rgba(255, 193, 7, 0.1)', color: '#ffc107', border: '1px solid #ffc107', padding: '8px', borderRadius: '6px', cursor: 'pointer' }}
+                              >
+                                <i className="fas fa-eye-slash"></i>
+                              </button>
+                            )}
+                            <button 
+                              title="Delete"
+                              onClick={() => handleDelete('reviews', rev.id)}
+                              style={{ background: 'rgba(255, 77, 77, 0.1)', color: '#ff4d4d', border: '1px solid #ff4d4d', padding: '8px', borderRadius: '6px', cursor: 'pointer' }}
+                            >
+                              <i className="fas fa-trash"></i>
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              
+              {reviews.length === 0 && (
+                <div style={{ textAlign: 'center', padding: '60px', background: 'rgba(255,255,255,0.01)', borderRadius: '20px' }}>
+                  <i className="fas fa-comment-slash" style={{ fontSize: '3rem', color: 'rgba(255,255,255,0.1)', marginBottom: '20px' }}></i>
+                  <p style={{ color: 'rgba(255,255,255,0.4)' }}>No Guest Reviews Found</p>
+                </div>
+              )}
+            </div>
+          )}
+
         </div>
       </div>
+      <ImageLightbox src={selectedImage} onClose={() => setSelectedImage(null)} />
     </div>
   );
 }
+

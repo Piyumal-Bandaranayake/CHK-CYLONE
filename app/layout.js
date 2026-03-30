@@ -1,12 +1,13 @@
 import './globals.css';
 import Preloader from '../components/Preloader';
+import ReviewFloatingButton from '../components/ReviewFloatingButton';
+import WhatsAppButton from '../components/WhatsAppButton';
 
 export const metadata = {
   title: 'CHK Ceylon Tours | Premium Sri Lanka Travel & Tour Experts',
   description: 'Experience the authentic soul of Sri Lanka with CHK Ceylon Tours. Bespoke travel packages, expert local guides, luxury hotels, and unforgettable island adventures.',
   keywords: 'Sri Lanka tours, Ceylon travel, Sri Lanka tour packages, luxury travel Sri Lanka, best tour guide Sri Lanka, Sri Lanka vacation, CHK Ceylon Tours',
   authors: [{ name: 'CHK Ceylon Tours' }],
-  viewport: 'width=device-width, initial-scale=1',
   robots: 'index, follow',
   alternates: {
     canonical: 'https://www.chkceylontours.com',
@@ -40,6 +41,12 @@ export const metadata = {
   },
 };
 
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+};
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" suppressHydrationWarning>
@@ -55,6 +62,8 @@ export default function RootLayout({ children }) {
       <body suppressHydrationWarning>
         <Preloader />
         <div id="root">{children}</div>
+        <ReviewFloatingButton />
+        <WhatsAppButton />
       </body>
     </html>
   );
