@@ -484,20 +484,20 @@ nav.scrolled .nav-links a {
     display: flex;
     gap: 30px;
     width: max-content;
-    animation: rotateRight 40s linear infinite;
+    animation: rotateLeft 40s linear infinite;
 }
 
 .destinations-slider:hover {
     animation-play-state: paused;
 }
 
-@keyframes rotateRight {
+@keyframes rotateLeft {
     from {
-        transform: translateX(-50%);
+        transform: translateX(0);
     }
 
     to {
-        transform: translateX(0);
+        transform: translateX(-50%);
     }
 }
 
