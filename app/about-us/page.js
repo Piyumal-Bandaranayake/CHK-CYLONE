@@ -76,10 +76,8 @@ export default function AboutUs() {
                 <div className="container">
                     <div className="reveal">
                         <span className="subtitle" style={{ color: "var(--neon-yellow)", textShadow: "var(--neon-glow)" }}>A Journey in Pursuit of Memories</span>
-                        <h1 style={{ fontSize: "clamp(2.5rem, 8vw, 4.5rem)", margin: "20px 0", lineHeight: "1.1" }}>15 Years of Footsteps with C.H.K Ceylon</h1>
-                        <p style={{ maxWidth: "800px", margin: "0 auto", fontSize: "1.2rem", opacity: 0.9, fontStyle: "italic" }}>
-                            "Imagine... taking a holiday where you have never been before, but somehow feels familiar... among strangers, yet you feel the warmth of a friend."
-                        </p>
+                        <h1 style={{ fontSize: "clamp(3.5rem, 8vw, 4.5rem)", margin: "20px 0", lineHeight: "1.1" }}>About Us</h1>
+
                     </div>
                 </div>
             </section>
