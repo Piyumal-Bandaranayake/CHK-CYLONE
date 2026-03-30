@@ -717,6 +717,7 @@ export default function AdminDashboard() {
                     <tr style={{ textAlign: 'left', color: 'rgba(255,255,255,0.4)', fontSize: '0.85rem', textTransform: 'uppercase' }}>
                       <th style={{ padding: '15px' }}>Date</th>
                       <th style={{ padding: '15px' }}>Guest Name</th>
+                      <th style={{ padding: '15px' }}>Country</th>
                       <th style={{ padding: '15px' }}>Rating</th>
                       <th style={{ padding: '15px' }}>Message</th>
                       <th style={{ padding: '15px' }}>Photos</th>
@@ -731,6 +732,7 @@ export default function AdminDashboard() {
                           {new Date(rev.created_at).toLocaleDateString()}
                         </td>
                         <td style={{ padding: '15px', fontWeight: '600' }}>{rev.name}</td>
+                        <td style={{ padding: '15px', color: 'rgba(255,255,255,0.6)' }}>{rev.country || '-'}</td>
                         <td style={{ padding: '15px' }}>
                           <div style={{ display: 'flex', gap: '3px', color: '#ffc107' }}>
                             {[...Array(5)].map((_, i) => (
