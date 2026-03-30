@@ -64,8 +64,10 @@ const ImageLightbox = ({ src, onClose }) => {
                 }
                 .lightbox-content {
                     position: relative;
-                    max-width: 90%;
-                    max-height: 90vh;
+                    width: auto;
+                    height: auto;
+                    max-width: 95vw;
+                    max-height: 95vh;
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -75,31 +77,32 @@ const ImageLightbox = ({ src, onClose }) => {
                     animation: zoomOut 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
                 }
                 .full-image {
+                    display: block;
                     max-width: 100%;
-                    max-height: 85vh;
-                    border-radius: 20px;
+                    max-height: 95vh;
+                    border-radius: 12px;
                     box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-                    border: 1px solid rgba(255,255,255,0.1);
                     object-fit: contain;
+                    background: transparent;
                 }
                 .close-btn {
                     position: absolute;
-                    top: -60px;
-                    right: 0;
-                    background: none;
+                    top: -20px;
+                    right: -20px;
+                    background: #fff;
                     border: none;
-                    color: white;
-                    font-size: 1.5rem;
+                    color: #000;
+                    font-size: 1.2rem;
                     cursor: pointer;
                     transition: all 0.3s ease;
-                    width: 45px;
-                    height: 45px;
+                    width: 40px;
+                    height: 40px;
                     display: flex;
                     align-items: center;
                     justify-content: center;
                     border-radius: 50%;
-                    background: rgba(255,255,255,0.05);
-                    border: 1px solid rgba(255,255,255,0.1);
+                    z-index: 10001;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
                 }
                 .close-btn:hover {
                     background: rgba(255,255,255,0.15);
