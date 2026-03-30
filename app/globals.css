@@ -584,7 +584,7 @@ nav.scrolled .nav-links a {
 /* --- Packages Slider Section --- */
 .packages {
     padding: 150px 0;
-    background: var(--primary);
+    background: #000;
     color: white;
 }
 
