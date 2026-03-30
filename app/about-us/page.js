@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
-import Gallery from "@/components/Gallery";
+import GallerySlider from "@/components/GallerySlider";
 
 export default function AboutUs() {
     const [config, setConfig] = useState(null);
@@ -316,7 +316,7 @@ export default function AboutUs() {
 
 
 
-            <Gallery />
+            <GallerySlider title="Our Travel Gallery" subtitle="Memories in Sri Lanka" />
 
             <Footer />
             <WhatsAppButton />

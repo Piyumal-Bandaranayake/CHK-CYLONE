@@ -11,6 +11,7 @@ import Footer from '@/components/Footer';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import Banner from '@/components/Banner';
 import ReviewSection from '@/components/ReviewSection';
+import GallerySlider from '@/components/GallerySlider';
 
 export default function Home() {
     const [destinations, setDestinations] = useState([]);
@@ -75,6 +76,7 @@ export default function Home() {
             <FeaturedDestinations destinations={destinations} />
             <TourPackages />
             <ReviewSection />
+            <GallerySlider />
             <CTA />
             <Footer />
             <WhatsAppButton />
