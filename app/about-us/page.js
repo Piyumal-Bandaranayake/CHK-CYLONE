@@ -75,10 +75,10 @@ export default function AboutUs() {
             >
                 <div className="container">
                     <div className="reveal">
-                        <span className="subtitle" style={{ color: "var(--neon-yellow)", textShadow: "var(--neon-glow)" }}>Discover Our Story</span>
-                        <h1 style={{ fontSize: "clamp(3rem, 10vw, 6rem)", margin: "20px 0" }}>About CHK Ceylon</h1>
-                        <p style={{ maxWidth: "800px", margin: "0 auto", fontSize: "1.2rem", opacity: 0.9 }}>
-                            We are more than just a tour company. We are your local partners in discovering the soul of Sri Lanka, making every journey an unforgettable story.
+                        <span className="subtitle" style={{ color: "var(--neon-yellow)", textShadow: "var(--neon-glow)" }}>A Journey in Pursuit of Memories</span>
+                        <h1 style={{ fontSize: "clamp(2.5rem, 8vw, 4.5rem)", margin: "20px 0", lineHeight: "1.1" }}>15 Years of Footsteps with C.H.K Ceylon</h1>
+                        <p style={{ maxWidth: "800px", margin: "0 auto", fontSize: "1.2rem", opacity: 0.9, fontStyle: "italic" }}>
+                            "Imagine... taking a holiday where you have never been before, but somehow feels familiar... among strangers, yet you feel the warmth of a friend."
                         </p>
                     </div>
                 </div>
@@ -88,12 +88,15 @@ export default function AboutUs() {
                 <div className="container">
                     <div className="reveal" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", alignItems: "center" }}>
                         <div>
-                            <h2 style={{ fontSize: "3rem", marginBottom: "30px", color: "var(--neon-yellow)" }}>Our Mission</h2>
-                            <p style={{ fontSize: "1.1rem", marginBottom: "20px", color: "rgba(255,255,255,0.8)" }}>
-                                At CHK Ceylon Tours, our mission is to provide authentic, sustainable, and personalized travel experiences that showcase the true beauty, culture, and hospitality of Sri Lanka.
+                            <h2 style={{ fontSize: "2.5rem", marginBottom: "30px", color: "var(--neon-yellow)" }}>Our Story</h2>
+                            <p style={{ fontSize: "1.1rem", marginBottom: "25px", color: "rgba(255,255,255,0.9)", lineHeight: "1.6" }}>
+                                This is precisely the experience we, as C.H.K Ceylon, have provided to travelers from around the world for 15 years. This is not just a business; it is the story of a trusting bond built between you, who come to discover the beauty of Sri Lanka, and us.
                             </p>
-                            <p style={{ fontSize: "1.1rem", color: "rgba(255,255,255,0.8)" }}>
-                                With over 10 years of experience, we've curated journeys for thousands of happy travelers, from the mist-covered tea hills of Ella to the golden beaches of Mirissa and the ancient ruins of Anuradhapura.
+                            <p style={{ fontSize: "1.1rem", marginBottom: "25px", color: "rgba(255,255,255,0.7)", fontStyle: "italic", borderLeft: "4px solid var(--neon-yellow)", paddingLeft: "20px" }}>
+                                "Travel is not just moving from one place to another; it's a unique journey that adds new experiences, memories, and friendships to life."
+                            </p>
+                            <p style={{ fontSize: "1.1rem", color: "rgba(255,255,255,0.8)", lineHeight: "1.6" }}>
+                                Starting small 15 years ago with the aim to showcase the hidden beauty of this blessed land, Sri Lanka, CHK Ceylon has today become a leading travel guide service trusted by thousands of local and foreign tourists.
                             </p>
                         </div>
                         <div style={{ position: "relative" }}>
@@ -118,31 +121,90 @@ export default function AboutUs() {
                     </div>
 
                     <div className="reveal" style={{ marginTop: "120px" }}>
-                        <h2 style={{ fontSize: "3rem", textAlign: "center", marginBottom: "60px" }}>Why Choose Us?</h2>
-                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: "30px" }}>
-                            {[
-                                { title: "Local Expertise", desc: "Our guides are locals with deep knowledge of every corner of Sri Lanka.", icon: "fa-map-location-dot" },
-                                { title: "Tailored Packages", desc: "Every traveler is unique. We customize our packages to match your preferences.", icon: "fa-sliders" },
-                                { title: "24/7 Support", desc: "We are always available to assist you during your journey for peace of mind.", icon: "fa-headset" }
-                            ].map((item, i) => (
-                                <div
-                                    key={i}
-                                    style={{
-                                        padding: "40px",
-                                        background: "rgba(255,255,255,0.05)",
-                                        backdropFilter: "blur(10px)",
-                                        borderRadius: "20px",
-                                        border: "1px solid rgba(255,255,255,0.1)",
-                                        textAlign: "center",
-                                        transition: "0.3s"
-                                    }}
-                                    className="feature-card"
-                                >
-                                    <i className={`fas ${item.icon}`} style={{ fontSize: "3rem", color: "var(--neon-yellow)", marginBottom: "25px", textShadow: "var(--neon-glow)" }}></i>
-                                    <h3 style={{ fontSize: "1.5rem", marginBottom: "15px" }}>{item.title}</h3>
-                                    <p style={{ color: "rgba(255,255,255,0.7)" }}>{item.desc}</p>
+                        <div className="reveal" style={{ marginTop: "100px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "60px", alignItems: "center" }}>
+                            <div style={{ order: 2 }}>
+                                <h2 style={{ fontSize: "2.5rem", marginBottom: "30px", color: "var(--neon-yellow)" }}>Why Our 15 Years Matter</h2>
+                                <p style={{ fontSize: "1.1rem", marginBottom: "20px", color: "rgba(255,255,255,0.8)", lineHeight: "1.6" }}>
+                                    Over the past decade and a half, we learned not just road maps. We understood the heartbeat of tourists coming from different countries and cultures. What they truly expect is freedom, safety, and hospitality.
+                                </p>
+                                <ul style={{ listStyle: "none", padding: 0, margin: "30px 0" }}>
+                                    {[
+                                        { t: "We are not just Guides", d: "We are your travel companion." },
+                                        { t: "We are not just vehicle providers", d: "We ensure your comfortable travel." },
+                                        { t: "We are not just hotel bookers", d: "We make your rest meaningful." }
+                                    ].map((item, idx) => (
+                                        <li key={idx} style={{ marginBottom: "15px", display: "flex", alignItems: "flex-start", gap: "15px" }}>
+                                            <i className="fas fa-check-circle" style={{ color: "var(--neon-yellow)", marginTop: "5px" }}></i>
+                                            <div>
+                                                <strong style={{ display: "block", color: "var(--neon-yellow)" }}>{item.t}</strong>
+                                                <span style={{ color: "rgba(255,255,255,0.7)" }}>{item.d}</span>
+                                            </div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <div style={{ order: 1 }}>
+                                <div style={{ position: "relative" }}>
+                                    <img
+                                        src="/famous_places/sigiriya.png"
+                                        alt="Sigiriya"
+                                        style={{
+                                            width: "100%",
+                                            aspectRatio: "1/1",
+                                            objectFit: "cover",
+                                            borderRadius: "20px",
+                                            border: "2px solid var(--neon-yellow)",
+                                            boxShadow: "var(--neon-glow)"
+                                        }}
+                                    />
+                                    <div className="bg-blob" style={{ bottom: "-30px", left: "-30px", width: "200px", height: "200px" }}></div>
                                 </div>
-                            ))}
+                            </div>
+                        </div>
+
+                        <div className="reveal" style={{ marginTop: "120px", textAlign: "center", maxWidth: "1000px", margin: "120px auto 0" }}>
+                            <h2 style={{ fontSize: "3rem", marginBottom: "40px", color: "var(--neon-yellow)" }}>The Unique Experience</h2>
+                            <p style={{ fontSize: "1.2rem", lineHeight: "1.8", color: "rgba(255,255,255,0.9)" }}>
+                                Whether it's the historical grandeur of Sigiriya, the misty mountains of Ella, the charm of wild animals in Yala National Park, or the golden sands of the southern coast... wherever it may be, our expert guides are capable of bringing you close to the <strong>"true Sri Lankan identity"</strong> that an ordinary tourist may not see or experience.
+                            </p>
+                            <p style={{ fontSize: "1.2rem", marginTop: "30px", color: "var(--neon-yellow)", fontWeight: "600" }}>
+                                With 15 years of expertise and experience perfected in the field, we will flexibly plan our services to suit your preferences and budget (Customized Tours).
+                            </p>
+                        </div>
+
+                        <div className="reveal" style={{
+                            marginTop: "120px",
+                            padding: "80px 40px",
+                            background: "linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('/dest_hero_bg.png')",
+                            backgroundSize: "cover",
+                            backgroundPosition: "center",
+                            borderRadius: "30px",
+                            textAlign: "center",
+                            border: "1px solid var(--neon-yellow)",
+                            boxShadow: "var(--neon-glow)"
+                        }}>
+                            <h2 style={{ fontSize: "2.5rem", marginBottom: "30px" }}>Our Promise</h2>
+                            <p style={{ fontSize: "1.5rem", maxWidth: "800px", margin: "0 auto 40px", lineHeight: "1.5" }}>
+                                "You come to CHK Ceylon as a tourist. But you return as a member of our family, carrying beautiful memories of Sri Lanka in your heart."
+                            </p>
+                            <a
+                                href="https://wa.me/94776981971"
+                                target="_blank"
+                                className="btn btn-primary"
+                                style={{
+                                    padding: "15px 40px",
+                                    fontSize: "1.2rem",
+                                    background: "var(--neon-yellow)",
+                                    color: "#000",
+                                    fontWeight: "bold",
+                                    borderRadius: "50px",
+                                    textDecoration: "none",
+                                    display: "inline-block",
+                                    transition: "0.3s"
+                                }}
+                            >
+                                Start Your Journey <i className="fab fa-whatsapp" style={{ marginLeft: "10px" }}></i>
+                            </a>
                         </div>
                     </div>
 
@@ -153,8 +215,8 @@ export default function AboutUs() {
                             <div style={{ textAlign: "center" }}>
                                 <div style={{ position: "relative", maxWidth: "250px", margin: "0 auto 30px" }}>
                                     <img
-                                        src="/guide.jpeg"
-                                        alt="Shashika Lekamarachchi"
+                                        src="/team/guide.jpeg"
+                                        alt="Dilan Lekamarachchi"
                                         style={{
                                             width: "100%",
                                             aspectRatio: "1/1",
@@ -171,14 +233,14 @@ export default function AboutUs() {
                                         style={{ top: "-30px", left: "-30px", width: "250px", height: "250px", opacity: 0.3 }}
                                     ></div>
                                 </div>
-                                <h3 style={{ fontSize: "2rem", marginBottom: "10px" }}>Shashika Lekamarachchi</h3>
-                                <p style={{ fontSize: "1.2rem", color: "var(--neon-yellow)", marginBottom: "20px" }}>Tour Guide</p>
+                                <h3 style={{ fontSize: "2rem", marginBottom: "10px" }}>DilanLekamarachchi</h3>
+                                <p style={{ fontSize: "1.2rem", color: "var(--neon-yellow)", marginBottom: "20px" }}>CEO</p>
                             </div>
 
                             <div style={{ textAlign: "center" }}>
                                 <div style={{ position: "relative", maxWidth: "250px", margin: "0 auto 30px" }}>
                                     <img
-                                        src="/assistenmanger.jpeg"
+                                        src="/team/assistenmanger.jpeg"
                                         alt="H.G.K Chamathka"
                                         style={{
                                             width: "100%",
@@ -197,13 +259,13 @@ export default function AboutUs() {
                                     ></div>
                                 </div>
                                 <h3 style={{ fontSize: "2rem", marginBottom: "10px" }}>H.G.K Chamathka</h3>
-                                <p style={{ fontSize: "1.2rem", color: "var(--neon-yellow)", marginBottom: "20px" }}>Assistant Manager</p>
+                                <p style={{ fontSize: "1.2rem", color: "var(--neon-yellow)", marginBottom: "20px" }}>Finacial Manager</p>
                             </div>
 
                             <div style={{ textAlign: "center" }}>
                                 <div style={{ position: "relative", maxWidth: "250px", margin: "0 auto 30px" }}>
                                     <img
-                                        src="/touroperator.jpeg"
+                                        src="/team/touroperator.jpeg"
                                         alt="L.A.U.Amali"
                                         style={{
                                             width: "100%",
@@ -223,6 +285,30 @@ export default function AboutUs() {
                                 </div>
                                 <h3 style={{ fontSize: "2rem", marginBottom: "10px" }}>L.A.U.Amali</h3>
                                 <p style={{ fontSize: "1.2rem", color: "var(--neon-yellow)", marginBottom: "20px" }}>Tour Operator</p>
+                            </div>
+                            <div style={{ textAlign: "center" }}>
+                                <div style={{ position: "relative", maxWidth: "250px", margin: "0 auto 30px" }}>
+                                    <img
+                                        src="/team/NPPUmesha.jpeg"
+                                        alt="N.P.P Umesha"
+                                        style={{
+                                            width: "100%",
+                                            aspectRatio: "1/1",
+                                            objectFit: "cover",
+                                            objectPosition: "top center",
+                                            display: "block",
+                                            borderRadius: "50%",
+                                            border: "4px solid var(--neon-yellow)",
+                                            boxShadow: "var(--neon-glow)"
+                                        }}
+                                    />
+                                    <div
+                                        className="bg-blob"
+                                        style={{ top: "-30px", left: "50%", transform: "translateX(-50%)", width: "250px", height: "250px", opacity: 0.3 }}
+                                    ></div>
+                                </div>
+                                <h3 style={{ fontSize: "2rem", marginBottom: "10px" }}>N.P.P Umesha</h3>
+                                <p style={{ fontSize: "1.2rem", color: "var(--neon-yellow)", marginBottom: "20px" }}></p>
                             </div>
 
                         </div>

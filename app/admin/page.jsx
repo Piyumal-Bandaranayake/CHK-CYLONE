@@ -12,13 +12,14 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('packages');
   const [message, setMessage] = useState({ type: '', text: '' });
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(typeof window !== 'undefined' ? window.innerWidth : 1200);
+  const [windowWidth, setWindowWidth] = useState(1200);
   
   const [authenticated, setAuthenticated] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
+      setWindowWidth(window.innerWidth);
       const handleResize = () => setWindowWidth(window.innerWidth);
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
@@ -34,6 +35,10 @@ export default function AdminDashboard() {
 
   const [hotelForm, setHotelForm] = useState({
     name: '', location: '', image: '', tag: '', description: '', website_link: ''
+  });
+
+  const [galleryForm, setGalleryForm] = useState({
+    country: '', image: ''
   });
 
   const [packageReset, setPackageReset] = useState(0);
@@ -54,11 +59,73 @@ export default function AdminDashboard() {
 
 
   // Form States (Cont.)
-  const [galleryForm, setGalleryForm] = useState({
-    country: '', image: ''
-  });
-
   const [galleryReset, setGalleryReset] = useState(0);
+
+  const [famousPlaceForm, setFamousPlaceForm] = useState({
+    name: '', description: '', image: '', province_id: '', district_id: ''
+  });
+  const [famousPlaceFile, setFamousPlaceFile] = useState(null);
+  const [famousPlaceReset, setFamousPlaceReset] = useState(0);
+  const [famousPlaces, setFamousPlaces] = useState([]);
+  const [availableDistricts, setAvailableDistricts] = useState([]);
+
+  const PROVINCES = [
+    { id: 'western', name: 'Western Province' },
+    { id: 'central', name: 'Central Province' },
+    { id: 'southern', name: 'Southern Province' },
+    { id: 'uva', name: 'Uva Province' },
+    { id: 'sabaragamuwa', name: 'Sabaragamuwa Province' },
+    { id: 'nwp', name: 'North Western Province' },
+    { id: 'ncp', name: 'North Central Province' },
+    { id: 'ep', name: 'Eastern Province' },
+    { id: 'np', name: 'Northern Province' }
+  ];
+
+  const DISTRICTS_MAP = {
+    western: [
+      { id: 'colombo', name: 'Colombo' },
+      { id: 'gampaha', name: 'Gampaha' },
+      { id: 'kalutara', name: 'Kalutara' }
+    ],
+    central: [
+      { id: 'kandy', name: 'Kandy' },
+      { id: 'matale', name: 'Matale' },
+      { id: 'nuwara-eliya', name: 'Nuwara Eliya' }
+    ],
+    southern: [
+      { id: 'galle', name: 'Galle' },
+      { id: 'matara', name: 'Matara' },
+      { id: 'hambantota', name: 'Hambantota' }
+    ],
+    uva: [
+      { id: 'badulla', name: 'Badulla' },
+      { id: 'monaragala', name: 'Monaragala' }
+    ],
+    sabaragamuwa: [
+      { id: 'kegalle', name: 'Kegalle' },
+      { id: 'ratnapura', name: 'Ratnapura' }
+    ],
+    nwp: [
+      { id: 'kurunegala', name: 'Kurunegala' },
+      { id: 'puttalam', name: 'Puttalam' }
+    ],
+    ncp: [
+      { id: 'anuradhapura', name: 'Anuradhapura' },
+      { id: 'polonnaruwa', name: 'Polonnaruwa' }
+    ],
+    ep: [
+      { id: 'trincomalee', name: 'Trincomalee' },
+      { id: 'batticaloa', name: 'Batticaloa' },
+      { id: 'ampara', name: 'Ampara' }
+    ],
+    np: [
+      { id: 'jaffna', name: 'Jaffna' },
+      { id: 'kilinochchi', name: 'Kilinochchi' },
+      { id: 'mannar', name: 'Mannar' },
+      { id: 'mullaitivu', name: 'Mullaitivu' },
+      { id: 'vavuniya', name: 'Vavuniya' }
+    ]
+  };
 
   useEffect(() => {
     // Check if authenticated
@@ -74,6 +141,14 @@ export default function AdminDashboard() {
     fetchData();
   }, [router]);
 
+  useEffect(() => {
+    if (famousPlaceForm.province_id) {
+      setAvailableDistricts(DISTRICTS_MAP[famousPlaceForm.province_id] || []);
+    } else {
+      setAvailableDistricts([]);
+    }
+  }, [famousPlaceForm.province_id]);
+
   const fetchData = async () => {
     try {
       const { data: pkgData } = await supabase.from('packages').select('*').order('name');
@@ -87,6 +162,9 @@ export default function AdminDashboard() {
 
       const { data: revData } = await supabase.from('reviews').select('*').order('created_at', { ascending: false });
       if (revData) setReviews(revData);
+
+      const { data: famData } = await supabase.from('famous_places').select('*').order('created_at', { ascending: false });
+      if (famData) setFamousPlaces(famData);
     } catch (err) {
       console.error('Error fetching data:', err);
     }
@@ -133,6 +211,7 @@ export default function AdminDashboard() {
               if (type === 'packages') setPackageForm({ ...packageForm, image: '' });
               if (type === 'hotels') setHotelForm({ ...hotelForm, image: '' });
               if (type === 'gallery') setGalleryForm({ ...galleryForm, image: '' });
+              if (type === 'famous') setFamousPlaceForm({ ...famousPlaceForm, image: '' });
             }}
             style={{ position: 'absolute', top: '-10px', right: '-10px', background: '#ff4d4d', color: '#fff', border: 'none', borderRadius: '50%', width: '25px', height: '25px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           >
@@ -154,6 +233,7 @@ export default function AdminDashboard() {
               if (type === 'packages') setPackageForm({ ...packageForm, image: '' });
               if (type === 'hotels') setHotelForm({ ...hotelForm, image: '' });
               if (type === 'gallery') setGalleryForm({ ...galleryForm, image: '' });
+              if (type === 'famous') setFamousPlaceForm({ ...famousPlaceForm, image: '' });
             }}
             style={{ position: 'absolute', top: '-10px', right: '-10px', background: '#ff4d4d', color: '#fff', border: 'none', borderRadius: '50%', width: '25px', height: '25px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           >
@@ -177,6 +257,7 @@ export default function AdminDashboard() {
                 if (type === 'packages') setPackageFile(null);
                 if (type === 'hotels') setHotelFile(null);
                 if (type === 'gallery') setGalleryFile(null);
+                if (type === 'famous') setFamousPlaceFile(null);
               }}
               style={{ position: 'absolute', top: '-10px', right: '-10px', background: '#ff4d4d', color: '#fff', border: 'none', borderRadius: '50%', width: '25px', height: '25px', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
@@ -297,6 +378,39 @@ export default function AdminDashboard() {
     }
   };
 
+  const handleFamousPlaceSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      let imageUrl = famousPlaceForm.image;
+      if (famousPlaceFile) {
+        imageUrl = await uploadImage(famousPlaceFile);
+      } else if (!isEditing) {
+        throw new Error("Please upload an image.");
+      }
+
+      const { id, created_at, ...cleanFormData } = famousPlaceForm;
+      const payload = { ...cleanFormData, image: imageUrl };
+      
+      if (isEditing) {
+        const { error } = await supabase.from('famous_places').update(payload).eq('id', isEditing);
+        if (error) throw error;
+        showMessage('success', 'Famous Place updated successfully!');
+      } else {
+        const { error } = await supabase.from('famous_places').insert([payload]);
+        if (error) throw error;
+        showMessage('success', 'Famous Place added successfully!');
+      }
+
+      setFamousPlaceForm({ name: '', description: '', image: '', province_id: '', district_id: '' });
+      setFamousPlaceFile(null);
+      setFamousPlaceReset(prev => prev + 1);
+      setIsEditing(null);
+      fetchData();
+    } catch (error) {
+      showMessage('error', error.message);
+    }
+  };
+
   const handleDelete = async (table, id) => {
     if (!confirm('Are you sure you want to delete this item?')) return;
     try {
@@ -315,6 +429,7 @@ export default function AdminDashboard() {
     if (type === 'packages') setPackageForm({ ...item, features: item.features.join(', ') });
     if (type === 'hotels') setHotelForm({ ...item, website_link: item.website_link || '' });
     if (type === 'gallery') setGalleryForm({ ...item });
+    if (type === 'famous') setFamousPlaceForm({ ...item });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -405,6 +520,7 @@ export default function AdminDashboard() {
             {[
               { id: 'packages', label: 'Tour Packages', icon: 'fa-suitcase-rolling', color: 'var(--neon-green)' },
               { id: 'hotels', label: 'Hotels', icon: 'fa-hotel', color: 'var(--neon-yellow)' },
+              { id: 'famous', label: 'Famous Places', icon: 'fa-map-marked-alt', color: 'var(--neon-cyan)' },
               { id: 'gallery', label: 'Travel Gallery', icon: 'fa-images', color: 'var(--neon-blue)' },
               { id: 'reviews', label: 'Guest Reviews', icon: 'fa-star', color: '#ffc107' }
             ].map(item => (
@@ -470,7 +586,7 @@ export default function AdminDashboard() {
         }}>
           <div>
             <h1 style={{ fontSize: '2rem', fontWeight: '700', color: '#fff', marginBottom: '5px' }}>
-              {activeTab === 'packages' ? 'Manage Packages' : activeTab === 'hotels' ? 'Manage Hotels' : 'Manage Gallery'}
+              {activeTab === 'packages' ? 'Manage Packages' : activeTab === 'hotels' ? 'Manage Hotels' : activeTab === 'famous' ? 'Manage Famous Places' : 'Manage Gallery'}
             </h1>
             <p style={{ color: 'rgba(255,255,255,0.5)' }}>Add and update your travel offerings.</p>
           </div>
@@ -699,6 +815,105 @@ export default function AdminDashboard() {
             </div>
           )}
 
+          {/* Famous Places Form */}
+          {activeTab === 'famous' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+              <form onSubmit={handleFamousPlaceSubmit} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '40px' }}>
+                <h2 style={{ marginBottom: '30px', color: 'var(--neon-cyan)', display: 'flex', alignItems: 'center', gap: '15px' }}>
+                  <i className={`fas ${isEditing ? 'fa-edit' : 'fa-plus-circle'}`}></i> {isEditing ? 'Edit Famous Place' : 'Add New Famous Place'}
+                </h2>
+                
+                <div className="admin-form-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Select Province</label>
+                    <select 
+                      style={inputStyle} 
+                      value={famousPlaceForm.province_id} 
+                      onChange={e => setFamousPlaceForm({...famousPlaceForm, province_id: e.target.value, district_id: ''})} 
+                      required
+                    >
+                      <option value="">Choose Province...</option>
+                      {PROVINCES.map(p => (
+                        <option key={p.id} value={p.id}>{p.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Select District</label>
+                    <select 
+                      style={inputStyle} 
+                      value={famousPlaceForm.district_id} 
+                      onChange={e => setFamousPlaceForm({...famousPlaceForm, district_id: e.target.value})} 
+                      required
+                      disabled={!famousPlaceForm.province_id}
+                    >
+                      <option value="">Choose District...</option>
+                      {availableDistricts.map(d => (
+                        <option key={d.id} value={d.id}>{d.name}</option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+
+                <div style={{ marginBottom: '20px' }}>
+                  <label style={{ display: 'block', marginBottom: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Place Name</label>
+                  <input type="text" style={inputStyle} value={famousPlaceForm.name} onChange={e => setFamousPlaceForm({...famousPlaceForm, name: e.target.value})} required placeholder="e.g. Sigiriya Rock Fortress" />
+                </div>
+
+                <div style={{ marginBottom: '20px' }}>
+                  <label style={{ display: 'block', marginBottom: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Description</label>
+                  <textarea 
+                    style={{...inputStyle, height: '150px', resize: 'vertical'}} 
+                    value={famousPlaceForm.description} 
+                    onChange={e => setFamousPlaceForm({...famousPlaceForm, description: e.target.value})} 
+                    required 
+                    placeholder="Describe this famous place in detail..." 
+                  />
+                </div>
+
+                <div style={{ marginBottom: '30px', padding: '20px', borderRadius: '12px', border: '2px dashed rgba(255,255,255,0.1)', background: 'rgba(255,255,255,0.02)' }}>
+                  <label style={{ display: 'block', marginBottom: '15px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>{isEditing ? 'Change Photo (Optional)' : 'Upload Place Photo'}</label>
+                  <input type="file" accept="image/*" style={{ ...inputStyle, marginBottom: '0', background: 'transparent', border: 'none', padding: 0 }} onChange={e => setFamousPlaceFile(e.target.files[0])} key={`famous-${famousPlaceReset}`} required={!isEditing && !famousPlaceForm.image} />
+                  {renderImagePreview(famousPlaceFile || (isEditing && famousPlaceForm.image ? { name: 'Current Image', type: 'image/url', preview: famousPlaceForm.image } : null), 'famous')}
+                </div>
+
+                <div style={{ display: 'flex', gap: '15px' }}>
+                  {isEditing && (
+                    <button type="button" onClick={() => { setIsEditing(null); setFamousPlaceForm({ name: '', description: '', image: '', province_id: '', district_id: '' }); }} style={{ flex: 1, padding: '15px', borderRadius: '8px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', cursor: 'pointer' }}>Cancel</button>
+                  )}
+                  <button type="submit" className="btn btn-primary" style={{ flex: 2, background: 'var(--neon-yellow)', color: '#000', fontWeight: '900', height: '55px', fontSize: '1.1rem' }}>{isEditing ? 'UPDATE PLACE' : 'SAVE FAMOUS PLACE'}</button>
+                </div>
+              </form>
+
+              <div>
+                <h3 style={{ marginBottom: '20px', fontSize: '1.5rem' }}>Famous Places Database ({famousPlaces.length})</h3>
+                <div className="admin-data-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
+                  {famousPlaces.map(place => (
+                    <div key={place.id} style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '15px', padding: '15px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                      <img 
+                        src={place.image} 
+                        alt={place.name} 
+                        style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '10px', marginBottom: '15px', cursor: 'pointer' }} 
+                        onClick={() => setSelectedImage(place.image)}
+                      />
+                      <h4 style={{ marginBottom: '5px', color: 'var(--neon-yellow)' }}>{place.name}</h4>
+                      <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.4)', marginBottom: '5px', textTransform: 'capitalize' }}>
+                        <i className="fas fa-map-marker-alt" style={{ marginRight: '5px', color: 'var(--neon-yellow)' }}></i> {place.province_id.replace('-', ' ')} / {place.district_id.replace('-', ' ')}
+                      </p>
+                      <p style={{ fontSize: '0.85rem', color: 'rgba(255,255,255,0.7)', marginBottom: '15px', display: '-webkit-box', WebkitLineClamp: '2', WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
+                        {place.description}
+                      </p>
+                      <div style={{ display: 'flex', gap: '10px' }}>
+                        <button onClick={() => startEdit('famous', place)} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(255, 240, 31, 0.1)', color: 'var(--neon-yellow)', border: '1px solid var(--neon-yellow)', cursor: 'pointer' }}><i className="fas fa-edit"></i> Edit</button>
+                        <button onClick={() => handleDelete('famous_places', place.id)} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(255, 77, 77, 0.1)', color: '#ff4d4d', border: '1px solid #ff4d4d', cursor: 'pointer' }}><i className="fas fa-trash"></i> Delete</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Reviews Management */}
           {activeTab === 'reviews' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '30px' }}>
@@ -819,6 +1034,20 @@ export default function AdminDashboard() {
         </div>
       </div>
       <ImageLightbox src={selectedImage} onClose={() => setSelectedImage(null)} />
+      <style>{`
+        select {
+          color-scheme: dark;
+        }
+        select option {
+          background-color: #0a0a0a;
+          color: #fff;
+          padding: 10px;
+        }
+        select:focus {
+          border-color: var(--neon-cyan) !important;
+          box-shadow: 0 0 10px rgba(3, 233, 244, 0.2);
+        }
+      `}</style>
     </div>
   );
 }

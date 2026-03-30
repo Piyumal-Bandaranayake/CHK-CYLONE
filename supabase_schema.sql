@@ -23,8 +23,10 @@ CREATE TABLE districts (
 
 CREATE TABLE famous_places (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    district_id TEXT NOT NULL REFERENCES districts(id) ON DELETE CASCADE,
+    province_id TEXT NOT NULL,
+    district_id TEXT NOT NULL,
     name TEXT NOT NULL,
+    description TEXT,
     image TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );

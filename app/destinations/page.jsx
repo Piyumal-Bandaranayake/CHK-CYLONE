@@ -1,29 +1,56 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../../components/Navbar';
+import Footer from '../../components/Footer';
 import DistrictPlaces from '../../components/DistrictPlaces';
-import { famousPlacesData } from '../../data/famousPlaces';
 import { provincesData } from '../../data/provincesData';
+import { supabase } from '../../lib/supabase';
 
 export default function Destinations() {
   const [selectedProvinceId, setSelectedProvinceId] = useState(null);
   const [selectedDistrictId, setSelectedDistrictId] = useState(null);
+  const [dynamicPlaces, setDynamicPlaces] = useState([]);
 
-  // Use static data directly
+  // Fetch dynamic famous places when district changes
+  useEffect(() => {
+    if (selectedDistrictId) {
+      fetchDynamicPlaces(selectedDistrictId);
+    }
+  }, [selectedDistrictId]);
+
+  const fetchDynamicPlaces = async (districtId) => {
+    try {
+      const { data, error } = await supabase
+        .from('famous_places')
+        .select('*')
+        .eq('district_id', districtId);
+      
+      if (error) throw error;
+      setDynamicPlaces(data || []);
+    } catch (err) {
+      console.error('Error fetching dynamic places:', err);
+    }
+  };
+
+  // Use dynamic database data ONLY
   const dbProvinces = provincesData;
-  const dbFamousPlaces = famousPlacesData;
-
   const selectedProvince = dbProvinces.find(p => p.id === selectedProvinceId);
-  const selectedDistrictData = selectedDistrictId ? dbFamousPlaces[selectedDistrictId] : null;
+
+  const districtData = selectedDistrictId ? {
+    name: selectedProvince?.districts.find(d => d.id === selectedDistrictId)?.name || 'District',
+    places: dynamicPlaces
+  } : null;
 
   const handleDistrictBack = () => {
     setSelectedDistrictId(null);
+    setDynamicPlaces([]);
   };
 
   const handleProvinceBack = () => {
     setSelectedProvinceId(null);
     setSelectedDistrictId(null);
+    setDynamicPlaces([]);
   };
 
   return (
@@ -46,7 +73,7 @@ export default function Destinations() {
         <div style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%)', zIndex: 1 }}></div>
         <div className="hero-content" style={{ zIndex: 10, padding: '0 20px', textAlign: 'center', maxWidth: '100%', position: 'relative' }}>
             <h1 className="reveal active" style={{ fontSize: 'clamp(2.5rem, 8vw, 5rem)', textShadow: '2px 2px 15px rgba(0, 0, 0, 0.9), var(--neon-glow)' }}>
-              {selectedDistrictData ? selectedDistrictData.name : (selectedProvince ? selectedProvince.name : 'Explore Destination')}
+              {districtData ? districtData.name : (selectedProvince ? selectedProvince.name : 'Explore Destination')}
             </h1>
         </div>
       </section>
@@ -59,9 +86,9 @@ export default function Destinations() {
 
       <div style={{ padding: '60px 20px 100px 20px', position: 'relative', zIndex: 10 }} id="destinations-grid" className="container">
         
-        {selectedDistrictData ? (
+        {districtData ? (
           <DistrictPlaces 
-            districtData={selectedDistrictData} 
+            districtData={districtData} 
             onBack={handleDistrictBack} 
           />
         ) : (
@@ -141,6 +168,7 @@ export default function Destinations() {
           </>
         )}
       </div>
+      <Footer />
     </div>
   );
 }
