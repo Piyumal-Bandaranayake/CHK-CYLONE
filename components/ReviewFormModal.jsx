@@ -7,6 +7,7 @@ const ReviewFormModal = ({ onClose }) => {
     const [name, setName] = useState('');
     const [rating, setRating] = useState(5);
     const [message, setMessage] = useState('');
+    const [country, setCountry] = useState('');
     const [images, setImages] = useState([]);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState(null); // 'success', 'error'
@@ -59,6 +60,7 @@ const ReviewFormModal = ({ onClose }) => {
                 .insert([
                     {
                         name,
+                        country,
                         rating,
                         message,
                         images: uploadedImageUrls,
@@ -112,6 +114,18 @@ const ReviewFormModal = ({ onClose }) => {
                                     placeholder="Enter your name"
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
+                                    required
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label htmlFor="country">Country</label>
+                                <input 
+                                    id="country"
+                                    type="text" 
+                                    placeholder="e.g. United Kingdom"
+                                    value={country}
+                                    onChange={(e) => setCountry(e.target.value)}
                                     required
                                 />
                             </div>
