@@ -263,7 +263,7 @@ export default function AboutUs() {
                             <div style={{ textAlign: "center" }}>
                                 <div style={{ position: "relative", maxWidth: "250px", margin: "0 auto 30px" }}>
                                     <img
-                                        src="/team/touroperator.jpeg"
+                                        src="/team/NPPUmesha.jpeg"
                                         alt="L.A.U.Amali"
                                         style={{
                                             width: "100%",
@@ -284,30 +284,7 @@ export default function AboutUs() {
                                 <h3 style={{ fontSize: "2rem", marginBottom: "10px" }}>L.A.U.Amali</h3>
                                 <p style={{ fontSize: "1.2rem", color: "var(--neon-yellow)", marginBottom: "20px" }}>Tour Operator</p>
                             </div>
-                            <div style={{ textAlign: "center" }}>
-                                <div style={{ position: "relative", maxWidth: "250px", margin: "0 auto 30px" }}>
-                                    <img
-                                        src="/team/NPPUmesha.jpeg"
-                                        alt="N.P.P Umesha"
-                                        style={{
-                                            width: "100%",
-                                            aspectRatio: "1/1",
-                                            objectFit: "cover",
-                                            objectPosition: "top center",
-                                            display: "block",
-                                            borderRadius: "50%",
-                                            border: "4px solid var(--neon-yellow)",
-                                            boxShadow: "var(--neon-glow)"
-                                        }}
-                                    />
-                                    <div
-                                        className="bg-blob"
-                                        style={{ top: "-30px", left: "50%", transform: "translateX(-50%)", width: "250px", height: "250px", opacity: 0.3 }}
-                                    ></div>
-                                </div>
-                                <h3 style={{ fontSize: "2rem", marginBottom: "10px" }}>N.P.P Umesha</h3>
-                                <p style={{ fontSize: "1.2rem", color: "var(--neon-yellow)", marginBottom: "20px" }}></p>
-                            </div>
+
 
                         </div>
                     </div>
