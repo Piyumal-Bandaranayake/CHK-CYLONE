@@ -363,7 +363,7 @@ export default function AboutUs() {
                                 scrolling="no"
                                 marginHeight="0"
                                 marginWidth="0"
-                                src="https://maps.google.com/maps?q=No,+4/6,+Malwathuhiripitiya,+Buthpitiya,+Gampaha,+Sri+Lanka&output=embed"
+                                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3959.604262086843!2d80.06560427499775!3d7.05569909294667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zN8KwMDMnMjAuNSJOIDgwwrAwNCcwNS41IkU!5e0!3m2!1sen!2slk!4v1775662380271!5m2!1sen!2slk"
                                 title="CHK Ceylon Tours Location"
                                 style={{ border: 0, filter: "invert(90%) hue-rotate(180deg)" }}
                                 allowFullScreen=""
