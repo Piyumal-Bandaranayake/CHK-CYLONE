@@ -26,54 +26,6 @@ const GuestMemorySlider = () => {
                             alt={img.country} 
                             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                         />
-                        <div className="card-overlay" style={{ 
-                            position: 'absolute', 
-                            inset: 0, 
-                            background: 'linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.95))' 
-                        }}></div>
-                        
-                        <div className="card-info" style={{ 
-                            position: 'absolute', 
-                            bottom: '30px', 
-                            left: '30px', 
-                            right: '30px' 
-                        }}>
-                            <h3 style={{ 
-                                color: 'var(--neon-yellow)', 
-                                fontSize: '1.8rem', 
-                                fontWeight: '900', 
-                                marginBottom: '10px',
-                                textTransform: 'lowercase',
-                                fontFamily: '"Outfit", sans-serif'
-                            }}>{img.country}</h3>
-                            
-                            <div style={{ 
-                                display: 'flex', 
-                                alignItems: 'center', 
-                                gap: '10px', 
-                                color: 'rgba(255,255,255,0.8)', 
-                                fontSize: '0.9rem',
-                                fontWeight: '600',
-                                marginBottom: '25px'
-                            }}>
-                                <i className="fas fa-map-marker-alt" style={{ color: 'var(--neon-green)' }}></i>
-                                Visiting Sri Lanka
-                            </div>
-                            
-                            <div className="explore-btn" style={{ 
-                                display: 'inline-block',
-                                padding: '12px 30px',
-                                background: 'rgba(255,255,255,0.05)',
-                                backdropFilter: 'blur(10px)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '15px',
-                                color: '#fff',
-                                fontSize: '0.8rem',
-                                fontWeight: '800',
-                                letterSpacing: '1px',
-                                transition: 'all 0.3s ease'
-                            }}>EXPLORE</div>
-                        </div>
                     </div>
                 ))}
             </div>
@@ -90,12 +42,6 @@ const GuestMemorySlider = () => {
                     transform: scale(1.05) translateY(-10px);
                     border-color: var(--neon-yellow) !important;
                     box-shadow: 0 20px 40px rgba(255, 240, 31, 0.15);
-                }
-                .guest-memory-card:hover .explore-btn {
-                    background: var(--neon-yellow) !important;
-                    color: #000 !important;
-                    border-color: var(--neon-yellow) !important;
-                    box-shadow: 0 0 20px var(--neon-yellow);
                 }
                 @media (max-width: 768px) {
                     .guest-memory-card {
