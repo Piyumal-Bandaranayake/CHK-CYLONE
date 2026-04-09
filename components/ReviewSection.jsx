@@ -5,6 +5,8 @@ import { supabase } from '../lib/supabase';
 import ReviewCard from './ReviewCard';
 import Link from 'next/link';
 
+import GuestMemorySlider from './GuestMemorySlider';
+
 const ReviewSection = () => {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -40,6 +42,10 @@ const ReviewSection = () => {
                     </p>
                 </div>
 
+                <div className="reveal" style={{ marginBottom: '100px' }}>
+                    <GuestMemorySlider />
+                </div>
+
                 <div className="reviews-carousel reveal">
                     {reviews.slice(0, 3).map((review) => (
                         <div key={review.id} className="carousel-item">
@@ -73,9 +79,6 @@ const ReviewSection = () => {
             <style jsx>{`
                 .review-section {
                     background: #000000;
-                    background-image: 
-                        radial-gradient(at 0% 0%, rgba(255, 193, 7, 0.1) 0px, transparent 50%),
-                        radial-gradient(at 100% 100%, rgba(57, 255, 20, 0.1) 0px, transparent 50%);
                     position: relative;
                     overflow: hidden;
                     padding-bottom: 200px;

@@ -252,17 +252,17 @@ nav.scrolled .container {
 .logo-chk {
     font-size: 3.5rem;
     font-weight: 950;
-    color: var(--neon-yellow);
+    color: #000;
     letter-spacing: -1px;
     line-height: 0.9;
-    text-shadow: 0 0 20px rgba(255, 240, 31, 0.4);
+    text-shadow: 0 0 15px rgba(255, 240, 31, 0.5);
 }
 
 .logo-ceylon {
     font-size: 1.8rem;
     font-weight: 700;
-    color: var(--neon-yellow);
-    text-shadow: 0 0 15px rgba(255, 240, 31, 0.3);
+    color: #000;
+    text-shadow: 0 0 10px rgba(255, 240, 31, 0.4);
 }
 
 .logo-tagline {
