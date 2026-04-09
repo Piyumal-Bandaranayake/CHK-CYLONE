@@ -30,7 +30,7 @@ export default function AdminDashboard() {
 
   // Form States
   const [packageForm, setPackageForm] = useState({
-    name: '', duration: '', price: '', image: '', tag: '', color: 'var(--neon-green)', features: ''
+    name: '', duration: '', price: '', image: '', tag: '', color: 'var(--neon-yellow)', features: ''
   });
 
   const [hotelForm, setHotelForm] = useState({
@@ -263,7 +263,7 @@ export default function AdminDashboard() {
             >
               <i className="fas fa-times" style={{ fontSize: '0.8rem' }}></i>
             </button>
-            <p style={{ fontSize: '0.75rem', color: 'var(--neon-green)', marginTop: '5px' }}>New Image Selected</p>
+            <p style={{ fontSize: '0.75rem', color: 'var(--neon-yellow)', marginTop: '5px' }}>New Image Selected</p>
           </div>
         );
       } catch (e) {
@@ -302,7 +302,7 @@ export default function AdminDashboard() {
         showMessage('success', 'Tour Package added successfully!');
       }
 
-      setPackageForm({ name: '', duration: '', price: '', tag: '', color: 'var(--neon-green)', features: '' });
+      setPackageForm({ name: '', duration: '', price: '', tag: '', color: 'var(--neon-yellow)', features: '' });
       setPackageFile(null);
       setPackageReset(prev => prev + 1);
       setIsEditing(null);
@@ -518,10 +518,10 @@ export default function AdminDashboard() {
           
           <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
             {[
-              { id: 'packages', label: 'Tour Packages', icon: 'fa-suitcase-rolling', color: 'var(--neon-green)' },
+              { id: 'packages', label: 'Tour Packages', icon: 'fa-suitcase-rolling', color: 'var(--neon-yellow)' },
               { id: 'hotels', label: 'Hotels', icon: 'fa-hotel', color: 'var(--neon-yellow)' },
-              { id: 'famous', label: 'Famous Places', icon: 'fa-map-marked-alt', color: 'var(--neon-cyan)' },
-              { id: 'gallery', label: 'Travel Gallery', icon: 'fa-images', color: 'var(--neon-blue)' },
+              { id: 'famous', label: 'Famous Places', icon: 'fa-map-marked-alt', color: 'var(--neon-yellow)' },
+              { id: 'gallery', label: 'Travel Gallery', icon: 'fa-images', color: 'var(--neon-yellow)' },
               { id: 'reviews', label: 'Guest Reviews', icon: 'fa-star', color: '#ffc107' }
             ].map(item => (
               <li key={item.id} style={{ marginBottom: '10px' }}>
@@ -593,18 +593,18 @@ export default function AdminDashboard() {
           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
             <div style={{ textAlign: 'right' }}>
               <p style={{ fontWeight: 'bold', margin: 0 }}>Admin User</p>
-              <p style={{ fontSize: '0.75rem', color: 'var(--neon-green)', margin: 0 }}>System Online</p>
+              <p style={{ fontSize: '0.75rem', color: 'var(--neon-yellow)', margin: 0 }}>System Online</p>
             </div>
-            <div style={{ width: '45px', height: '45px', borderRadius: '50%', background: 'var(--neon-green)', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>AD</div>
+            <div style={{ width: '45px', height: '45px', borderRadius: '50%', background: 'var(--neon-yellow)', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>AD</div>
           </div>
         </header>
 
         {message.text && (
           <div style={{
             padding: '15px 20px', borderRadius: '12px', marginBottom: '30px', fontWeight: 'bold',
-            background: message.type === 'success' ? 'rgba(57, 255, 20, 0.1)' : 'rgba(255, 0, 0, 0.1)',
-            border: `1px solid ${message.type === 'success' ? 'var(--neon-green)' : 'red'}`,
-            color: message.type === 'success' ? 'var(--neon-green)' : '#ff4d4d',
+            background: message.type === 'success' ? 'rgba(255, 240, 31, 0.1)' : 'rgba(255, 0, 0, 0.1)',
+            border: `1px solid ${message.type === 'success' ? 'var(--neon-yellow)' : 'red'}`,
+            color: message.type === 'success' ? 'var(--neon-yellow)' : '#ff4d4d',
             animation: 'fadeIn 0.3s ease'
           }}>
             <i className={`fas ${message.type === 'success' ? 'fa-check-circle' : 'fa-exclamation-circle'}`} style={{marginRight: '10px'}}></i>
@@ -618,7 +618,7 @@ export default function AdminDashboard() {
           {activeTab === 'packages' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
               <form onSubmit={handlePackageSubmit} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '40px' }}>
-                <h2 style={{ marginBottom: '30px', color: 'var(--neon-green)', display: 'flex', alignItems: 'center', gap: '15px' }}>
+                <h2 style={{ marginBottom: '30px', color: 'var(--neon-yellow)', display: 'flex', alignItems: 'center', gap: '15px' }}>
                   <i className={`fas ${isEditing ? 'fa-edit' : 'fa-plus-circle'}`}></i> {isEditing ? 'Edit Package' : 'Add New Package'}
                 </h2>
                 <div className="admin-form-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '20px' }}>
@@ -658,7 +658,7 @@ export default function AdminDashboard() {
                   {isEditing && (
                     <button type="button" onClick={() => { setIsEditing(null); setPackageForm({ name: '', duration: '', price: '', tag: '', color: 'var(--neon-green)', features: '' }); }} style={{ flex: 1, padding: '15px', borderRadius: '8px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', cursor: 'pointer' }}>Cancel</button>
                   )}
-                  <button type="submit" className="btn btn-primary" style={{ flex: 2, background: 'var(--neon-green)', color: '#000', fontWeight: '900', height: '55px', fontSize: '1.1rem' }}>{isEditing ? 'UPDATE PACKAGE' : 'CREATE PACKAGE'}</button>
+                  <button type="submit" className="btn btn-primary" style={{ flex: 2, background: 'var(--neon-yellow)', color: '#000', fontWeight: '900', height: '55px', fontSize: '1.1rem' }}>{isEditing ? 'UPDATE PACKAGE' : 'CREATE PACKAGE'}</button>
                 </div>
               </form>
 
@@ -677,7 +677,7 @@ export default function AdminDashboard() {
                       <h4 style={{ marginBottom: '5px' }}>{pkg.name}</h4>
                       <p style={{ fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)', marginBottom: '15px' }}>{pkg.duration} • ${pkg.price}</p>
                       <div style={{ display: 'flex', gap: '10px' }}>
-                        <button onClick={() => startEdit('packages', pkg)} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(57, 255, 20, 0.1)', color: 'var(--neon-green)', border: '1px solid var(--neon-green)', cursor: 'pointer' }}><i className="fas fa-edit"></i></button>
+                        <button onClick={() => startEdit('packages', pkg)} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(255, 240, 31, 0.1)', color: 'var(--neon-yellow)', border: '1px solid var(--neon-yellow)', cursor: 'pointer' }}><i className="fas fa-edit"></i></button>
                         <button onClick={() => handleDelete('packages', pkg.id)} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(255, 77, 77, 0.1)', color: '#ff4d4d', border: '1px solid #ff4d4d', cursor: 'pointer' }}><i className="fas fa-trash"></i></button>
                       </div>
                     </div>
@@ -766,7 +766,7 @@ export default function AdminDashboard() {
           {activeTab === 'gallery' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
               <form onSubmit={handleGallerySubmit} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '40px' }}>
-                <h2 style={{ marginBottom: '30px', color: 'var(--neon-blue)', display: 'flex', alignItems: 'center', gap: '15px' }}>
+                <h2 style={{ marginBottom: '30px', color: 'var(--neon-yellow)', display: 'flex', alignItems: 'center', gap: '15px' }}>
                   <i className={`fas ${isEditing ? 'fa-edit' : 'fa-plus-circle'}`}></i> {isEditing ? 'Edit Gallery Image' : 'Add New Gallery Image'}
                 </h2>
                 
@@ -787,7 +787,7 @@ export default function AdminDashboard() {
                   {isEditing && (
                     <button type="button" onClick={() => { setIsEditing(null); setGalleryForm({ country: '', image: '' }); }} style={{ flex: 1, padding: '15px', borderRadius: '8px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', cursor: 'pointer' }}>Cancel</button>
                   )}
-                  <button type="submit" className="btn btn-primary" style={{ flex: 2, background: 'var(--neon-blue)', color: '#000', fontWeight: '900', height: '55px', fontSize: '1.1rem' }}>{isEditing ? 'UPDATE IMAGE' : 'ADD TO GALLERY'}</button>
+                  <button type="submit" className="btn btn-primary" style={{ flex: 2, background: 'var(--neon-yellow)', color: '#000', fontWeight: '900', height: '55px', fontSize: '1.1rem' }}>{isEditing ? 'UPDATE IMAGE' : 'ADD TO GALLERY'}</button>
                 </div>
               </form>
 
@@ -805,7 +805,7 @@ export default function AdminDashboard() {
 
                       <h4 style={{ marginBottom: '15px' }}>{img.country}</h4>
                       <div style={{ display: 'flex', gap: '10px' }}>
-                        <button onClick={() => startEdit('gallery', img)} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(0, 212, 255, 0.1)', color: 'var(--neon-blue)', border: '1px solid var(--neon-blue)', cursor: 'pointer' }}><i className="fas fa-edit"></i></button>
+                        <button onClick={() => startEdit('gallery', img)} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(255, 240, 31, 0.1)', color: 'var(--neon-yellow)', border: '1px solid var(--neon-yellow)', cursor: 'pointer' }}><i className="fas fa-edit"></i></button>
                         <button onClick={() => handleDelete('gallery', img.id)} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(255, 77, 77, 0.1)', color: '#ff4d4d', border: '1px solid #ff4d4d', cursor: 'pointer' }}><i className="fas fa-trash"></i></button>
                       </div>
                     </div>
@@ -819,7 +819,7 @@ export default function AdminDashboard() {
           {activeTab === 'famous' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
               <form onSubmit={handleFamousPlaceSubmit} style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', paddingBottom: '40px' }}>
-                <h2 style={{ marginBottom: '30px', color: 'var(--neon-cyan)', display: 'flex', alignItems: 'center', gap: '15px' }}>
+                <h2 style={{ marginBottom: '30px', color: 'var(--neon-yellow)', display: 'flex', alignItems: 'center', gap: '15px' }}>
                   <i className={`fas ${isEditing ? 'fa-edit' : 'fa-plus-circle'}`}></i> {isEditing ? 'Edit Famous Place' : 'Add New Famous Place'}
                 </h2>
                 
@@ -980,9 +980,9 @@ export default function AdminDashboard() {
                         <td style={{ padding: '15px' }}>
                           <span style={{ 
                             padding: '4px 12px', borderRadius: '50px', fontSize: '0.75rem', fontWeight: '700', textTransform: 'uppercase',
-                            background: rev.status === 'approved' ? 'rgba(57, 255, 20, 0.1)' : rev.status === 'pending' ? 'rgba(255, 193, 7, 0.1)' : 'rgba(255, 77, 77, 0.1)',
-                            color: rev.status === 'approved' ? 'var(--neon-green)' : rev.status === 'pending' ? '#ffc107' : '#ff4d4d',
-                            border: `1px solid ${rev.status === 'approved' ? 'var(--neon-green)' : rev.status === 'pending' ? '#ffc107' : '#ff4d4d'}`
+                            background: rev.status === 'approved' ? 'rgba(255, 240, 31, 0.1)' : rev.status === 'pending' ? 'rgba(255, 193, 7, 0.1)' : 'rgba(255, 77, 77, 0.1)',
+                            color: rev.status === 'approved' ? 'var(--neon-yellow)' : rev.status === 'pending' ? '#ffc107' : '#ff4d4d',
+                            border: `1px solid ${rev.status === 'approved' ? 'var(--neon-yellow)' : rev.status === 'pending' ? '#ffc107' : '#ff4d4d'}`
                           }}>
                             {rev.status}
                           </span>
@@ -993,7 +993,7 @@ export default function AdminDashboard() {
                               <button 
                                 title="Approve"
                                 onClick={() => handleReviewStatus(rev.id, 'approved')}
-                                style={{ background: 'rgba(57, 255, 20, 0.1)', color: 'var(--neon-green)', border: '1px solid var(--neon-green)', padding: '8px', borderRadius: '6px', cursor: 'pointer' }}
+                                style={{ background: 'rgba(255, 240, 31, 0.1)', color: 'var(--neon-yellow)', border: '1px solid var(--neon-yellow)', padding: '8px', borderRadius: '6px', cursor: 'pointer' }}
                               >
                                 <i className="fas fa-check"></i>
                               </button>
@@ -1044,8 +1044,8 @@ export default function AdminDashboard() {
           padding: 10px;
         }
         select:focus {
-          border-color: var(--neon-cyan) !important;
-          box-shadow: 0 0 10px rgba(3, 233, 244, 0.2);
+          border-color: var(--neon-yellow) !important;
+          box-shadow: 0 0 10px rgba(255, 240, 31, 0.2);
         }
       `}</style>
     </div>
