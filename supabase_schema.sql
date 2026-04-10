@@ -115,3 +115,6 @@ CREATE POLICY "Allow public read approved" ON reviews FOR SELECT USING (status =
 -- Note: Current admin dashboard uses public actions, so we'll add public update/delete for now to match your existing patterns
 CREATE POLICY "Allow public update" ON reviews FOR UPDATE USING (true);
 CREATE POLICY "Allow public delete" ON reviews FOR DELETE USING (true);
+
+-- Note: Admin authentication is handled via Supabase Auth (Authentication > Users).
+-- To create an admin, add a user in the Supabase Dashboard.

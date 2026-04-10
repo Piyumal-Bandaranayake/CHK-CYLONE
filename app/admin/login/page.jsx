@@ -1,29 +1,75 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 
+import { supabase } from '@/lib/supabase';
+
 export default function AdminLogin() {
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isResetMode, setIsResetMode] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
+    const [success, setSuccess] = useState('');
     const router = useRouter();
 
-    const handleLogin = (e) => {
-        e.preventDefault();
-        
-        // Simple hardcoded login for now - in a real app, you should check this against a database or environment variable.
-        // For this task, I'll use a placeholder check that can be replaced.
-        if (username === 'admin' && password === 'admin123') {
-            // In a more robust version, we'd use cookies or local storage with a proper token.
-            if (typeof window !== 'undefined') {
-                localStorage.setItem('admin_auth', 'true');
+    // Check if user is already logged in
+    useEffect(() => {
+        const checkUser = async () => {
+            const { data: { session } } = await supabase.auth.getSession();
+            if (session) {
                 router.push('/admin');
             }
-        } else {
-            setError('Invalid username or password');
+        };
+        checkUser();
+    }, [router]);
+
+    const handleLogin = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setError('');
+        
+        try {
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+
+            if (error) {
+                setError(error.message);
+            } else if (data.session) {
+                router.push('/admin');
+            }
+        } catch (err) {
+            setError('Something went wrong. Please try again.');
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    const handleResetPassword = async (e) => {
+        e.preventDefault();
+        setIsLoading(true);
+        setError('');
+        setSuccess('');
+
+        try {
+            const { error } = await supabase.auth.resetPasswordForEmail(email, {
+                redirectTo: `${window.location.origin}/admin/reset-password`,
+            });
+
+            if (error) {
+                setError(error.message);
+            } else {
+                setSuccess('Password reset email sent! Please check your inbox.');
+            }
+        } catch (err) {
+            setError('Something went wrong. Please try again.');
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -57,66 +103,76 @@ export default function AdminLogin() {
             <div style={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', padding: '120px 20px' }}>
                 <div style={loginBoxStyle}>
                     <div style={{ textAlign: 'center', marginBottom: '30px' }}>
-                        <h2 style={{ fontSize: '2rem', color: 'var(--neon-yellow)', textShadow: 'var(--neon-glow)', marginBottom: '10px' }}>Admin Portal</h2>
-                        <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem' }}>Enter credentials to access the dashboard.</p>
+                        <h2 style={{ fontSize: '2rem', color: 'var(--neon-yellow)', textShadow: 'var(--neon-glow)', marginBottom: '10px' }}>
+                            {isResetMode ? 'Reset Password' : 'Admin Portal'}
+                        </h2>
+                        <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.9rem' }}>
+                            {isResetMode ? 'Enter your email to receive a reset link.' : 'Enter credentials to access the dashboard.'}
+                        </p>
                     </div>
 
-                    <form onSubmit={handleLogin}>
-                        {error && (
-                            <div style={{ 
-                                padding: '10px', 
-                                background: 'rgba(255, 0, 0, 0.1)', 
-                                border: '1px solid red', 
-                                color: 'red', 
-                                borderRadius: '8px', 
-                                marginBottom: '20px', 
-                                textAlign: 'center',
-                                fontSize: '0.9rem'
-                            }}>
-                                <i className="fas fa-exclamation-circle" style={{ marginRight: '10px' }}></i>
-                                {error}
+                    {isResetMode ? (
+                        <form onSubmit={handleResetPassword}>
+                            {error && (
+                                <div style={{ padding: '10px', background: 'rgba(255, 0, 0, 0.1)', border: '1px solid red', color: 'red', borderRadius: '8px', marginBottom: '20px', textAlign: 'center', fontSize: '0.9rem' }}>
+                                    {error}
+                                </div>
+                            )}
+                            {success && (
+                                <div style={{ padding: '10px', background: 'rgba(0, 255, 0, 0.1)', border: '1px solid var(--neon-yellow)', color: 'var(--neon-yellow)', borderRadius: '8px', marginBottom: '20px', textAlign: 'center', fontSize: '0.9rem' }}>
+                                    {success}
+                                </div>
+                            )}
+
+                            <div style={{ marginBottom: '5px' }}>
+                                <label style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>Email Address</label>
                             </div>
-                        )}
+                            <input type="email" style={inputStyle} value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="admin@example.com" />
 
-                        <div style={{ marginBottom: '5px' }}>
-                            <label style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>Username</label>
-                        </div>
-                        <input 
-                            type="text" 
-                            style={inputStyle} 
-                            value={username} 
-                            onChange={(e) => setUsername(e.target.value)} 
-                            required 
-                            placeholder="username"
-                        />
+                            <button type="submit" disabled={isLoading} className="btn btn-primary" style={{ width: '100%', marginTop: '10px', background: 'var(--neon-yellow)', color: '#000', borderColor: 'var(--neon-yellow)', fontWeight: 'bold' }}>
+                                {isLoading ? 'SENDING...' : 'SEND RESET LINK'}
+                            </button>
 
-                        <div style={{ marginBottom: '5px' }}>
-                            <label style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>Password</label>
-                        </div>
-                        <input 
-                            type="password" 
-                            style={inputStyle} 
-                            value={password} 
-                            onChange={(e) => setPassword(e.target.value)} 
-                            required 
-                            placeholder="••••••••"
-                        />
+                            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                                <button type="button" onClick={() => setIsResetMode(false)} style={{ background: 'none', border: 'none', color: 'var(--neon-yellow)', cursor: 'pointer', fontSize: '0.9rem' }}>
+                                    Back to Login
+                                </button>
+                            </div>
+                        </form>
+                    ) : (
+                        <form onSubmit={handleLogin}>
+                            {error && (
+                                <div style={{ padding: '10px', background: 'rgba(255, 0, 0, 0.1)', border: '1px solid red', color: 'red', borderRadius: '8px', marginBottom: '20px', textAlign: 'center', fontSize: '0.9rem' }}>
+                                    {error}
+                                </div>
+                            )}
+                            {success && (
+                                <div style={{ padding: '10px', background: 'rgba(0, 255, 0, 0.1)', border: '1px solid var(--neon-yellow)', color: 'var(--neon-yellow)', borderRadius: '8px', marginBottom: '20px', textAlign: 'center', fontSize: '0.9rem' }}>
+                                    {success}
+                                </div>
+                            )}
 
-                        <button 
-                            type="submit" 
-                            className="btn btn-primary" 
-                            style={{ 
-                                width: '100%', 
-                                marginTop: '10px', 
-                                background: 'var(--neon-yellow)', 
-                                color: '#000', 
-                                borderColor: 'var(--neon-yellow)',
-                                fontWeight: 'bold'
-                            }}
-                        >
-                            Log In
-                        </button>
-                    </form>
+                            <div style={{ marginBottom: '5px' }}>
+                                <label style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>Email Address</label>
+                            </div>
+                            <input type="email" style={inputStyle} value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="admin@example.com" />
+
+                            <div style={{ marginBottom: '5px' }}>
+                                <label style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>Password</label>
+                            </div>
+                            <input type="password" style={inputStyle} value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="••••••••" />
+
+                            <button type="submit" disabled={isLoading} className="btn btn-primary" style={{ width: '100%', marginTop: '10px', background: 'var(--neon-yellow)', color: '#000', borderColor: 'var(--neon-yellow)', fontWeight: 'bold' }}>
+                                {isLoading ? 'LOGGING IN...' : 'Log In'}
+                            </button>
+
+                            <div style={{ textAlign: 'center', marginTop: '20px' }}>
+                                <button type="button" onClick={() => setIsResetMode(true)} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.5)', cursor: 'pointer', fontSize: '0.8rem' }}>
+                                    Forgot Password?
+                                </button>
+                            </div>
+                        </form>
+                    )}
                 </div>
             </div>
 
