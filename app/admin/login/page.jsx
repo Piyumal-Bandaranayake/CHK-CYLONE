@@ -10,6 +10,7 @@ import { supabase } from '@/lib/supabase';
 export default function AdminLogin() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [isResetMode, setIsResetMode] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
@@ -160,7 +161,23 @@ export default function AdminLogin() {
                             <div style={{ marginBottom: '5px' }}>
                                 <label style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>Password</label>
                             </div>
-                            <input type="password" style={inputStyle} value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="••••••••" />
+                            <div style={{ position: 'relative' }}>
+                                <input 
+                                    type={showPassword ? "text" : "password"} 
+                                    style={inputStyle} 
+                                    value={password} 
+                                    onChange={(e) => setPassword(e.target.value)} 
+                                    required 
+                                    placeholder="••••••••" 
+                                />
+                                <button 
+                                    type="button" 
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    style={{ position: 'absolute', right: '15px', top: '12px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer' }}
+                                >
+                                    <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                                </button>
+                            </div>
 
                             <button type="submit" disabled={isLoading} className="btn btn-primary" style={{ width: '100%', marginTop: '10px', background: 'var(--neon-yellow)', color: '#000', borderColor: 'var(--neon-yellow)', fontWeight: 'bold' }}>
                                 {isLoading ? 'LOGGING IN...' : 'Log In'}

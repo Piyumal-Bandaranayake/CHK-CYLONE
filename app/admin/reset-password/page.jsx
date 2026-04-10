@@ -9,6 +9,8 @@ import { supabase } from '@/lib/supabase';
 export default function ResetPassword() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -106,12 +108,44 @@ export default function ResetPassword() {
                         <div style={{ marginBottom: '5px' }}>
                             <label style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>New Password</label>
                         </div>
-                        <input type="password" style={inputStyle} value={password} onChange={(e) => setPassword(e.target.value)} required placeholder="••••••••" />
+                        <div style={{ position: 'relative' }}>
+                            <input 
+                                type={showPassword ? "text" : "password"} 
+                                style={inputStyle} 
+                                value={password} 
+                                onChange={(e) => setPassword(e.target.value)} 
+                                required 
+                                placeholder="••••••••" 
+                            />
+                            <button 
+                                type="button" 
+                                onClick={() => setShowPassword(!showPassword)}
+                                style={{ position: 'absolute', right: '15px', top: '12px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer' }}
+                            >
+                                <i className={`fas ${showPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                            </button>
+                        </div>
 
                         <div style={{ marginBottom: '5px' }}>
                             <label style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>Confirm Password</label>
                         </div>
-                        <input type="password" style={inputStyle} value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required placeholder="••••••••" />
+                        <div style={{ position: 'relative' }}>
+                            <input 
+                                type={showConfirmPassword ? "text" : "password"} 
+                                style={inputStyle} 
+                                value={confirmPassword} 
+                                onChange={(e) => setConfirmPassword(e.target.value)} 
+                                required 
+                                placeholder="••••••••" 
+                            />
+                            <button 
+                                type="button" 
+                                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                                style={{ position: 'absolute', right: '15px', top: '12px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer' }}
+                            >
+                                <i className={`fas ${showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                            </button>
+                        </div>
 
                         <button type="submit" disabled={isLoading} className="btn btn-primary" style={{ width: '100%', marginTop: '10px', background: 'var(--neon-yellow)', color: '#000', borderColor: 'var(--neon-yellow)', fontWeight: 'bold' }}>
                             {isLoading ? 'UPDATING...' : 'UPDATE PASSWORD'}

@@ -44,6 +44,8 @@ export default function AdminDashboard() {
   const [passwordForm, setPasswordForm] = useState({
     currentPassword: '', newPassword: '', confirmPassword: ''
   });
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const [packageReset, setPackageReset] = useState(0);
   const [hotelReset, setHotelReset] = useState(0);
@@ -1089,26 +1091,44 @@ export default function AdminDashboard() {
               <form onSubmit={handlePasswordChange} style={{ background: 'rgba(255,255,255,0.02)', padding: '30px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.05)' }}>
                 <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '25px', marginBottom: '25px' }}>
                   <label style={{ display: 'block', marginBottom: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>New Password</label>
-                  <input 
-                    type="password" 
-                    style={inputStyle} 
-                    value={passwordForm.newPassword} 
-                    onChange={e => setPasswordForm({...passwordForm, newPassword: e.target.value})} 
-                    required 
-                    placeholder="Enter new password"
-                  />
+                  <div style={{ position: 'relative' }}>
+                    <input 
+                      type={showNewPassword ? "text" : "password"} 
+                      style={inputStyle} 
+                      value={passwordForm.newPassword} 
+                      onChange={e => setPasswordForm({...passwordForm, newPassword: e.target.value})} 
+                      required 
+                      placeholder="Enter new password"
+                    />
+                    <button 
+                      type="button" 
+                      onClick={() => setShowNewPassword(!showNewPassword)}
+                      style={{ position: 'absolute', right: '15px', top: '12px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer' }}
+                    >
+                      <i className={`fas ${showNewPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                    </button>
+                  </div>
                 </div>
 
                 <div style={{ marginBottom: '30px' }}>
                   <label style={{ display: 'block', marginBottom: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Confirm New Password</label>
-                  <input 
-                    type="password" 
-                    style={inputStyle} 
-                    value={passwordForm.confirmPassword} 
-                    onChange={e => setPasswordForm({...passwordForm, confirmPassword: e.target.value})} 
-                    required 
-                    placeholder="Confirm new password"
-                  />
+                  <div style={{ position: 'relative' }}>
+                    <input 
+                      type={showConfirmPassword ? "text" : "password"} 
+                      style={inputStyle} 
+                      value={passwordForm.confirmPassword} 
+                      onChange={e => setPasswordForm({...passwordForm, confirmPassword: e.target.value})} 
+                      required 
+                      placeholder="Confirm new password"
+                    />
+                    <button 
+                      type="button" 
+                      onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                      style={{ position: 'absolute', right: '15px', top: '12px', background: 'none', border: 'none', color: 'rgba(255,255,255,0.4)', cursor: 'pointer' }}
+                    >
+                      <i className={`fas ${showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'}`}></i>
+                    </button>
+                  </div>
                 </div>
 
                 <button 
