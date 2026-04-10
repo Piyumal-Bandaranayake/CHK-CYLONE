@@ -11,7 +11,7 @@ const Footer = () => {
                     <div className="logo-text-container">
                         <div className="logo-brand">
                             <span className="logo-chk">CHK</span>
-                            <span className="logo-ceylon">Ceylon Tours</span>
+                            <span className="logo-ceylon">CEYLON TOURS</span>
                         </div>
                         <div className="logo-tagline">OUR WISH IS YOUR HAPPINESS</div>
                     </div>
