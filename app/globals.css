@@ -255,14 +255,15 @@ nav.scrolled .container {
     color: #000;
     letter-spacing: -1px;
     line-height: 0.9;
-    text-shadow: 0 0 15px rgba(255, 240, 31, 0.5);
+    /* Removed yellow glow for a cleaner black look as requested */
+    text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
 }
 
 .logo-ceylon {
     font-size: 1.8rem;
     font-weight: 700;
     color: #000;
-    text-shadow: 0 0 10px rgba(255, 240, 31, 0.4);
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.2);
 }
 
 .logo-tagline {
@@ -865,8 +866,8 @@ nav.scrolled .nav-links a {
     }
 
     .logo span {
-        color: var(--neon-yellow);
-        text-shadow: var(--neon-glow);
+        color: #000; /* Matching web view (black) as requested */
+        text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.3);
     }
 
     .hide-mobile {
