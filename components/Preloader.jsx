@@ -85,22 +85,29 @@ const Preloader = () => {
                     <span className="logo-chk" style={{ 
                         fontSize: '4.5rem', 
                         color: 'var(--neon-yellow)',
-                        textShadow: '0 0 30px rgba(255, 240, 31, 0.4)',
-                        animation: 'shine 3s linear infinite'
+                        textShadow: 'var(--neon-glow)',
+                        animation: 'neon-flicker 3s infinite, shine 3s linear infinite',
+                        background: 'linear-gradient(to right, var(--neon-yellow) 20%, #fff 50%, var(--neon-yellow) 80%)',
+                        backgroundSize: '200% auto',
+                        WebkitBackgroundClip: 'text',
+                        WebkitTextFillColor: 'transparent'
                     }}>CHK</span>
                     <span className="logo-ceylon" style={{ 
                         fontSize: '2.2rem',
                         color: 'var(--neon-yellow)',
-                        textShadow: '0 0 20px rgba(255, 240, 31, 0.3)',
-                        marginLeft: '15px'
-                    }}>Ceylon Tours</span>
+                        textShadow: 'var(--neon-glow)',
+                        marginLeft: '15px',
+                        textTransform: 'uppercase',
+                        animation: 'neon-flicker 3s infinite 0.5s', // Slight delay for stagger
+                    }}>CEYLON TOURS</span>
                 </div>
                 <div className="logo-tagline" style={{ 
                     fontSize: '0.9rem', 
                     letterSpacing: '5px',
                     color: '#fff',
                     textTransform: 'uppercase',
-                    fontWeight: '700'
+                    fontWeight: '700',
+                    opacity: 0.8
                 }}>OUR WISH IS YOUR HAPPINESS</div>
             </div>
 
