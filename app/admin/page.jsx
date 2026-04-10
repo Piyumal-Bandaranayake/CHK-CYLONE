@@ -41,6 +41,10 @@ export default function AdminDashboard() {
     country: '', image: ''
   });
 
+  const [passwordForm, setPasswordForm] = useState({
+    currentPassword: '', newPassword: '', confirmPassword: ''
+  });
+
   const [packageReset, setPackageReset] = useState(0);
   const [hotelReset, setHotelReset] = useState(0);
 
@@ -127,18 +131,34 @@ export default function AdminDashboard() {
     ]
   };
 
+  const [user, setUser] = useState(null);
+
   useEffect(() => {
-    // Check if authenticated
-    if (typeof window !== 'undefined') {
-      const isAuth = localStorage.getItem('admin_auth');
-      if (!isAuth) {
+    const checkAuth = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
         router.push('/admin/login');
       } else {
         setAuthenticated(true);
+        setUser(session.user);
       }
-    }
+    };
+
+    checkAuth();
+    
+    // Listen for auth changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!session) {
+        router.push('/admin/login');
+      } else {
+        setAuthenticated(true);
+        setUser(session.user);
+      }
+    });
 
     fetchData();
+
+    return () => subscription.unsubscribe();
   }, [router]);
 
   useEffect(() => {
@@ -170,9 +190,32 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem('admin_auth');
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     router.push('/admin/login');
+  };
+
+  const handlePasswordChange = async (e) => {
+    e.preventDefault();
+    if (passwordForm.newPassword !== passwordForm.confirmPassword) {
+      showMessage('error', 'New passwords do not match');
+      return;
+    }
+
+    try {
+      const { error } = await supabase.auth.updateUser({
+        password: passwordForm.newPassword
+      });
+
+      if (error) {
+        showMessage('error', error.message);
+      } else {
+        showMessage('success', 'Password updated successfully!');
+        setPasswordForm({ currentPassword: '', newPassword: '', confirmPassword: '' });
+      }
+    } catch (err) {
+      showMessage('error', 'Something went wrong. Please try again.');
+    }
   };
 
   const showMessage = (type, text) => {
@@ -522,7 +565,8 @@ export default function AdminDashboard() {
               { id: 'hotels', label: 'Hotels', icon: 'fa-hotel', color: 'var(--neon-yellow)' },
               { id: 'famous', label: 'Famous Places', icon: 'fa-map-marked-alt', color: 'var(--neon-yellow)' },
               { id: 'gallery', label: 'Travel Gallery', icon: 'fa-images', color: 'var(--neon-yellow)' },
-              { id: 'reviews', label: 'Guest Reviews', icon: 'fa-star', color: '#ffc107' }
+              { id: 'reviews', label: 'Guest Reviews', icon: 'fa-star', color: '#ffc107' },
+              { id: 'security', label: 'Security', icon: 'fa-shield-alt', color: 'var(--neon-yellow)' }
             ].map(item => (
               <li key={item.id} style={{ marginBottom: '10px' }}>
                 <button
@@ -592,10 +636,12 @@ export default function AdminDashboard() {
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
             <div style={{ textAlign: 'right' }}>
-              <p style={{ fontWeight: 'bold', margin: 0 }}>Admin User</p>
+              <p style={{ fontWeight: 'bold', margin: 0 }}>{user?.email || 'Admin User'}</p>
               <p style={{ fontSize: '0.75rem', color: 'var(--neon-yellow)', margin: 0 }}>System Online</p>
             </div>
-            <div style={{ width: '45px', height: '45px', borderRadius: '50%', background: 'var(--neon-yellow)', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>AD</div>
+            <div style={{ width: '45px', height: '45px', borderRadius: '50%', background: 'var(--neon-yellow)', color: '#000', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>
+              {(user?.email || 'AD').substring(0, 2).toUpperCase()}
+            </div>
           </div>
         </header>
 
@@ -1028,6 +1074,58 @@ export default function AdminDashboard() {
                   <p style={{ color: 'rgba(255,255,255,0.4)' }}>No Guest Reviews Found</p>
                 </div>
               )}
+            </div>
+          )}
+
+          {/* Security Tab */}
+          {activeTab === 'security' && (
+            <div style={{ maxWidth: '600px', margin: '0 auto' }}>
+              <div style={{ textAlign: 'center', marginBottom: '40px' }}>
+                <i className="fas fa-shield-alt" style={{ fontSize: '3rem', color: 'var(--neon-yellow)', marginBottom: '20px' }}></i>
+                <h2>Security Settings</h2>
+                <p style={{ color: 'rgba(255,255,255,0.5)' }}>Manage your administrative credentials.</p>
+              </div>
+
+              <form onSubmit={handlePasswordChange} style={{ background: 'rgba(255,255,255,0.02)', padding: '30px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                <div style={{ borderTop: '1px solid rgba(255,255,255,0.05)', paddingTop: '25px', marginBottom: '25px' }}>
+                  <label style={{ display: 'block', marginBottom: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>New Password</label>
+                  <input 
+                    type="password" 
+                    style={inputStyle} 
+                    value={passwordForm.newPassword} 
+                    onChange={e => setPasswordForm({...passwordForm, newPassword: e.target.value})} 
+                    required 
+                    placeholder="Enter new password"
+                  />
+                </div>
+
+                <div style={{ marginBottom: '30px' }}>
+                  <label style={{ display: 'block', marginBottom: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Confirm New Password</label>
+                  <input 
+                    type="password" 
+                    style={inputStyle} 
+                    value={passwordForm.confirmPassword} 
+                    onChange={e => setPasswordForm({...passwordForm, confirmPassword: e.target.value})} 
+                    required 
+                    placeholder="Confirm new password"
+                  />
+                </div>
+
+                <button 
+                  type="submit" 
+                  className="btn btn-primary" 
+                  style={{ width: '100%', background: 'var(--neon-yellow)', color: '#000', fontWeight: 'bold', padding: '15px', borderRadius: '10px' }}
+                >
+                  UPDATE PASSWORD
+                </button>
+              </form>
+
+              <div style={{ marginTop: '30px', padding: '20px', background: 'rgba(255, 240, 31, 0.05)', borderRadius: '15px', border: '1px solid rgba(255, 240, 31, 0.1)' }}>
+                <p style={{ margin: 0, fontSize: '0.85rem', color: 'var(--neon-yellow)' }}>
+                  <i className="fas fa-info-circle" style={{ marginRight: '10px' }}></i>
+                  Tip: Use a strong password with at least 8 characters including numbers and symbols.
+                </p>
+              </div>
             </div>
           )}
 
