@@ -32,6 +32,7 @@ const Navbar = ({ config }) => {
                         <li><a href="/destinations" onClick={() => setMobileOpen(false)}>Destinations</a></li>
                         <li><a href="/packages" onClick={() => setMobileOpen(false)}>Tour Packages</a></li>
                         <li><a href="/hotels" onClick={() => setMobileOpen(false)}>Hotels</a></li>
+                        <li><a href="/gallery" onClick={() => setMobileOpen(false)}>Gallery</a></li>
                         <li><a href="/about-us" onClick={() => setMobileOpen(false)}>About Us</a></li>
                     </ul>
 

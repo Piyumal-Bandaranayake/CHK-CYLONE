@@ -8,6 +8,69 @@ import { supabase } from '../../lib/supabase';
 import ImageLightbox from '@/components/ImageLightbox';
 
 
+function GalleryCard({ img, onPreview, onEdit, onDelete, onLinkSave }) {
+  const [editingLink, setEditingLink] = useState(false);
+  const [linkValue, setLinkValue] = useState(img.link || '');
+
+  const handleSave = () => {
+    onLinkSave(img.id, linkValue);
+    setEditingLink(false);
+  };
+
+  return (
+    <div style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '15px', padding: '15px', border: '1px solid rgba(255,255,255,0.05)' }}>
+      <img
+        src={img.image}
+        alt={img.country}
+        style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '10px', marginBottom: '15px', cursor: 'pointer' }}
+        onClick={onPreview}
+      />
+      <h4 style={{ marginBottom: '5px' }}>{img.country}</h4>
+
+      {editingLink ? (
+        <div style={{ marginBottom: '15px' }}>
+          <input
+            type="url"
+            value={linkValue}
+            onChange={e => setLinkValue(e.target.value)}
+            placeholder="https://..."
+            style={{ width: '100%', padding: '8px 10px', borderRadius: '6px', background: 'rgba(255,255,255,0.07)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', fontSize: '0.8rem', marginBottom: '8px', outline: 'none', boxSizing: 'border-box' }}
+          />
+          <div style={{ display: 'flex', gap: '8px' }}>
+            <button onClick={handleSave} style={{ flex: 1, padding: '6px', borderRadius: '5px', background: 'rgba(255,240,31,0.15)', color: 'var(--neon-yellow)', border: '1px solid var(--neon-yellow)', cursor: 'pointer', fontSize: '0.8rem' }}>
+              <i className="fas fa-check" style={{ marginRight: '4px' }}></i>Save
+            </button>
+            <button onClick={() => { setEditingLink(false); setLinkValue(img.link || ''); }} style={{ flex: 1, padding: '6px', borderRadius: '5px', background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.6)', border: '1px solid rgba(255,255,255,0.1)', cursor: 'pointer', fontSize: '0.8rem' }}>
+              Cancel
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div style={{ marginBottom: '15px' }}>
+          {img.link ? (
+            <p style={{ fontSize: '0.75rem', color: 'var(--neon-yellow)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', marginBottom: '6px' }}>
+              <i className="fas fa-link" style={{ marginRight: '5px' }}></i>{img.link}
+            </p>
+          ) : (
+            <p style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.3)', marginBottom: '6px' }}>No link attached</p>
+          )}
+          <button
+            onClick={() => setEditingLink(true)}
+            style={{ width: '100%', padding: '7px', borderRadius: '5px', background: 'rgba(255,255,255,0.04)', color: 'rgba(255,255,255,0.6)', border: '1px dashed rgba(255,255,255,0.15)', cursor: 'pointer', fontSize: '0.8rem' }}
+          >
+            <i className="fas fa-link" style={{ marginRight: '5px' }}></i>{img.link ? 'Edit Link' : 'Add Link'}
+          </button>
+        </div>
+      )}
+
+      <div style={{ display: 'flex', gap: '10px' }}>
+        <button onClick={onEdit} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(255, 240, 31, 0.1)', color: 'var(--neon-yellow)', border: '1px solid var(--neon-yellow)', cursor: 'pointer' }}><i className="fas fa-edit"></i></button>
+        <button onClick={onDelete} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(255, 77, 77, 0.1)', color: '#ff4d4d', border: '1px solid #ff4d4d', cursor: 'pointer' }}><i className="fas fa-trash"></i></button>
+      </div>
+    </div>
+  );
+}
+
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState('packages');
   const [message, setMessage] = useState({ type: '', text: '' });
@@ -38,7 +101,7 @@ export default function AdminDashboard() {
   });
 
   const [galleryForm, setGalleryForm] = useState({
-    country: '', image: ''
+    country: '', image: '', link: ''
   });
 
   const [passwordForm, setPasswordForm] = useState({
@@ -413,7 +476,7 @@ export default function AdminDashboard() {
         showMessage('success', 'Gallery image added successfully!');
       }
 
-      setGalleryForm({ country: '', image: '' });
+      setGalleryForm({ country: '', image: '', link: '' });
       setGalleryFile(null);
       setGalleryReset(prev => prev + 1);
       setIsEditing(null);
@@ -818,10 +881,14 @@ export default function AdminDashboard() {
                   <i className={`fas ${isEditing ? 'fa-edit' : 'fa-plus-circle'}`}></i> {isEditing ? 'Edit Gallery Image' : 'Add New Gallery Image'}
                 </h2>
                 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '20px' }}>
+                <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '20px' }}>
                   <div>
                     <label style={{ display: 'block', marginBottom: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Country / Region Name</label>
                     <input type="text" style={inputStyle} value={galleryForm.country} onChange={e => setGalleryForm({...galleryForm, country: e.target.value})} required placeholder="e.g. Sri Lanka" />
+                  </div>
+                  <div>
+                    <label style={{ display: 'block', marginBottom: '8px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem' }}>Destination / External Link</label>
+                    <input type="url" style={inputStyle} value={galleryForm.link || ''} onChange={e => setGalleryForm({...galleryForm, link: e.target.value})} placeholder="https://..." />
                   </div>
                 </div>
 
@@ -833,7 +900,7 @@ export default function AdminDashboard() {
 
                 <div style={{ display: 'flex', gap: '15px' }}>
                   {isEditing && (
-                    <button type="button" onClick={() => { setIsEditing(null); setGalleryForm({ country: '', image: '' }); }} style={{ flex: 1, padding: '15px', borderRadius: '8px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', cursor: 'pointer' }}>Cancel</button>
+                    <button type="button" onClick={() => { setIsEditing(null); setGalleryForm({ country: '', image: '', link: '' }); }} style={{ flex: 1, padding: '15px', borderRadius: '8px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', color: '#fff', cursor: 'pointer' }}>Cancel</button>
                   )}
                   <button type="submit" className="btn btn-primary" style={{ flex: 2, background: 'var(--neon-yellow)', color: '#000', fontWeight: '900', height: '55px', fontSize: '1.1rem' }}>{isEditing ? 'UPDATE IMAGE' : 'ADD TO GALLERY'}</button>
                 </div>
@@ -843,20 +910,23 @@ export default function AdminDashboard() {
                 <h3 style={{ marginBottom: '20px', fontSize: '1.5rem' }}>Travel Gallery ({gallery.length})</h3>
                 <div className="admin-data-grid" style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(auto-fill, minmax(250px, 1fr))', gap: '20px' }}>
                   {gallery.map(img => (
-                    <div key={img.id} style={{ background: 'rgba(255,255,255,0.03)', borderRadius: '15px', padding: '15px', border: '1px solid rgba(255,255,255,0.05)' }}>
-                      <img 
-                        src={img.image} 
-                        alt={img.country} 
-                        style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '10px', marginBottom: '15px', cursor: 'pointer' }} 
-                        onClick={() => setSelectedImage(img.image)}
-                      />
-
-                      <h4 style={{ marginBottom: '15px' }}>{img.country}</h4>
-                      <div style={{ display: 'flex', gap: '10px' }}>
-                        <button onClick={() => startEdit('gallery', img)} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(255, 240, 31, 0.1)', color: 'var(--neon-yellow)', border: '1px solid var(--neon-yellow)', cursor: 'pointer' }}><i className="fas fa-edit"></i></button>
-                        <button onClick={() => handleDelete('gallery', img.id)} style={{ flex: 1, padding: '8px', borderRadius: '5px', background: 'rgba(255, 77, 77, 0.1)', color: '#ff4d4d', border: '1px solid #ff4d4d', cursor: 'pointer' }}><i className="fas fa-trash"></i></button>
-                      </div>
-                    </div>
+                    <GalleryCard
+                      key={img.id}
+                      img={img}
+                      onPreview={() => setSelectedImage(img.image)}
+                      onEdit={() => startEdit('gallery', img)}
+                      onDelete={() => handleDelete('gallery', img.id)}
+                      onLinkSave={async (id, link) => {
+                        try {
+                          const { error } = await supabase.from('gallery').update({ link }).eq('id', id);
+                          if (error) throw error;
+                          showMessage('success', 'Link updated successfully!');
+                          fetchData();
+                        } catch (err) {
+                          showMessage('error', err.message);
+                        }
+                      }}
+                    />
                   ))}
                 </div>
               </div>
