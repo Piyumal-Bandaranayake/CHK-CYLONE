@@ -72,45 +72,23 @@ const GallerySlider = ({
                                 style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                             />
                             <div className="dest-overlay" style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.85))', opacity: '1' }}></div>
-                            <div className="dest-info" style={{ padding: '25px', transform: 'translateY(15px)', transition: 'all 0.5s ease' }}>
+                            <div className="dest-info" style={{ 
+                                padding: '25px', 
+                                transition: 'all 0.5s ease',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                height: '100%'
+                            }}>
                                 <h3 style={{ 
                                     color: 'var(--neon-yellow)', 
                                     fontSize: '1.5rem', 
                                     fontWeight: '800', 
-                                    marginBottom: '8px',
+                                    marginBottom: '0',
                                     textShadow: '0 2px 10px rgba(0,0,0,0.5)',
-                                    fontFamily: '"Outfit", sans-serif'
+                                    fontFamily: '"Outfit", sans-serif',
+                                    textAlign: 'center'
                                 }}>{img.country}</h3>
-                                <p style={{ 
-                                    color: '#fff', 
-                                    fontSize: '0.85rem', 
-                                    fontWeight: '600', 
-                                    display: 'flex', 
-                                    alignItems: 'center', 
-                                    gap: '10px',
-                                    marginBottom: '20px',
-                                    opacity: '0.9'
-                                }}>
-                                    <i className="fas fa-map-marker-alt" style={{ color: 'var(--neon-green)' }}></i> Visiting Sri Lanka
-                                </p>
-                                <div className="explore-btn-wrapper">
-                                    <div className="dest-explore-btn" style={{ 
-                                        padding: '10px 25px', 
-                                        fontSize: '0.75rem', 
-                                        color: '#fff', 
-                                        borderColor: 'rgba(255,255,255,0.3)',
-                                        background: 'rgba(255,255,255,0.1)',
-                                        backdropFilter: 'blur(15px)',
-                                        fontWeight: '800',
-                                        borderRadius: '10px',
-                                        display: 'inline-block',
-                                        letterSpacing: '1px',
-                                        transition: 'all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1)',
-                                        border: '1px solid rgba(255,255,255,0.2)',
-                                        cursor: 'pointer',
-                                        textAlign: 'center'
-                                    }}>EXPLORE</div>
-                                </div>
                             </div>
                         </div>
                     ))}
@@ -119,14 +97,7 @@ const GallerySlider = ({
 
             <style jsx>{`
                 .dest-card:hover .dest-info {
-                    transform: translateY(0);
-                }
-                .explore-btn-wrapper:hover .dest-explore-btn {
-                    background: #fff !important;
-                    color: #000 !important;
-                    border-color: #fff !important;
-                    transform: translateY(-5px);
-                    box-shadow: 0 10px 20px rgba(255,255,255,0.15) !important;
+                    transform: scale(1.1);
                 }
                 .destinations-slider:hover {
                     animation-play-state: paused;
