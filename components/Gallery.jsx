@@ -31,11 +31,12 @@ const Gallery = () => {
         fetchGallery();
     }, []);
 
-    // Only fetch and show images uploaded by admin
+    // Fetch images uploaded by admin
     const allImages = dbImages.map(img => ({
         id: img.id,
         url: img.image,
         title: img.country, // Show country name as the title
+        link: img.link,
         category: "Gallery"
     }));
 
@@ -56,15 +57,14 @@ const Gallery = () => {
                 }}>
                     {allImages.map((image, index) => (
                         <div key={image.id || index} className="gallery-card reveal">
-                                <div className="gallery-item" onClick={() => setSelectedImage(image.url)} style={{ 
+                                <div className="gallery-item" style={{ 
                                     position: "relative", 
                                     height: "400px", 
                                     borderRadius: "24px", 
                                     overflow: "hidden", 
                                     border: "1px solid rgba(255,255,255,0.1)",
                                     transition: "all 0.6s cubic-bezier(0.4, 0, 0.2, 1)",
-                                    background: "rgba(255,255,255,0.02)",
-                                    cursor: 'pointer'
+                                    background: "rgba(255,255,255,0.02)"
                                 }}>
 
                                 <img 
@@ -84,10 +84,33 @@ const Gallery = () => {
                                     left: 0,
                                     width: "100%",
                                     height: "100%",
-                                    background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.4))",
+                                    background: "linear-gradient(to bottom, transparent, rgba(0,0,0,0.7))",
                                     opacity: 0,
-                                    transition: "opacity 0.6s ease"
-                                }}></div>
+                                    transition: "opacity 0.6s ease",
+                                    display: 'flex',
+                                    flexDirection: 'column',
+                                    justifyContent: 'center',
+                                    alignItems: 'center',
+                                    gap: '20px'
+                                }}>
+                                    <button 
+                                        onClick={() => setSelectedImage(image.url)}
+                                        style={{
+                                            padding: '12px 25px',
+                                            borderRadius: '50px',
+                                            border: '1px solid #fff',
+                                            background: 'rgba(255,255,255,0.1)',
+                                            color: '#fff',
+                                            cursor: 'pointer',
+                                            backdropFilter: 'blur(10px)',
+                                            fontWeight: '600',
+                                            transition: 'all 0.3s ease'
+                                        }}
+                                        className="preview-btn"
+                                    >
+                                        <i className="fas fa-search-plus" style={{ marginRight: '8px' }}></i> Preview
+                                    </button>
+                                </div>
                             </div>
                             <div className="gallery-info" style={{ 
                                 marginTop: "20px", 
@@ -96,12 +119,37 @@ const Gallery = () => {
                             }}>
                                 <h3 style={{ 
                                     fontSize: "1.5rem", 
-                                    margin: "0", 
+                                    margin: "0 0 14px 0", 
                                     color: "#fff", 
                                     fontWeight: "600", 
                                     letterSpacing: "1px",
                                     textTransform: "uppercase"
                                 }}>{image.title}</h3>
+                                {image.link ? (
+                                    <a
+                                        href={image.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style={{
+                                            display: 'inline-block',
+                                            padding: '10px 28px',
+                                            borderRadius: '50px',
+                                            background: 'var(--neon-yellow)',
+                                            color: '#000',
+                                            textDecoration: 'none',
+                                            fontWeight: '700',
+                                            fontSize: '0.85rem',
+                                            letterSpacing: '1px',
+                                            transition: 'all 0.3s ease',
+                                            boxShadow: '0 0 18px rgba(255, 240, 31, 0.35)'
+                                        }}
+                                        className="card-link-btn"
+                                    >
+                                        VIEW DESTINATION <i className="fas fa-arrow-right" style={{ marginLeft: '6px' }}></i>
+                                    </a>
+                                ) : (
+                                    <span style={{ display: 'inline-block', height: '38px' }} />
+                                )}
                             </div>
                         </div>
                     ))}
@@ -122,6 +170,23 @@ const Gallery = () => {
                 }
                 .gallery-card:hover .gallery-info {
                     transform: translateY(-5px);
+                }
+                .preview-btn:hover {
+                    background: #fff !important;
+                    color: #000 !important;
+                    transform: scale(1.05);
+                }
+                .nav-btn:hover {
+                    background: #fff !important;
+                    color: #000 !important;
+                    transform: scale(1.05);
+                    box-shadow: 0 0 30px rgba(255, 255, 255, 0.4) !important;
+                }
+                .card-link-btn:hover {
+                    background: #fff !important;
+                    color: #000 !important;
+                    transform: scale(1.05);
+                    box-shadow: 0 0 30px rgba(255, 255, 255, 0.4) !important;
                 }
                 .text-center {
                     text-align: center;

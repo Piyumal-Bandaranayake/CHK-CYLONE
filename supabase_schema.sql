@@ -82,6 +82,7 @@ CREATE TABLE gallery (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     country TEXT NOT NULL,
     image TEXT,
+    link TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
 
