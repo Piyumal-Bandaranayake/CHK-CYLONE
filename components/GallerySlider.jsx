@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
+import Link from 'next/link';
 
 const GallerySlider = ({ 
     title = "Our Worldly Journey", 
@@ -30,7 +31,7 @@ const GallerySlider = ({
         fetchGallery();
     }, []);
 
-    if (loading || images.length === 0) return null;
+    if (loading || images.length < 6) return null;
 
     // Triple the array for seamless loop
     const displayImages = [...images, ...images, ...images];
@@ -76,19 +77,36 @@ const GallerySlider = ({
                                 padding: '25px', 
                                 transition: 'all 0.5s ease',
                                 display: 'flex',
-                                justifyContent: 'center',
-                                alignItems: 'center',
+                                flexDirection: 'column',
+                                justifyContent: 'flex-end',
+                                alignItems: 'flex-start',
                                 height: '100%'
                             }}>
                                 <h3 style={{ 
                                     color: 'var(--neon-yellow)', 
-                                    fontSize: '1.5rem', 
+                                    fontSize: '1rem', 
                                     fontWeight: '800', 
-                                    marginBottom: '0',
+                                    marginBottom: '15px',
                                     textShadow: '0 2px 10px rgba(0,0,0,0.5)',
                                     fontFamily: '"Outfit", sans-serif',
-                                    textAlign: 'center'
+                                    textAlign: 'left'
                                 }}>{img.country}</h3>
+                                <Link href="/gallery" style={{
+                                    background: 'rgba(255,255,255,0.1)',
+                                    backdropFilter: 'blur(10px)',
+                                    border: '1px solid rgba(255,255,255,0.2)',
+                                    padding: '8px 20px',
+                                    borderRadius: '12px',
+                                    color: '#fff',
+                                    fontSize: '0.7rem',
+                                    fontWeight: '700',
+                                    textTransform: 'uppercase',
+                                    letterSpacing: '1px',
+                                    transition: 'all 0.3s ease',
+                                    textDecoration: 'none'
+                                }} className="explore-btn">
+                                    Explore
+                                </Link>
                             </div>
                         </div>
                     ))}
@@ -101,6 +119,12 @@ const GallerySlider = ({
                 }
                 .destinations-slider:hover {
                     animation-play-state: paused;
+                }
+                .explore-btn:hover {
+                    background: var(--neon-yellow) !important;
+                    color: #000 !important;
+                    transform: translateY(-3px);
+                    box-shadow: 0 10px 20px rgba(0,0,0,0.3);
                 }
                 .subtitle {
                     display: inline-block;
@@ -116,7 +140,7 @@ const GallerySlider = ({
                         height: 340px !important;
                     }
                     .dest-info h3 {
-                        font-size: 1.2rem !important;
+                        font-size: 0.85rem !important;
                     }
                 }
             `}</style>
